@@ -41,4 +41,9 @@ public class FirstFragment extends Fragment {
         binding = null;
     }
 
+    public static void reload() {
+        tasks = MainActivity.database.taskDAO().getAllTasks();
+        notifyDataSetChanged();
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.view.View;
 import android.widget.Button;
@@ -15,16 +16,25 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.Calendar;
+import FirstFragment.class
 
 
 public class MainActivity extends AppCompatActivity {
     // create button
     private Button btnGoCalendar;
+    public static TaskDatabase database;
+
     @Override
     protected void onCreate(Bundle SavedInstanceState) {
         super.onCreate(SavedInstanceState);
         setContentView(R.layout.activity_main);
         btnGoCalendar = (Button) findViewById(R.id.goToCalendar);
+
+        database = Room.databaseBuilder(getApplicationContext(), TaskDatabase.class, "tasks")
+                .allowMainThreadQueries()
+                        .build();
+
+        FirstFragment.reload();
 
         // create onclick listener for button (when clicked go to calendar)
         btnGoCalendar.setOnClickListener(new View.OnClickListener() {

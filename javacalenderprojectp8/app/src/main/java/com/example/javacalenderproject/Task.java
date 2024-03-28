@@ -1,12 +1,20 @@
 package com.example.javacalenderproject;
 
-import java.util.ArrayList;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+@Entity(tableName = "taskTable")
 public class Task {
 
     // create attributes
-    private String taskName;
-    private String taskIcon;
+    @PrimaryKey
+    public int id;
+    @ColumnInfo(name = "taskType")
+    public String taskName;
+
+    //private String taskIcon;
     private String taskColor;
     private int taskDuration;
 
@@ -18,7 +26,7 @@ public class Task {
     // create constructor
     public Task(String name, String icon, String color, int duration) {
         this.taskName = name;
-        this.taskIcon = icon;
+        //this.taskIcon = icon;
         this.taskColor = color;
         this.taskDuration = duration;
     }
@@ -33,9 +41,7 @@ public class Task {
     }
 
     // @param icon
-    public void setIcon(String icon) {
-        this.taskIcon = icon;
-    }
+    public void setIcon(String icon) {this.taskIcon = icon;}
 
     // @param color
     public void setColor(String color) {
