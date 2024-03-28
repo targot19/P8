@@ -11,6 +11,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.javacalenderproject.databinding.FragmentFirstBinding;
 
+import java.lang.reflect.GenericArrayType;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
@@ -39,11 +43,6 @@ public class FirstFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public static void reload() {
-        tasks = MainActivity.database.taskDAO().getAllTasks();
-        notifyDataSetChanged();
     }
 
 }

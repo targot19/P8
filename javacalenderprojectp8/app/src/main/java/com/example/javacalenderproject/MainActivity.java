@@ -16,7 +16,6 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.Calendar;
-import FirstFragment.class
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                         .build();
 
-        FirstFragment.reload();
+        /**Task.reload();**/
 
         // create onclick listener for button (when clicked go to calendar)
         btnGoCalendar.setOnClickListener(new View.OnClickListener() {

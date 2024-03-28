@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Entity(tableName = "taskTable")
 public class Task {
 
@@ -46,5 +48,12 @@ public class Task {
     // @param color
     public void setColor(String color) {
         this.taskColor = color;
+    }
+
+    private List<Task> tasks = new ArrayList<>();
+
+    public void reload() {
+        tasks = MainActivity.database.taskDAO().getAllTasks();
+        notifyDataSetChanged();
     }
 }
