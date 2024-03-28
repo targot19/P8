@@ -8,10 +8,18 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:id="@+id/calenderView"
-            android:layout_width="555dp"
-            android:layout_height="match_parent"
-            app:mcv_calendarMode="week"
-            app:mcv_firstDayOfWeek="monday"/>
+        <Button
+            android:id="@+id/goToCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go to calendar" />
+        <!--
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/calenderView"
+                    android:layout_width="555dp"
+                    android:layout_height="match_parent"
+                    app:mcv_calendarMode="week"
+                    app:mcv_firstDayOfWeek="monday"/>
+                    -->
+
 </LinearLayout>
