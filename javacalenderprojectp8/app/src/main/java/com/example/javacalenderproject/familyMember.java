@@ -3,15 +3,15 @@ package com.example.javacalenderproject;
 public class familyMember {
 
     // create attributes
-    private String name;
-    private String icon;
-    private String color;
+    private String familyName;
+    private String familyIcon;
+    private String familyColor;
 
     // create constructor
-    public familyMember(String name, String icon, String color) {
-        this.name = name;
-        this.icon = icon;
-        this.color = color;
+    public familyMember(String memberName, String memberIcon, String memberColor) {
+        this.familyName = memberName;
+        this.familyIcon = memberIcon;
+        this.familyColor = memberColor;
     }
 
     /** create methods for familyMember
@@ -20,16 +20,16 @@ public class familyMember {
 
     // @param memberName
     public void setName(String memberName) {
-        this.name = memberName;
+        this.familyName = memberName;
     }
 
     // @param memberIcon
     public void setIcon(String memberIcon) {
-        this.icon = memberIcon;
+        this.familyIcon = memberIcon;
     }
 
     // @param memberColor
     public void setColor(String memberColor) {
-        this.color = memberColor;
+        this.familyColor = memberColor;
     }
 }
