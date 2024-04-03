@@ -1,18 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
     <!--
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
     -->
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="210dp"
+        android:layout_height="112dp" />
+
+    <GridView
+        android:id="@+id/familymember"
+        android:layout_width="210dp"
+        android:layout_height="130dp"
+        android:horizontalSpacing="6dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="6dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="113dp"/>
+
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="22dp"
+        android:fontFamily="sans-serif-medium"
+        android:paddingLeft="20dp"
+        android:text="Tasks"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="243dp" />
+
+    <TextView
+        android:layout_width="211dp"
+        android:layout_height="19dp"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="265dp"
+        android:paddingLeft="20dp"
+        android:text="Drag and drop"
+        android:textSize="12dp"
+        android:textStyle="normal"
+        android:fontFamily="sans-serif-light"/>
+
+    <ListView
+        android:id="@+id/taskview"
+        android:layout_width="209dp"
+        android:layout_height="345dp"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="285dp" />
+
+    <ScrollView
+        android:id="@+id/timeSlot"
+        android:layout_width="53dp"
+        android:layout_height="686dp"
+        tools:layout_editor_absoluteX="210dp"
+        tools:layout_editor_absoluteY="113dp" />
+
+    <ScrollView
+        android:layout_width="53dp"
+        android:layout_height="685dp"
+        tools:layout_editor_absoluteX="1230dp"
+        tools:layout_editor_absoluteY="114dp" />
+
+    <Button
+        android:layout_width="210dp"
+        android:layout_height="83dp"
+        android:text="Edit family and tasks"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-light"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="717dp"
+        android:background="null"
+        />
+
+    <Button
+        android:layout_width="210dp"
+        android:layout_height="83dp"
+        android:text="Get help"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-light"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="634dp"
+        android:background="null" />
+
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calenderView"
-        android:layout_width="555dp"
-        android:layout_height="match_parent"
+        android:layout_width="968dp"
+        android:layout_height="686dp"
         app:mcv_calendarMode="week"
-        app:mcv_firstDayOfWeek="monday"/>
-</LinearLayout>
+        app:mcv_firstDayOfWeek="monday"
+        tools:layout_editor_absoluteX="262dp"
+        tools:layout_editor_absoluteY="114dp">
+
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+</androidx.constraintlayout.widget.ConstraintLayout>
