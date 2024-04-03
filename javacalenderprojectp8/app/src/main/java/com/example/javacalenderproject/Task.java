@@ -20,10 +20,7 @@ public class Task {
     private String taskColor;
     private int taskDuration;
 
-    /**
-     * Not quite sure about this one
-    public ArrayList Arraylist<familyMember>;
-     **/
+    private ArrayList<familyMember> assignedFamilyMembers;
 
     // create constructor
     public Task(String name, String icon, String color, int duration) {
@@ -50,6 +47,17 @@ public class Task {
         this.taskColor = color;
     }
 
+    public void assignTask(familyMember familyMember) {
+
+        assignedFamilyMembers.add(familyMember);
+
+    }
+
+    public void unassignTask(familyMember familyMember) {
+
+        assignedFamilyMembers.remove(familyMember);
+
+    }
     private List<Task> tasks = new ArrayList<>();
 
     public void reload() {

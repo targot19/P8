@@ -25,10 +25,6 @@ public class timeBlock {
 
         /* TODO
         *
-        * for loop, 24 times
-        * for every loop, set hours +1
-        * next timeblock
-        *
         *  */
 
     }
