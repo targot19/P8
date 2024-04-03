@@ -20,6 +20,8 @@ public class Task {
     private String taskColor;
     private int taskDuration;
 
+    private String taskIcon;
+
     private ArrayList<familyMember> assignedFamilyMembers;
 
     // create constructor
