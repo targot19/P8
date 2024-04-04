@@ -8,8 +8,6 @@ public class timeBlock {
 
     private ArrayList <Task> tasks;
 
-
-
     public void addTaskToTimeBlock(Task task) {
 
         tasks.add(task);

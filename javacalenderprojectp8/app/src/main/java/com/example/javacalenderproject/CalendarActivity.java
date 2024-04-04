@@ -11,6 +11,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 public class CalendarActivity extends AppCompatActivity {
+
     // Declare the MaterialCalendarView and Calendar objects.
     MaterialCalendarView calendarView;
     java.util.Calendar calendar;
@@ -18,11 +19,13 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_calendar);
 
         // Initialize the calendarView by finding it in the layout.
         calendarView = findViewById(R.id.calenderView);
+
         // Get an instance of the current calendar.
         calendar = java.util.Calendar.getInstance();
 
