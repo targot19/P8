@@ -17,11 +17,13 @@ public class Task {
     public String taskName;
 
     //private String taskIcon;
+    @ColumnInfo(name = "taskColor")
     private String taskColor;
+    @ColumnInfo(name = "taskDuration")
     private int taskDuration;
-
+    @ColumnInfo(name = "taskIcon")
     private String taskIcon;
-
+    @ColumnInfo(name = "taskAssignedMembers")
     private ArrayList<familyMember> assignedFamilyMembers;
 
     // create constructor
