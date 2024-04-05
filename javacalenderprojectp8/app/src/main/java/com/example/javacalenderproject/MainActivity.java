@@ -21,28 +21,52 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     // create button
     private Button btnGoCalendar;
+    private Button btnCreateTask;
     public static TaskDatabase database;
 
     @Override
-    protected void onCreate(Bundle SavedInstanceState) {
-        super.onCreate(SavedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnGoCalendar = (Button) findViewById(R.id.goToCalendar);
 
+        // Initialize the database (Consider moving this to a background thread or application class in production)
         database = Room.databaseBuilder(getApplicationContext(), TaskDatabase.class, "tasks")
-                .allowMainThreadQueries()
-                        .build();
+                .allowMainThreadQueries() // This should be avoided; use background threads instead.
+                .build();
 
-        /**Task.reload();**/
+        btnGoCalendar = findViewById(R.id.goToCalendar);
+        btnCreateTask = findViewById(R.id.btnCreateTask); // Make sure this ID matches your layout
 
-        // create onclick listener for button (when clicked go to calendar)
+        btnCreateTask.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Call the method to create a new task when the button is clicked
+                createTask("Sample Task", "Icon", "Color", 30);
+            }
+        });
+
         btnGoCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Start the CalendarActivity when the calendar button is clicked
                 Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    // Method to create a new task
+    private void createTask(String name, String icon, String color, int duration) {
+        // Construct a new Task object
+        Task newTask = new Task(name, icon, color, duration);
+
+        // Insert the task into the database on a background thread
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                database.taskDAO().insertTask(newTask);
+            }
+        }).start();
+    }
     }
 
     // MOVED TO CALENDAR CLASS
@@ -92,4 +116,4 @@ public class MainActivity extends AppCompatActivity {
         // Set the current date of the MaterialCalendarView to reflect the changes.
         calendarView.setCurrentDate(calendar);
     } */
-}
+

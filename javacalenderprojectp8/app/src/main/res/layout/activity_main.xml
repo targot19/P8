@@ -19,6 +19,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
+
+        <Button
+            android:id="@+id/btnCreateTask"
+            android:layout_width="195dp"
+            android:layout_height="103dp"
+            android:text="Create Task"
+            tools:layout_editor_absoluteX="108dp"
+            tools:layout_editor_absoluteY="128dp" />
         <!--
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                     android:id="@+id/calenderView"

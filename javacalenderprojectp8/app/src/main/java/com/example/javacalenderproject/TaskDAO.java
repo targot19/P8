@@ -1,6 +1,7 @@
 package com.example.javacalenderproject;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface TaskDAO {
     // method for saving tasks to database
     @Query("UPDATE taskTable SET taskType = :taskName WHERE id = :id")
     void save(String taskName, int id);
+
+    @Insert
+    void insertTask(Task task);
+
 }
