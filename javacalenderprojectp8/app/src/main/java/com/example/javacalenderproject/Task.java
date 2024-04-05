@@ -26,6 +26,10 @@ public class Task {
     @ColumnInfo(name = "taskAssignedMembers")
     private ArrayList<familyMember> assignedFamilyMembers;
 
+
+
+    public Task() {
+    }
     // create constructor
     public Task(String name, String icon, String color, int duration) {
         this.taskName = name;
@@ -39,16 +43,47 @@ public class Task {
      **/
 
     // @param name
-    public void setName(String name) {
-        this.taskName = name;
+    public String getTaskName() {
+        return taskName;
     }
 
-    // @param icon
-    public void setIcon(String icon) {this.taskIcon = icon;}
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
 
-    // @param color
-    public void setColor(String color) {
-        this.taskColor = color;
+    // Getter and setter for taskColor
+    public String getTaskColor() {
+        return taskColor;
+    }
+
+    public void setTaskColor(String taskColor) {
+        this.taskColor = taskColor;
+    }
+
+    // Getter and setter for taskDuration
+    public int getTaskDuration() {
+        return taskDuration;
+    }
+
+    public void setTaskDuration(int taskDuration) {
+        this.taskDuration = taskDuration;
+    }
+
+    // Getter and setter for taskIcon
+    public String getTaskIcon() {
+        return taskIcon;
+    }
+
+    public void setTaskIcon(String taskIcon) {
+        this.taskIcon = taskIcon;
+    }
+
+    public ArrayList<familyMember> getAssignedFamilyMembers() {
+        return assignedFamilyMembers;
+    }
+
+    public void setAssignedFamilyMembers(ArrayList<familyMember> assignedFamilyMembers) {
+        this.assignedFamilyMembers = assignedFamilyMembers;
     }
 
     public void assignTask(familyMember familyMember) {
@@ -63,6 +98,15 @@ public class Task {
 
     }
     private List<Task> tasks = new ArrayList<>();
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    // Setter for the tasks list
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public void reload() {
         tasks = MainActivity.database.taskDAO().getAllTasks();
