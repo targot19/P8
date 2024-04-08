@@ -2,20 +2,16 @@ package com.example.javacalenderproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.util.Log;
+
 
 // Importing MaterialCalendarView and its associated classes.
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-
-import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         btnGoCalendar = findViewById(R.id.goToCalendar);
-        btnCreateTask = findViewById(R.id.btnCreateTask); // Make sure this ID matches your layout
+        btnCreateTask = findViewById(R.id.btnCreateNewTask);
 
         btnCreateTask.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -57,19 +53,19 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to create a new task
     private void createTask(String name, String icon, String color, int duration) {
-        // Construct a new Task object
         Task newTask = new Task(name, icon, color, duration);
-        newTask.id = 0;
 
-        // Insert the task into the database on a background thread
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
+            try {
                 database.taskDAO().insertTask(newTask);
+                Log.d("MainActivity", "Task inserted successfully.");
+            } catch (Exception e) {
+                Log.e("MainActivity", "Failed to insert task", e);
             }
         }).start();
     }
-    }
+
+}
 
     // MOVED TO CALENDAR CLASS
     /*

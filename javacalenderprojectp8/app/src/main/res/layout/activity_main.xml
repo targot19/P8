@@ -21,7 +21,7 @@
             app:layout_constraintVertical_bias="0.5" />
 
         <Button
-            android:id="@+id/btnCreateTask"
+            android:id="@+id/btnCreateNewTask"
             android:layout_width="195dp"
             android:layout_height="103dp"
             android:text="Create Task"
