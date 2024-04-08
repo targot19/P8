@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the database (Consider moving this to a background thread or application class in production)
         database = Room.databaseBuilder(getApplicationContext(), TaskDatabase.class, "tasks")
                 .allowMainThreadQueries() // This should be avoided; use background threads instead.
+                .fallbackToDestructiveMigration()
                 .build();
 
         btnGoCalendar = findViewById(R.id.goToCalendar);
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private void createTask(String name, String icon, String color, int duration) {
         // Construct a new Task object
         Task newTask = new Task(name, icon, color, duration);
+        newTask.id = 0;
 
         // Insert the task into the database on a background thread
         new Thread(new Runnable() {

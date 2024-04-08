@@ -11,7 +11,7 @@ import java.util.List;
 public class Task {
 
     // create attributes
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
     @ColumnInfo(name = "taskType")
     public String taskName;
