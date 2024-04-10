@@ -45,5 +45,5 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.prolificinteractive:material-calendarview:1.6.1")
-
+    implementation("com.calendarfx:view:11.12.7")
 }

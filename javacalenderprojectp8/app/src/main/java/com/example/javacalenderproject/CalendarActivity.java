@@ -1,58 +1,72 @@
-package com.example.javacalenderproject;
+package com.calendarfx.app;
 
-import android.os.Bundle;
-import android.widget.Toast;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.CalendarView;
 
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class CalendarActivity extends AppCompatActivity {
-    // Declare the MaterialCalendarView and Calendar objects.
-    MaterialCalendarView calendarView;
-    java.util.Calendar calendar;
+public class CalendarApp extends Application {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Set the content of the activity to use the activity_main.xml layout file.
-        setContentView(R.layout.activity_calendar);
+    public void start(Stage primaryStage) throws Exception {
 
-        // Initialize the calendarView by finding it in the layout.
-        calendarView = findViewById(R.id.calenderView);
-        // Get an instance of the current calendar.
-        calendar = java.util.Calendar.getInstance();
+        CalendarView calendarView = new CalendarView(); // (1)
 
-        // Set an initial date for the calendar view.
-        setDate(1, 1, 2024);
+        Calendar birthdays = new Calendar("Birthdays"); // (2)
+        Calendar holidays = new Calendar("Holidays");
 
-        // Set a listener to handle changes when a user selects a date on the calendar.
-        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+        birthdays.setStyle(Style.STYLE1); // (3)
+        holidays.setStyle(Style.STYLE2);
+
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars"); // (4)
+        myCalendarSource.getCalendars().addAll(birthdays, holidays);
+
+        calendarView.getCalendarSources().addAll(myCalendarSource); // (5)
+
+        calendarView.setRequestedTime(LocalTime.now());
+
+        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                // Extract the year, month, and day from the selected date.
-                int year = date.getYear();
-                // Add 1 to month since CalendarDay months are 0-based (January is 0).
-                int month = date.getMonth() + 1;
-                int day = date.getDay();
+            public void run() {
+                while (true) {
+                    Platform.runLater(() -> {
+                        calendarView.setToday(LocalDate.now());
+                        calendarView.setTime(LocalTime.now());
+                    });
 
-                // Display a toast message showing the selected date.
-                Toast.makeText(CalendarActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+                    try {
+                        // update every 10 seconds
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
-        });
+        };
+
+        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
+        updateTimeThread.setDaemon(true);
+        updateTimeThread.start();
+
+        Scene scene = new Scene(calendarView);
+        primaryStage.setTitle("Calendar");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(1300);
+        primaryStage.setHeight(1000);
+        primaryStage.centerOnScreen();
+        primaryStage.show();
     }
 
-    public void setDate(int day, int month, int year) {
-        // Set the calendar to the specified year, month, and day.
-        calendar.set(java.util.Calendar.YEAR, year);
-        // Subtract 1 from month because Calendar.MONTH is 0-based.
-        calendar.set(java.util.Calendar.MONTH, month - 1);
-        calendar.set(java.util.Calendar.DAY_OF_MONTH, day);
-
-        // Set the current date of the MaterialCalendarView to reflect the changes.
-        calendarView.setCurrentDate(calendar);
+    public static void main(String[] args) {
+        launch(args);
     }
 }
