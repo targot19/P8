@@ -28,7 +28,11 @@ public class timeBlock {
         * next timeblock
         *
         *  */
-
+        int count = 0;
+        for (int i = 0; i < 24; i++) {
+            count += count;
+            hours = count;
+        }
     }
 
     public int getHours() {
