@@ -58,16 +58,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-                <ScrollView
-                    android:id="@+id/timeSlot"
-                    android:layout_width="53dp"
-                    android:layout_height="686dp"
-                    android:layout_marginStart="18dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/calenderView"
-                    app:layout_constraintStart_toEndOf="@+id/familymember" />
+        <ScrollView
+            android:id="@+id/timeSlot"
+            android:layout_width="53dp"
+            android:layout_height="686dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="112dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/calenderView"
+            app:layout_constraintStart_toEndOf="@+id/familymember" />
 
-                <ScrollView
+        <ScrollView
                     android:id="@+id/scrollView2"
                     android:layout_width="53dp"
                     android:layout_height="685dp"
@@ -105,19 +106,24 @@
                     app:layout_constraintBottom_toTopOf="@+id/button2"
                     app:layout_constraintStart_toEndOf="@+id/help" />
 
-                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                    android:id="@+id/calenderView"
-                    android:layout_width="968dp"
-                    android:layout_height="686dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/scrollView2"
-                    app:layout_constraintStart_toEndOf="@+id/timeSlot"
-                    app:mcv_calendarMode="week"
-                    app:mcv_firstDayOfWeek="monday">
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calenderView"
+            android:layout_width="968dp"
+            android:layout_height="686dp"
+            android:layout_marginBottom="56dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/scrollView2"
+            app:layout_constraintStart_toEndOf="@+id/timeSlot"
+            app:mcv_calendarMode="week"
+            app:mcv_dateTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:mcv_firstDayOfWeek="monday"
+            app:mcv_tileHeight="150px"
+            app:mcv_tileWidth="300px"
+            app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Large">
 
-                </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
-                <ImageButton
+        <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="41dp"
                     android:layout_height="40dp"
