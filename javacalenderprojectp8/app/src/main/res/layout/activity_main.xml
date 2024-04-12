@@ -108,9 +108,9 @@
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calenderView"
-            android:layout_width="968dp"
-            android:layout_height="686dp"
-            android:layout_marginBottom="56dp"
+            android:layout_width="952dp"
+            android:layout_height="278dp"
+            android:layout_marginBottom="472dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/scrollView2"
             app:layout_constraintStart_toEndOf="@+id/timeSlot"
@@ -120,6 +120,7 @@
             app:mcv_tileHeight="150px"
             app:mcv_tileWidth="300px"
             app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Large">
+
 
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
@@ -153,6 +154,20 @@
                     app:layout_constraintEnd_toStartOf="@+id/timeSlot"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <GridView
+            android:id="@+id/timeblockMasterView"
+            android:layout_width="950dp"
+            android:layout_height="443dp"
+            tools:layout_editor_absoluteX="269dp"
+            tools:layout_editor_absoluteY="341dp" >
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.gridlayout.widget.GridLayout>
+        </GridView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
