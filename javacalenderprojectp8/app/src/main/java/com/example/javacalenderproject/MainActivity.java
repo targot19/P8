@@ -5,12 +5,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +33,17 @@ public class MainActivity extends AppCompatActivity {
         calendarView = findViewById(R.id.calenderView);
         // Get an instance of the current calendar.
         calendar = Calendar.getInstance();
+
+        ///TEST RECYCLERVIEW
+        RecyclerView recyclerView = findViewById(R.id.taskview);
+
+        List<testTask> tasksList = new ArrayList<testTask>();
+        tasksList.add(new testTask("Tania",30));
+        tasksList.add(new testTask("Emma",15));
+        tasksList.add(new testTask("Ulla",60));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), tasksList));
 
         // Set an initial date for the calendar view.
         setDate(1, 1, 2024);

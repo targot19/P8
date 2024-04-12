@@ -155,18 +155,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <GridView
-            android:id="@+id/timeblockMasterView"
-            android:layout_width="950dp"
-            android:layout_height="443dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="16dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="956dp"
+            android:layout_height="470dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/scrollView2"
             app:layout_constraintStart_toEndOf="@+id/timeSlot"
-            app:layout_constraintTop_toBottomOf="@+id/calenderView" />
+            app:layout_constraintTop_toBottomOf="@+id/calenderView" >
+        </androidx.recyclerview.widget.RecyclerView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
