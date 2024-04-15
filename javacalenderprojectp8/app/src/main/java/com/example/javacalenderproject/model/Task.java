@@ -1,4 +1,4 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.model;
 
 import java.util.ArrayList;
 

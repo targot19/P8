@@ -1,10 +1,10 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.api;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import static com.example.javacalenderproject.EnvAccess.*;
+import static com.example.javacalenderproject.api.EnvAccess.*;
 
 // Class for authenticating API requests by generating bearer tokens
 public class ApiAuthenticator {

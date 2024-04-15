@@ -1,4 +1,4 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.api;
 
 import java.io.IOException;
 import okhttp3.OkHttpClient;

@@ -1,4 +1,4 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.api;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class EnvAccess {

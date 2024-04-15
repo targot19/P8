@@ -1,8 +1,11 @@
 package com.example.javacalenderproject;
 
-import static com.example.javacalenderproject.EnvAccess.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import com.example.javacalenderproject.api.ApiAuthenticator;
+import com.example.javacalenderproject.api.ApiClient;
+
 import java.io.IOException;
 import io.github.cdimascio.dotenv.Dotenv;
 
