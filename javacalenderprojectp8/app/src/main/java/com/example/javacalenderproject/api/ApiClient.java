@@ -1,5 +1,6 @@
 package com.example.javacalenderproject.api;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +26,10 @@ public class ApiClient {
         try {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                return response.body().string(); // it's here we want to edit to parse response properly
+                Gson gson = new Gson();
+                return response.body().string(); // returns the json (for testing)
+                // return parsed json:
+                // return DailyPrice[] dailyPrices = gson.fromJson(response.body().string(), DailyPrice[].class);
             } else {
                 throw new IOException("Unexpected response code: " + response.code());
             }
