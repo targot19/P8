@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,15 +35,21 @@ public class MainActivity extends AppCompatActivity {
         // Get an instance of the current calendar.
         calendar = Calendar.getInstance();
 
-        ///TEST RECYCLERVIEW
+        ///TEST RECYCLERVIEW TASKS
         RecyclerView recyclerView = findViewById(R.id.taskview);
 
         List<testTask> tasksList = new ArrayList<testTask>();
-        tasksList.add(new testTask("Tania",30));
-        tasksList.add(new testTask("Emma",15));
-        tasksList.add(new testTask("Ulla",60));
+        tasksList.add(new testTask("Tania",30, "green"));
+        tasksList.add(new testTask("Emma",15, "yellow"));
+        tasksList.add(new testTask("Ulla",60, "red"));
+        tasksList.add(new testTask("4",30, "green"));
+        tasksList.add(new testTask("5",15, "yellow"));
+        tasksList.add(new testTask("6",60, "red"));
+        tasksList.add(new testTask("7",30, "green"));
+        tasksList.add(new testTask("8",15, "yellow"));
+        tasksList.add(new testTask("9",60, "red"));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,5, RecyclerView.VERTICAL,false));
         recyclerView.setAdapter(new MyAdapter(getApplicationContext(), tasksList));
 
         // Set an initial date for the calendar view.

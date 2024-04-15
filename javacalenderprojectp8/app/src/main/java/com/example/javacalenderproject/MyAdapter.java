@@ -1,6 +1,7 @@
 package com.example.javacalenderproject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -32,7 +33,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.nameView.setText(testTasks.get(position).getName());
         holder.durationView.setText(String.valueOf(testTasks.get(position).getDuration()));
-
+        //set colors of view from data
+        if (testTasks.get(position).getColor() == "green") {
+            holder.container.setBackgroundResource(R.color.green);
+        }
+        else if (testTasks.get(position).getColor() == "yellow") {
+            holder.container.setBackgroundResource(R.color.yelllow);
+        }
+        else {
+            holder.container.setBackgroundResource(R.color.red);
+        }
     }
 
     @Override

@@ -153,9 +153,11 @@
                     app:layout_constraintBottom_toTopOf="@+id/button1"
                     app:layout_constraintEnd_toStartOf="@+id/timeSlot"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    />
 
         <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:layout_width="956dp"
             android:layout_height="470dp"
             android:layout_marginStart="1dp"
@@ -163,8 +165,8 @@
             android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timeSlot"
-            app:layout_constraintTop_toBottomOf="@+id/calenderView" >
-        </androidx.recyclerview.widget.RecyclerView>
+            app:layout_constraintTop_toBottomOf="@+id/calenderView"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
