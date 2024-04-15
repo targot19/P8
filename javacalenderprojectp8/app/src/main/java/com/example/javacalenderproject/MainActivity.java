@@ -27,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the calendarView by finding it in the layout.
         calendarView = findViewById(R.id.calenderView);
+
+        // Initialize tableLayout by finding it from tablelayout.xml.
+        //TableLayout tableLayout = findViewById(R.id.tableLayout);
+
         // Get an instance of the current calendar.
         calendar = Calendar.getInstance();
 
         // Set an initial date for the calendar view.
-        setDate(1, 1, 2024);
+        //setDate(1, 1, 2024);
 
         // Set a listener to handle changes when a user selects a date on the calendar.
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
