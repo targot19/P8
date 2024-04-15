@@ -32,7 +32,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.nameView.setText(testTasks.get(position).getName());
-        holder.durationView.setText(String.valueOf(testTasks.get(position).getDuration()));
         //set colors of view from data
         if (testTasks.get(position).getColor() == "green") {
             holder.container.setBackgroundResource(R.color.green);

@@ -36,18 +36,13 @@ public class MainActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         ///TEST RECYCLERVIEW TASKS
-        RecyclerView recyclerView = findViewById(R.id.taskview);
+        RecyclerView recyclerView = findViewById(R.id.hourView);
 
         List<testTask> tasksList = new ArrayList<testTask>();
-        tasksList.add(new testTask("Tania",30, "green"));
-        tasksList.add(new testTask("Emma",15, "yellow"));
-        tasksList.add(new testTask("Ulla",60, "red"));
-        tasksList.add(new testTask("4",30, "green"));
-        tasksList.add(new testTask("5",15, "yellow"));
-        tasksList.add(new testTask("6",60, "red"));
-        tasksList.add(new testTask("7",30, "green"));
-        tasksList.add(new testTask("8",15, "yellow"));
-        tasksList.add(new testTask("9",60, "red"));
+        for (int i = 0; i < 24*7; i++) {
+            tasksList.add(new testTask("CELL"+i, "green"));
+        }
+
 
         recyclerView.setLayoutManager(new GridLayoutManager(this,5, RecyclerView.VERTICAL,false));
         recyclerView.setAdapter(new MyAdapter(getApplicationContext(), tasksList));

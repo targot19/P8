@@ -1,13 +1,13 @@
 package com.example.javacalenderproject;
 
+import static java.sql.Types.NULL;
+
 public class testTask {
     String color;
     String name;
-    int duration;
 
-    testTask(String name, int duration, String color) {
+    testTask(String name, String color) {
         this.name = name;
-        this.duration = duration;
         this.color = color;
     }
 
@@ -21,11 +21,4 @@ public class testTask {
         this.name = name;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
 }

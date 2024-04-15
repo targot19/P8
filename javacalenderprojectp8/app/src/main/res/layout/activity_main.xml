@@ -157,7 +157,7 @@
                     />
 
         <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:id="@+id/hourView"
             android:layout_width="956dp"
             android:layout_height="470dp"
             android:layout_marginStart="1dp"
