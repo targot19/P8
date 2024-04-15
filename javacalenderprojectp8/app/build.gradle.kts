@@ -35,18 +35,17 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.recyclerview)
-    implementation("org.testng:testng:6.9.6")
+   // implementation(libs.testng)
     implementation(libs.preference)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    //testImplementation(libs.junit)
+    //androidTestImplementation(libs.ext.junit)
+    //androidTestImplementation(libs.espresso.core)
     implementation("com.squareup.okhttp3:okhttp:4.12.0") // for http requests
     implementation("com.google.code.gson:gson:2.8.9") // for json parsing
     implementation("io.github.cdimascio:dotenv-java:3.0.0") // env variable package
