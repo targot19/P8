@@ -1,8 +1,6 @@
 package com.example.javacalenderproject;
 
 import java.io.IOException;
-import java.net.URI;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -14,7 +12,7 @@ public class ApiClient {
     private static final OkHttpClient client = new OkHttpClient();
 
     // Method to fetch data from website URL using API key and secret for authentication
-    public static String fetchData(String url) throws IOException {
+    public static String fetchData() throws IOException {
         // Generate the authorization token
         String authorizationToken = ApiAuthenticator.generateBearerToken();
 
@@ -27,7 +25,7 @@ public class ApiClient {
         try {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                return response.body().string(); // it's here we want to parse response properly
+                return response.body().string(); // it's here we want to edit to parse response properly
             } else {
                 throw new IOException("Unexpected response code: " + response.code());
             }
@@ -38,7 +36,6 @@ public class ApiClient {
         }
     }
 }
-
 
 
 /* Old line 31-35

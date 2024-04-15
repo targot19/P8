@@ -2,12 +2,9 @@ package com.example.javacalenderproject;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.HexFormat;
 import static com.example.javacalenderproject.EnvAccess.*;
-
 
 // Class for authenticating API requests by generating bearer tokens
 public class ApiAuthenticator {
@@ -16,15 +13,6 @@ public class ApiAuthenticator {
     ApiAuthenticator () {
         String bearerToken = generateBearerToken();
     }
-
-    Dotenv dotenv = Dotenv.configure() // load dotenv and setup the correct path to env file
-            .directory("/assets")
-            .filename("env")
-            .load();
-
-    // Consider if this should be moved to gradle.properties to maintain discretion in this code
-    //private static String apiKey = dotenv.get("API_KEY");
-    //private static String apiSecret = dotenv.get("API_SECRET");
 
     // Method to generate a bearer token for API authentication
     public static String generateBearerToken() {
