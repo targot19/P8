@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+}
+/**
     public void setDate(int day, int month, int year) {
         // Set the calendar to the specified year, month, and day.
         calendar.set(Calendar.YEAR, year);
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         calendarView.setCurrentDate(calendar);
     }
 }
-
+**/
 /**
     //@Override
     //protected void onCreate(Bundle SavedInstanceState) {
