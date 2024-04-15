@@ -10,11 +10,11 @@ import okhttp3.Response;
 // Class for making API requests using okhttp
 public class ApiClient {
 
-    // HTTP client for sending requests
+    // HTTP client for sending request
     private static final OkHttpClient client = new OkHttpClient();
 
     // Method to fetch data from website URL using API key and secret for authentication
-    public static String fetchData(String url, String apiKey, String apiSecret) throws IOException {
+    public static String fetchData(String url) throws IOException {
         // Generate the authorization token
         String authorizationToken = ApiAuthenticator.generateBearerToken();
 
