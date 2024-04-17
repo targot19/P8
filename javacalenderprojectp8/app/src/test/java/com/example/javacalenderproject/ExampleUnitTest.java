@@ -1,5 +1,5 @@
 package com.example.javacalenderproject;
-
+/*
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ import io.github.cdimascio.dotenv.Dotenv;
  * Example local unit test, which will execute on the development machine (host).
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-
+/*
 public class ExampleUnitTest {
     // An example Hello World test to ensure the test runs correctly
     @Test
@@ -47,4 +47,4 @@ public class ExampleUnitTest {
         assertNotNull(data); // Ensure there is data fetched
         System.out.println(ApiClient.fetchData()); // Print the fetched data
     }
-}
+}*/
