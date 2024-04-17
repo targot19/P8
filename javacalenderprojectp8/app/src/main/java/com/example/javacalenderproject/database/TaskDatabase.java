@@ -1,10 +1,12 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.database;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 import androidx.room.Room;
 import androidx.room.TypeConverters;
+
+import com.example.javacalenderproject.model.Task;
 
 
 @Database(entities = {Task.class}, version = 2, exportSchema = false)
