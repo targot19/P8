@@ -1,5 +1,6 @@
 package com.example.javacalenderproject.api;
 
+import com.example.javacalenderproject.model.Price;
 import com.google.gson.Gson;
 import java.io.IOException;
 import okhttp3.OkHttpClient;
@@ -13,7 +14,7 @@ public class ApiClient {
     private static final OkHttpClient client = new OkHttpClient();
 
     // Method to fetch data from website URL using API key and secret for authentication
-    public static String fetchData() throws IOException {
+    public static Price[] fetchData() throws IOException {
         // Generate the authorization token
         String authorizationToken = ApiAuthenticator.generateBearerToken();
 
@@ -26,19 +27,28 @@ public class ApiClient {
         try {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
+                // Store the response in a variable:
+                String jsonResponse = response.body().string();
+
+                // return jsonResponse; // (for testing)
+
+                // Return json parsed into an array of objects:
                 Gson gson = new Gson();
-                return response.body().string(); // returns the json (for testing)
-                // return parsed json:
-                // return DailyPrice[] dailyPrices = gson.fromJson(response.body().string(), DailyPrice[].class);
+                Price[] allPrices = gson.fromJson(jsonResponse, Price[].class);
+                return allPrices;
+
+
             } else {
                 throw new IOException("Unexpected response code: " + response.code());
             }
         } catch (Exception e) {
             // Log errors if any
             e.printStackTrace();
-            return e.getMessage();
+            // return e.getMessage(); // (for testing)
+            return new Price[0]; // returns an empty array
         }
     }
+
 }
 
 

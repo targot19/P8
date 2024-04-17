@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.javacalenderproject.function.PrintPriceTest;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Set an initial date for the calendar view.
         //setDate(1, 1, 2024);
+
+        // Running PrintPriceTest:
+        PrintPriceTest.print();
+
 
         // Set a listener to handle changes when a user selects a date on the calendar.
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {

@@ -4,7 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class EnvAccess {
     // Class and method to gain access to our env files + variables
     private static final Dotenv dotenv = Dotenv.configure()
-            .directory("src/main/assets")
+            .directory("/assets")
             .filename("env")
             .load();
 
