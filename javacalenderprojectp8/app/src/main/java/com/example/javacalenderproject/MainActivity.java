@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.util.Log;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     // create button
@@ -23,10 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize the database
-        database = Room.databaseBuilder(getApplicationContext(), TaskDatabase.class, "tasks")
-                .allowMainThreadQueries() //
-                .fallbackToDestructiveMigration()
-                .build();
+        database = TaskDatabase.getDatabase(getApplicationContext());
+
 
         btnGoCalendar = findViewById(R.id.goToCalendar);
         btnCreateTask = findViewById(R.id.btnCreateNewTask);
@@ -55,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 database.taskDAO().insertTask(newTask);
-                Log.d("MainActivity", "Task inserted successfully.");
+                List<Task> tasks = database.taskDAO().getAllTasks();
+                Log.d("MainActivity", "Task inserted, total tasks now: " + tasks.size());
+                for (Task task : tasks) {
+                    Log.d("MainActivity", "Task: " + task.getTaskName());
+                }
             } catch (Exception e) {
-                Log.e("MainActivity", "Failed to insert task", e);
+                Log.e("MainActivity", "Failed to insert or retrieve tasks", e);
             }
         }).start();
-    }
 
-}
+}}
 
