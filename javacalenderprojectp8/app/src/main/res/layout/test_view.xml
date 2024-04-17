@@ -6,19 +6,19 @@
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/name"
-        tools:text="Name"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            tools:text="Name"
+            />
 
-    <TextView
-        android:id="@+id/duration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Duration"
-        />
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Duration"
+            />
 
 </LinearLayout>
 

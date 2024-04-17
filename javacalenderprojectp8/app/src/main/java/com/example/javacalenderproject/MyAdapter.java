@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     Context context;
     List<testTask> testTasks;
@@ -25,8 +25,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.test_view,parent,false));
-
-
     }
 
     @Override
@@ -37,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
             holder.container.setBackgroundResource(R.color.green);
         }
         else if (testTasks.get(position).getColor() == "yellow") {
-            holder.container.setBackgroundResource(R.color.yelllow);
+            holder.container.setBackgroundResource(R.color.yellow);
         }
         else {
             holder.container.setBackgroundResource(R.color.red);
