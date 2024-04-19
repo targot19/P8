@@ -16,7 +16,7 @@ public class Task {
     @ColumnInfo(name = "taskType")
     public String taskName;
 
-    //private String taskIcon;
+
     @ColumnInfo(name = "taskColor")
     private String taskColor;
     @ColumnInfo(name = "taskDuration")
