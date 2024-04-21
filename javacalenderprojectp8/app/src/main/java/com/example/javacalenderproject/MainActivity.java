@@ -6,7 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.javacalenderproject.function.PrintPriceTest;
+import com.example.javacalenderproject.api.FetchManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_main);
 
+        // TEST: API call & fetch data as array of objects:
+        FetchManager.fetchApiData();
+
         // Initialize the calendarView by finding it in the layout.
         calendarView = findViewById(R.id.calenderView);
 
@@ -38,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         // Set an initial date for the calendar view.
         //setDate(1, 1, 2024);
 
-        // Running PrintPriceTest:
-        PrintPriceTest.print();
 
 
         // Set a listener to handle changes when a user selects a date on the calendar.
