@@ -1,4 +1,4 @@
-package com.example.javacalenderproject.api;
+package com.example.javacalenderproject.function;
 import com.google.gson.annotations.SerializedName;
 
 public class PriceData {
