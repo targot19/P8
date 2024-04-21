@@ -2,21 +2,18 @@ package com.example.javacalenderproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.view.View;
 import android.widget.Button;
 import android.util.Log;
 
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
-    // create button
+    // Create buttons
     private Button btnGoCalendar;
     private Button btnCreateTask;
+    private Button btnCreatePlannedTask;
     public static TaskDatabase database;
 
     @Override
@@ -27,31 +24,49 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the database
         database = TaskDatabase.getDatabase(getApplicationContext());
 
-
+        // Initialize buttons
         btnGoCalendar = findViewById(R.id.goToCalendar);
         btnCreateTask = findViewById(R.id.btnCreateNewTask);
+        btnCreatePlannedTask = findViewById(R.id.btnCreateNewPlannedTask);
 
+        // Set button listeners
+        btnCreatePlannedTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createPlannedTask("Sample Planned Task", "Icon Placeholder", "Color Placeholder", 60);
+            }
+        });
         btnCreateTask.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Call the method to create a new task when the button is clicked
                 createTask("Sample Task", "Icon", "Color", 30);
             }
         });
-
         btnGoCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the CalendarActivity when the calendar button is clicked
                 Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
                 startActivity(intent);
             }
         });
     }
 
+    // Method for planned task creation
+    private void createPlannedTask(String name, String icon, String color, int duration) {
+        TaskPlanned newPlannedTask = new TaskPlanned();
+        newPlannedTask.setTaskName(name);
+        newPlannedTask.setTaskIcon(icon);
+        newPlannedTask.setTaskColor(color);
+        newPlannedTask.setTaskDuration(duration);
+
+        new Thread(() -> {
+            database.taskPlannedDAO().insert(newPlannedTask);
+            Log.d("MainActivity", "Planned Task inserted successfully.");
+        }).start();
+    }
+
     // Method to create a new task
     private void createTask(String name, String icon, String color, int duration) {
         Task newTask = new Task(name, icon, color, duration);
-
         new Thread(() -> {
             try {
                 database.taskDAO().insertTask(newTask);
@@ -64,6 +79,5 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "Failed to insert or retrieve tasks", e);
             }
         }).start();
-
-}}
-
+    }
+}

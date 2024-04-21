@@ -24,9 +24,31 @@
             android:id="@+id/btnCreateNewTask"
             android:layout_width="195dp"
             android:layout_height="103dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginBottom="111dp"
             android:text="Create Task"
-            tools:layout_editor_absoluteX="108dp"
-            tools:layout_editor_absoluteY="128dp" />
+            app:layout_constraintBottom_toTopOf="@+id/goToCalendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/btnCreateNewPlannedTask"
+            android:layout_width="195dp"
+            android:layout_height="103dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="100dp"
+
+            android:layout_marginEnd="108dp"
+            android:layout_marginBottom="139dp"
+            android:text="Create Planned Task"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goToCalendar" />
         <!--
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                     android:id="@+id/calenderView"
