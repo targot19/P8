@@ -14,17 +14,15 @@ public class FetchManager {
             public void onSuccess(HourlyPrice[] allHourlyPrices) {
                 // Everything that should happen when API Call is successful:
 
+                //TESTS FOR API RESPONSE:
                 Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
                 // Log each individual price
                 for (HourlyPrice hourlyPrice : allHourlyPrices) {
                     Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
                     Log.d("Api",  "Hour: " + hourlyPrice.getHour());
-                    Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", LDT: " + hourlyPrice.getConvertedDate());
-                    Log.d("Api",  "Hour lDT: " + hourlyPrice.getHourFromConvertedDate());
                 }
 
             }
-
             // If fetchData fails: Print error message
             @Override
             public void onFailure(IOException e) {

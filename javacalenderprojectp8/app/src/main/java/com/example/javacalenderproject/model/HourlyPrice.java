@@ -2,7 +2,6 @@ package com.example.javacalenderproject.model;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 // Each item from the json will be an object of the Price class, which contains date + price for an hour:
@@ -13,7 +12,7 @@ public class HourlyPrice {
     // Constructor
     public HourlyPrice(double price, Date date) {
         this.price = price;
-        this.date = date; // date as string
+        this.date = date; // date as Date (Gson default)
     }
 
 
@@ -22,24 +21,17 @@ public class HourlyPrice {
         return price;
     } // returns specific price
 
-    public Date getDate() {
-        return date;
-    }
-
-    public LocalDateTime getConvertedDate() {
+    public LocalDateTime getDate() {
+        // Converts Date (supported by Gson, but deprecated) object to type LocalDateTime.
+            // toInstant converts time to seconds.
+            // atZone adjusts value to default timezone of the system.
+            // toLocalDateTime converts to LocalTimeDate object
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     public int getHour() {
-        return date.getHours();
+        return getDate().getHour(); // uses LocalDateTime method to access hour
     }
-
-    public int getHourFromConvertedDate() {
-        return getConvertedDate().getHour();
-    }
-
-
-    // Helper methods:
 
 
 }
