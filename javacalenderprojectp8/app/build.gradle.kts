@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.javacalenderproject"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -26,8 +26,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
         viewBinding = true
@@ -49,6 +49,6 @@ dependencies {
     //androidTestImplementation(libs.espresso.core)
     implementation("com.squareup.okhttp3:okhttp:4.12.0") // for http requests
     implementation("com.google.code.gson:gson:2.10.1") // for json parsing
-    implementation("io.github.cdimascio:dotenv-java:3.0.0") // env variable package
+    implementation("io.github.cdimascio:dotenv-java:2.3.2") // env variable package
     implementation("com.github.prolificinteractive:material-calendarview:1.6.1")
 }

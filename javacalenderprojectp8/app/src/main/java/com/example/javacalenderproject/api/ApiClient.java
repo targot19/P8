@@ -2,6 +2,8 @@ package com.example.javacalenderproject.api;
 
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
+import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -9,17 +11,19 @@ import okhttp3.Response;
 import com.google.gson.JsonSyntaxException;
 import com.example.javacalenderproject.function.PriceData;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 // Class for making API requests using okhttp
 public class ApiClient {
 
     // HTTP client for sending request
-    private static final OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = new OkHttpClient();
+    private final ApiAuthenticator apiAuthenticator = new ApiAuthenticator();
 
     // Method to fetch data from website URL using API key and secret for authentication
-    public static void fetchData(final Callback callback) {
+    public void fetchData(final Callback callback) {
         // Generate the authorization token
-        String authorizationToken = ApiAuthenticator.generateBearerToken();
+        String authorizationToken = apiAuthenticator.generateBearerToken();
 
         // Create a new API request with the Authorization header as specified in the documentation
         Request request = new Request.Builder()
@@ -36,7 +40,8 @@ public class ApiClient {
                     if (response.isSuccessful()) {
                         responseData = response.body().string();
                         Gson gson = new Gson();
-                        PriceData priceData = gson.fromJson(responseData, PriceData.class);
+                        List<PriceData> priceData = gson.fromJson(responseData, new TypeToken<List<PriceData>>(){}.getType());
+
                         callback.onSuccess(priceData);
                     } else {
                         callback.onError(new IOException("Unexpected response code: " + response.code()));
@@ -59,7 +64,7 @@ public class ApiClient {
 
     // Callback interface to handle success and error responses
     public interface Callback {
-        void onSuccess(PriceData priceData);
+        void onSuccess(List<PriceData> priceData);
         void onError(Exception e);
     }
 }

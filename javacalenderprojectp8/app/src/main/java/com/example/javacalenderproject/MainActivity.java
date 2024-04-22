@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.javacalenderproject.function.PriceData;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.Calendar;
+
+import okhttp3.OkHttpClient;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     // Declare the MaterialCalendarView and Calendar objects.
     MaterialCalendarView calendarView;
     java.util.Calendar calendar;
+
+    private final PriceData priceData = new PriceData();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Set an initial date for the calendar view.
         //setDate(1, 1, 2024);
+
+        // ************************************PrintPriceTest.print();
+        priceData.print();
+
 
         // Set a listener to handle changes when a user selects a date on the calendar.
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {

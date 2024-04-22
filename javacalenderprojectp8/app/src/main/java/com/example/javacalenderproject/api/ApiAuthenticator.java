@@ -1,10 +1,13 @@
 package com.example.javacalenderproject.api;
 
+import static com.example.javacalenderproject.api.EnvAccess.API_KEY;
+import static com.example.javacalenderproject.api.EnvAccess.API_SECRET;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import static com.example.javacalenderproject.api.EnvAccess.*;
+import com.example.javacalenderproject.api.EnvAccess;
 
 // Class for authenticating API requests by generating bearer tokens
 public class ApiAuthenticator {
@@ -15,7 +18,7 @@ public class ApiAuthenticator {
     }
 
     // Method to generate a bearer token for API authentication
-    public static String generateBearerToken() {
+    public String generateBearerToken() {
         try {
             // Create HMAC-SHA256 hash
             Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -40,7 +43,7 @@ public class ApiAuthenticator {
     }
 
     // Function to convert byte array to hexadecimal string
-    private static String bytesToHex(byte[] bytes) {
+    private String bytesToHex(byte[] bytes) {
         StringBuilder result = new StringBuilder();
         for (byte b : bytes) {
             result.append(String.format("%02x", b));
