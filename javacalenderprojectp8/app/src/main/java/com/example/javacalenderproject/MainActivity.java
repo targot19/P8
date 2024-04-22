@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_main);
 
-        // TEST: API call & fetch data as array of objects:
+        // TEST: API call & fetch data + do something with it.
         FetchManager.fetchApiData();
 
         // Initialize the calendarView by finding it in the layout.
