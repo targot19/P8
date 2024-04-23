@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.javacalenderproject.MainActivity;
-import com.example.javacalenderproject.familyMember;
+import com.example.javacalenderproject.database.FamilyMember;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Task {
     @ColumnInfo(name = "taskIcon")
     private String taskIcon;
     @ColumnInfo(name = "taskAssignedMembers")
-    private ArrayList<familyMember> assignedFamilyMembers;
+    private ArrayList<FamilyMember> assignedFamilyMembers;
 
 
 
@@ -81,21 +81,21 @@ public class Task {
         this.taskIcon = taskIcon;
     }
 
-    public ArrayList<familyMember> getAssignedFamilyMembers() {
+    public ArrayList<FamilyMember> getAssignedFamilyMembers() {
         return assignedFamilyMembers;
     }
 
-    public void setAssignedFamilyMembers(ArrayList<familyMember> assignedFamilyMembers) {
+    public void setAssignedFamilyMembers(ArrayList<FamilyMember> assignedFamilyMembers) {
         this.assignedFamilyMembers = assignedFamilyMembers;
     }
 
-    public void assignTask(familyMember familyMember) {
+    public void assignTask(FamilyMember familyMember) {
 
         assignedFamilyMembers.add(familyMember);
 
     }
 
-    public void unassignTask(familyMember familyMember) {
+    public void unassignTask(FamilyMember familyMember) {
 
         assignedFamilyMembers.remove(familyMember);
 

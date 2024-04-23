@@ -84,7 +84,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             // set tasks: REVIDERES: skal læse og vise flere tasks!
             if (!tasks.isEmpty()) {
                 ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
-                String text = tasks.get(0).getName();
+                String text = tasks.get(0).getTaskName();
                 ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task);
                 ((TimeSlotViewHolder)holder).task1.setText(text);
             }

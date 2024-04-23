@@ -24,37 +24,29 @@ public class TaskPlanned {
     private String taskIcon;
 
     @ColumnInfo(name = "taskAssignedMembers")
-    private ArrayList<familyMember> assignedFamilyMembers;
+    private ArrayList<FamilyMember> assignedFamilyMembers;
+
+    // OBS database date + hour
+    //LocalDateTime date;
+    //int hour;
 
     // Public no-arg constructor required by Room
     public TaskPlanned() {
     }
+    public TaskPlanned(String name) {
+        this.taskName = name;
+        //this.date = null;
+        // get hour from date to set hour
+        taskDuration = 0;
+    }
+    TaskPlanned(String name, LocalDateTime date) {
+        this.taskName = name;
+        //this.date = date;
+        // get hour from date to set hour
+        taskDuration = 0;
+    }
 
     // Getters and setters
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-public class TaskPlanned {
-    int id;
-    String name;
-    LocalDateTime date;
-    int hour;
-    int duration;
-    ArrayList<FamilyMember> assignee;
-
-    TaskPlanned(String name, LocalDateTime date) {
-        this.name = name;
-        this.date = date;
-        // get hour from date to set hour
-        duration = 0;
-    }
-    public TaskPlanned(String name) {
-        this.name = name;
-        this.date = null;
-        // get hour from date to set hour
-        duration = 0;
-    }
 
     public int getId() {
         return id;
@@ -96,20 +88,14 @@ public class TaskPlanned {
         this.taskIcon = taskIcon;
     }
 
-    public ArrayList<familyMember> getAssignedFamilyMembers() {
+    public ArrayList<FamilyMember> getAssignedFamilyMembers() {
         return assignedFamilyMembers;
     }
 
-    public void setAssignedFamilyMembers(ArrayList<familyMember> assignedFamilyMembers) {
+    public void setAssignedFamilyMembers(ArrayList<FamilyMember> assignedFamilyMembers) {
         this.assignedFamilyMembers = assignedFamilyMembers;
-    public String getName() {
-        return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /*
     public LocalDateTime getDate() {
         return date;
     }
@@ -124,21 +110,7 @@ public class TaskPlanned {
 
     public void setHour(int hour) {
         this.hour = hour;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public ArrayList<FamilyMember> getAssignee() {
-        return assignee;
-    }
-
-    public void setAssignee(ArrayList<FamilyMember> assignee) {
-        this.assignee = assignee;
-    }
+    }*/
 }
+
+
