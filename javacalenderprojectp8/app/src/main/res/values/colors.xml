@@ -5,4 +5,6 @@
     <color name="green">#A1EA81</color>
     <color name="yellow">#EADC81</color>
     <color name="red">#EA8181</color>
+    <color name="task">#C5C5C5</color>
+    <color name="timeBlock">#EDE9E9</color>
 </resources>

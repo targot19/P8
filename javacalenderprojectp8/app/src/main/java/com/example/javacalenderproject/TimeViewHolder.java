@@ -16,7 +16,7 @@ public class TimeViewHolder extends RecyclerView.ViewHolder {
 
     public TimeViewHolder(@NonNull View itemView) {
         super(itemView);
-        container = itemView.findViewById(R.id.timeblock_container);
+        container = itemView.findViewById(R.id.time_container);
         time = itemView.findViewById(R.id.time_textview);
     }
 }

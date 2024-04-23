@@ -2,15 +2,13 @@ package com.example.javacalenderproject;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
 
-public class TestPriceAdapter extends RecyclerView.Adapter<TestPriceViewHolder> {
+public class TestPriceAdapter extends RecyclerView.Adapter<TimeSlotViewHolder> {
 
     Context context;
     int[][] prices;
@@ -21,12 +19,12 @@ public class TestPriceAdapter extends RecyclerView.Adapter<TestPriceViewHolder> 
     }
     @NonNull
     @Override
-    public TestPriceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TestPriceViewHolder(LayoutInflater.from(context).inflate(R.layout.test_price_view, parent, false));
+    public TimeSlotViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new TimeSlotViewHolder(LayoutInflater.from(context).inflate(R.layout.time_slot_view, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TestPriceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
         // calculate day and hour from position
         int day = position % 7;
         int hour = position/7;

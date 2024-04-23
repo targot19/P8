@@ -1,6 +1,6 @@
 package com.example.javacalenderproject;
 
-public class familyMember {
+public class FamilyMember {
 
     // create attributes
     private String familyName;
@@ -8,7 +8,7 @@ public class familyMember {
     private String familyColor;
 
     // create constructor
-    public familyMember(String memberName, String memberIcon, String memberColor) {
+    public FamilyMember(String memberName, String memberIcon, String memberColor) {
         this.familyName = memberName;
         this.familyIcon = memberIcon;
         this.familyColor = memberColor;
