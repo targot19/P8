@@ -33,5 +33,6 @@ public class HourlyPrice {
         return getDate().getHour(); // uses LocalDateTime method to access hour
     }
 
+    // Hvis man skal kalde indbyggede metoder på HourlyPrice: HourlyPrice.getDate().namePåMetode()
 
 }
