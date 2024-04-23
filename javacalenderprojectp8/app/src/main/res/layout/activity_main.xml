@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -73,6 +74,61 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageButton" />
+        <ScrollView
+            android:id="@+id/timeSlot"
+            android:layout_width="53dp"
+            android:layout_height="686dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="112dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/calenderView"
+            app:layout_constraintStart_toEndOf="@+id/familymember" >
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </TableLayout>
+        </ScrollView>
+
+        <ScrollView
+                    android:id="@+id/scrollView2"
+                    android:layout_width="53dp"
+                    android:layout_height="685dp"
+                    android:layout_marginTop="115dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/calenderView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="151dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/edit_family_and_tasks"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:paddingStart="-1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageButton" />
 
         <Button
             android:id="@+id/button1"
@@ -90,11 +146,9 @@
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calenderView"
-            android:layout_width="1047dp"
-            android:layout_height="362dp"
-            android:layout_marginStart="232dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="400dp"
+            android:layout_width="952dp"
+            android:layout_height="278dp"
+            android:layout_marginBottom="468dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -127,16 +181,75 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@android:drawable/ic_menu_info_details" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/taskview"
-            android:layout_width="166dp"
-            android:layout_height="430dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="36dp"
-            app:layout_constraintBottom_toTopOf="@+id/button1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/taskview"
+                    android:layout_width="166dp"
+                    android:layout_height="430dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="36dp"
+                    app:layout_constraintBottom_toTopOf="@+id/button1"
+                    app:layout_constraintEnd_toStartOf="@+id/timeSlot"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    />
 
+        <LinearLayout
+            android:id="@+id/days"
+            android:layout_width="956dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/hourView"
+            app:layout_constraintStart_toEndOf="@+id/timeSlot"
+            tools:layout_editor_absoluteX="200dp">
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:text="Mandag"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:text="Tirsdag"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:text="Onsdag"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:text="Torsdag"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:text="Fredag"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:text="Lørdag"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:text="Søndag"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hourView"
+            android:layout_width="956dp"
+            android:layout_height="470dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timeSlot" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
