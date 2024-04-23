@@ -11,6 +11,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.javacalenderproject.databinding.FragmentFirstBinding;
 
+import java.lang.reflect.GenericArrayType;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;

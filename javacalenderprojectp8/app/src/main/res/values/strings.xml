@@ -43,4 +43,11 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="get_help">Get help</string>
+    <string name="edit_family_and_tasks">Edit family and tasks</string>
+    <string name="logo">Logo</string>
+    <string name="tasks">Tasks</string>
+    <string name="drag_and_drop">Drag and drop</string>
+    <string name="edit">Edit</string>
+    <string name="get_help_img">Get Help</string>
 </resources>
