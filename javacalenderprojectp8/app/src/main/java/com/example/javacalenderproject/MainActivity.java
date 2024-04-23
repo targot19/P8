@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     // Declare the MaterialCalendarView and Calendar objects.
     MaterialCalendarView calendarView;
     java.util.Calendar calendar;
+
+    public static TaskDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
