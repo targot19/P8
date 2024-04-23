@@ -2,7 +2,6 @@ package com.example.javacalenderproject.api;
 
 import static com.example.javacalenderproject.api.EnvAccess.API_KEY;
 import static com.example.javacalenderproject.api.EnvAccess.API_SECRET;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
