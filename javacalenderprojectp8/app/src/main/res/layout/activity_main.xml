@@ -9,6 +9,7 @@
     tools:context=".MainActivity">
 
         <include
+            android:id="@+id/include"
             layout="@layout/tablelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -60,28 +61,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="151dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif-light"
-            android:paddingStart="-1dp"
-            android:text="@string/edit_family_and_tasks"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageButton" />
         <ScrollView
             android:id="@+id/timeSlot"
             android:layout_width="53dp"
             android:layout_height="686dp"
             android:layout_marginStart="18dp"
-            android:layout_marginBottom="112dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/calenderView"
-            app:layout_constraintStart_toEndOf="@+id/familymember" >
+            app:layout_constraintStart_toEndOf="@+id/familymember">
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -106,28 +93,30 @@
         </ScrollView>
 
         <ScrollView
-                    android:id="@+id/scrollView2"
-                    android:layout_width="53dp"
-                    android:layout_height="685dp"
-                    android:layout_marginTop="115dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/calenderView"
-                    app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/scrollView2"
+            android:layout_width="53dp"
+            android:layout_height="685dp"
+            android:layout_marginTop="115dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/calenderView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="151dp"
-                    android:layout_height="40dp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="sans-serif-light"
-                    android:text="@string/edit_family_and_tasks"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:paddingStart="-1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="151dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-light"
+            android:paddingStart="0dp"
+            android:text="@string/edit_family_and_tasks"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit" />
 
         <Button
             android:id="@+id/button1"
@@ -135,23 +124,22 @@
             android:layout_height="40dp"
             android:background="@android:color/transparent"
             android:fontFamily="sans-serif-light"
-            android:paddingStart="-1dp"
+            android:paddingStart="0dp"
             android:text="@string/get_help"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintBottom_toTopOf="@+id/button3"
             app:layout_constraintStart_toEndOf="@+id/help" />
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calenderView"
-            android:layout_width="952dp"
-            android:layout_height="278dp"
-            android:layout_marginBottom="468dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="959dp"
+            android:layout_height="289dp"
+            android:layout_marginStart="267dp"
+            app:layout_constraintBottom_toTopOf="@+id/days"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.828"
             app:mcv_calendarMode="week"
             app:mcv_dateTextAppearance="@style/TextAppearance.AppCompat.Large"
             app:mcv_firstDayOfWeek="monday"
@@ -162,12 +150,11 @@
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/edit"
             android:layout_width="41dp"
             android:layout_height="40dp"
             android:contentDescription="@string/edit"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button2"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
@@ -176,7 +163,7 @@
             android:layout_width="41dp"
             android:layout_height="40dp"
             android:contentDescription="@string/get_help_img"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton"
+            app:layout_constraintBottom_toTopOf="@+id/edit"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@android:drawable/ic_menu_info_details" />
 
@@ -243,10 +230,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hourView"
-            android:layout_width="956dp"
-            android:layout_height="470dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginBottom="1dp"
+            android:layout_width="961dp"
+            android:layout_height="468dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timeSlot" />
 </androidx.constraintlayout.widget.ConstraintLayout>
