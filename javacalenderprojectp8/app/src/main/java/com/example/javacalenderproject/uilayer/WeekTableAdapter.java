@@ -1,4 +1,4 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.uilayer;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskPlanned;
+import com.example.javacalenderproject.model.TimeSlot;
+import com.example.javacalenderproject.model.Week;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +83,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             // set tasks: REVIDERES: skal læse og vise flere tasks!
             if (!tasks.isEmpty()) {
+                ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
                 String text = tasks.get(0).getName();
                 ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task);
                 ((TimeSlotViewHolder)holder).task1.setText(text);

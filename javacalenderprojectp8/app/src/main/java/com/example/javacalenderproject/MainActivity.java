@@ -5,20 +5,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.javacalenderproject.functionlayer.CreateWeek;
+import com.example.javacalenderproject.functionlayer.SetupHourView;
+import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,22 +33,7 @@ public class MainActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         //
-        // TEST recyclerview with position/data match
-        //TESTDATA
-        int[][] priceArray = new int[7][24];
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 12; j++) {
-                priceArray[i][j] = 1;
-            }
-            for (int k = 12; k <24; k++){
-                priceArray[i][k] = 3;
-            }
-        }
-        priceArray[3][3] = 3;
-        priceArray[0][0] = 3;
-        priceArray[0][1] = 2;
-        priceArray[6][0] = 2;
-        priceArray[6][23] = 1;
+
 
 
         // create test week data

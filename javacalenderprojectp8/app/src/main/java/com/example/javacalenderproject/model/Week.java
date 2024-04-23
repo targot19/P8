@@ -1,10 +1,10 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.model;
 
 public class Week {
     private int weekNumber;
     private TimeSlot[][] timeSlots;
 
-    Week(int weekNumber) {
+    public Week(int weekNumber) {
         this.weekNumber = weekNumber;
         initializeTimeSlots();
     }

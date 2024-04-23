@@ -1,4 +1,7 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.functionlayer;
+
+import com.example.javacalenderproject.database.TaskPlanned;
+import com.example.javacalenderproject.model.Week;
 
 public class CreateWeek {
     public static Week createTestWeek() {

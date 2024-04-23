@@ -1,4 +1,6 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.database;
+import com.example.javacalenderproject.FamilyMember;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class TaskPlanned {
         // get hour from date to set hour
         duration = 0;
     }
-    TaskPlanned(String name) {
+    public TaskPlanned(String name) {
         this.name = name;
         this.date = null;
         // get hour from date to set hour

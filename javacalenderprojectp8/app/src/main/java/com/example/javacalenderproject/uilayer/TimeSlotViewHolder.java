@@ -1,4 +1,4 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.uilayer;
 
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,8 +8,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.javacalenderproject.R;
+
 public class TimeSlotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    LinearLayout container;
+    public LinearLayout container;
     TextView task1;
     public TimeSlotViewHolder(@NonNull View itemView) {
         super(itemView);

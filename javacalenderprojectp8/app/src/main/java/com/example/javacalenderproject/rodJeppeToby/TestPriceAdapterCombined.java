@@ -1,4 +1,4 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.rodJeppeToby;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.uilayer.TimeSlotViewHolder;
+import com.example.javacalenderproject.uilayer.TimeViewHolder;
 
 import java.util.List;
 

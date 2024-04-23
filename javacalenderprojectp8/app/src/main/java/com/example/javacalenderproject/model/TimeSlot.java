@@ -1,11 +1,9 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.model;
 
-import android.os.Build;
+import com.example.javacalenderproject.database.TaskPlanned;
 
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TimeSlot {
     LocalDateTime date;

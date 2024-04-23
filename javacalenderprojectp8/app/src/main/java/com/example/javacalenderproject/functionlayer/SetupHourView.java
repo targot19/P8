@@ -1,10 +1,13 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.functionlayer;
 
 import android.content.Context;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.javacalenderproject.model.Week;
+import com.example.javacalenderproject.uilayer.WeekTableAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
