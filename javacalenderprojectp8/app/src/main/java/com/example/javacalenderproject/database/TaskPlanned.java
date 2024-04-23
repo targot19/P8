@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 @Entity(tableName = "planned_tasks")
 public class TaskPlanned {
@@ -30,7 +31,6 @@ public class TaskPlanned {
     }
 
     // Getters and setters
-import com.example.javacalenderproject.FamilyMember;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
