@@ -1,6 +1,13 @@
 package com.example.javacalenderproject.api;
 
+import android.util.Log;
+
+import com.example.javacalenderproject.model.HourlyPrice;
+import com.google.gson.Gson;
 import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -10,35 +17,51 @@ public class ApiClient {
 
     // HTTP client for sending request
     private static final OkHttpClient client = new OkHttpClient();
+    // Define an interface for callback
+    public interface ApiCallback {
+        void onSuccess(HourlyPrice[] allHourlyPrices);
+        void onFailure(IOException e);
+    }
 
-    // Method to fetch data from website URL using API key and secret for authentication
-    public static String fetchData() throws IOException {
-        // Generate the authorization token
+    // New version of fetchData:
+    public static void fetchData(final ApiCallback callback) {
         String authorizationToken = ApiAuthenticator.generateBearerToken();
 
-        // Create a new API request with the Authorization header as specified in the documentation
         Request request = new Request.Builder()
                 .url("https://api.minstroem.app/thirdParty/prices/DK1/forecast")
                 .header("Authorization", authorizationToken)
                 .build();
 
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return response.body().string(); // it's here we want to edit to parse response properly
-            } else {
-                throw new IOException("Unexpected response code: " + response.code());
+        // Messages for testing:
+        Log.d("ApiClient", "Request URL: " + request.url());
+        Log.d("ApiClient", "Request Headers: " + request.headers());
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    // Store JSON response as one long String
+                    String jsonResponse = response.body().string();
+                    // Log jsonResponse, for testing:
+                    Log.d("ApiClient", "Response Body: " + jsonResponse);
+
+                    // Instantiate Gson (for parsing Json into objects)
+                    Gson gson = new Gson();
+                    // Parse json into objects of the class HourlyPrice + assign to array
+                    HourlyPrice[] allHourlyPrices = gson.fromJson(jsonResponse, HourlyPrice[].class);
+                    // "return" the allHourlyPrices array if fetch is successful:
+                    callback.onSuccess(allHourlyPrices);
+                } else {
+                    // "return" an error message, if fetch fails:
+                    callback.onFailure(new IOException("Unexpected response code: " + response.code()));
+                }
             }
-        } catch (Exception e) {
-            // Log errors if any
-            e.printStackTrace();
-            return e.getMessage();
-        }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure(e);
+            }
+        });
     }
 }
 
-
-/* Old line 31-35
-    Then send the request and retrieve the response
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return response.body();  it's here we want to parse response properly */
