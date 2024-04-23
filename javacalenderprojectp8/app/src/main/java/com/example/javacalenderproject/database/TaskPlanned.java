@@ -42,7 +42,7 @@ public class TaskPlanned {
     TaskPlanned(String name, LocalDateTime date) {
         this.taskName = name;
         //this.date = date;
-        // get hour from date to set hour
+        // get hour from date: this.hour = date.getHour();
         taskDuration = 0;
     }
 
