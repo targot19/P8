@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.util.Log;
 
+import com.example.javacalenderproject.database.Task;
+import com.example.javacalenderproject.database.TaskDatabase;
+import com.example.javacalenderproject.database.TaskPlanned;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {

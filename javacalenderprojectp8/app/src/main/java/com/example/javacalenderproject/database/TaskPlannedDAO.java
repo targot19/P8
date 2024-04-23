@@ -1,4 +1,4 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

@@ -1,8 +1,11 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.example.javacalenderproject.MainActivity;
+import com.example.javacalenderproject.familyMember;
 
 import java.util.ArrayList;
 import java.util.List;
