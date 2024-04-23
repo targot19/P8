@@ -1,4 +1,8 @@
 package com.example.javacalenderproject.model;
+import com.example.javacalenderproject.database.Task;
+
+
+
 import java.util.*;
 public class timeBlock {
 
@@ -7,6 +11,8 @@ public class timeBlock {
     private int minutes;
 
     private ArrayList <Task> tasks;
+
+
 
     public void addTaskToTimeBlock(Task task) {
 
@@ -28,11 +34,7 @@ public class timeBlock {
         * next timeblock
         *
         *  */
-        int count = 0;
-        for (int i = 0; i < 24; i++) {
-            count += count;
-            hours = count;
-        }
+
     }
 
     public int getHours() {
