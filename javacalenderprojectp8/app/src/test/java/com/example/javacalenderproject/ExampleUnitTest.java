@@ -1,3 +1,4 @@
+
 package com.example.javacalenderproject;
 
 import org.junit.Test;
@@ -5,6 +6,7 @@ import static org.junit.Assert.*;
 
 import com.example.javacalenderproject.api.ApiAuthenticator;
 import com.example.javacalenderproject.api.ApiClient;
+import com.example.javacalenderproject.model.HourlyPrice;
 
 import java.io.IOException;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -35,6 +37,7 @@ public class ExampleUnitTest {
     }
 
     // Generate Bearer token for authentication and test fetching
+    /*
     @Test
     public void testAPIConnection() throws IOException {
         // Try to generate the right Bearer token
@@ -47,4 +50,18 @@ public class ExampleUnitTest {
         assertNotNull(data); // Ensure there is data fetched
         System.out.println(ApiClient.fetchData()); // Print the fetched data
     }
+    */
+    @Test
+    public void testAPIConnection() throws IOException {
+        // Try to generate the right Bearer token
+        String bearerToken = ApiAuthenticator.generateBearerToken();
+        assertNotNull(bearerToken); // Ensure token is not empty
+        System.out.println(ApiAuthenticator.generateBearerToken()); // Print the token
+
+        // Try to fetch data from the URL
+        HourlyPrice[] data = ApiClient.fetchData();
+        assertNotNull(data); // Ensure there is data fetched
+        System.out.println(ApiClient.fetchData()); // Print the fetched data
+    }
+
 }

@@ -23,13 +23,16 @@ public class MainActivity extends AppCompatActivity {
     // Declare the MaterialCalendarView and Calendar objects.
     MaterialCalendarView calendarView;
     java.util.Calendar calendar;
-    public static TaskDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_main);
         database = TaskDatabase.getDatabase(getApplicationContext());
+
+        // TEST: API call & fetch data + do something with it.
+        FetchManager.fetchApiData();
 
         // Initialize the calendarView by finding it in the layout.
         calendarView = findViewById(R.id.calenderView);
@@ -89,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-
 /**
  * // calender ting
  public void setDate(int day, int month, int year) {
@@ -155,5 +157,11 @@ public class MainActivity extends AppCompatActivity {
  }
  }
 
+    public void setDate(int day, int month, int year) {
+        // Set the calendar to the specified year, month, and day.
+        calendar.set(Calendar.YEAR, year);
+        // Subtract 1 from month because Calendar.MONTH is 0-based.
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
 
  } **/
