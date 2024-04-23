@@ -51,7 +51,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9") // for json parsing
     implementation("io.github.cdimascio:dotenv-java:3.0.0") // env variable package
     implementation("androidx.room:room-common:2.6.1")
-    implementation(libs.gridlayout)
+    //implementation("libs.gridlayout")
     implementation("com.github.prolificinteractive:material-calendarview:1.6.1")
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
