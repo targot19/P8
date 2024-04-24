@@ -1,6 +1,7 @@
 package com.example.javacalenderproject.uilayer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,16 +82,37 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.white);
             }
 
-            // set tasks: REVIDERES: skal læse og vise flere tasks!
+            // set tasks: REVIDERES: skal læse og vise flere tasks
             if (!tasks.isEmpty()) {
-                ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
+
+                if(tasks.size() == 1) {
+                    ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
+                    ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
+                    String text = tasks.get(0).getTaskName();
+                    ((TimeSlotViewHolder)holder).task1.setText(text);
+                    ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task1);
+
+                }
+                else if (tasks.size() > 1) {
+                    ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
+                    ((TimeSlotViewHolder)holder).task2.setVisibility(View.VISIBLE);
+                    ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task1);
+                    ((TimeSlotViewHolder)holder).task2.setBackgroundResource(R.color.task1);
+                    String text1 = tasks.get(0).getTaskName();
+                    String text2 = tasks.get(1).getTaskName();
+                    ((TimeSlotViewHolder)holder).task1.setText(text1);
+                    ((TimeSlotViewHolder)holder).task2.setText(text2);
+                }
+
+                /*((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
                 String text = tasks.get(0).getTaskName();
                 ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task);
-                ((TimeSlotViewHolder)holder).task1.setText(text);
+                ((TimeSlotViewHolder)holder).task1.setText(text);*/
             }
             // force to hide textview if no tasks in timeslot
             else if (tasks.isEmpty()) {
                 ((TimeSlotViewHolder)holder).task1.setVisibility(View.GONE);
+                ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
             }
 
             //-------- FOR TESTING: toast + logging

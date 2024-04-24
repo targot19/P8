@@ -13,10 +13,12 @@ import com.example.javacalenderproject.R;
 public class TimeSlotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public LinearLayout container;
     TextView task1;
+    TextView task2;
     public TimeSlotViewHolder(@NonNull View itemView) {
         super(itemView);
         container = itemView.findViewById(R.id.time_slot_view_container);
         task1 = itemView.findViewById(R.id.task1);
+        task2 = itemView.findViewById(R.id.task2);
 
         // on click listener for testing position calculation/databind logic
         itemView.setOnClickListener(this);
