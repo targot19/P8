@@ -87,22 +87,19 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 // make edge line visible
                 ((TimeSlotViewHolder)holder).edge.setVisibility(View.VISIBLE);
 
-                // 1 task in timeslot: Make 1 task textview visible, set text to name of task and set background color
+                // if 1 task in timeslot: Make 1 task textview visible and set text to name of task
                 if(tasks.size() == 1) {
                     ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
                     ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
                     ((TimeSlotViewHolder)holder).separator.setVisibility(View.GONE);
-                    String text = tasks.get(0).getTaskName();
-                    ((TimeSlotViewHolder)holder).task1.setText(text);
-                    ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task);
+                    String taskName = tasks.get(0).getTaskName();
+                    ((TimeSlotViewHolder)holder).task1.setText(taskName);
 
                 }
                 else if (tasks.size() > 1) {
                     ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
                     ((TimeSlotViewHolder)holder).task2.setVisibility(View.VISIBLE);
                     ((TimeSlotViewHolder)holder).separator.setVisibility(View.VISIBLE);
-                    ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task);
-                    ((TimeSlotViewHolder)holder).task2.setBackgroundResource(R.color.task);
                     String text1 = tasks.get(0).getTaskName();
                     String text2 = tasks.get(1).getTaskName();
                     ((TimeSlotViewHolder)holder).task1.setText(text1);
@@ -113,9 +110,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             // force to hide views for tasks if no tasks in timeslot
             else {
                 ((TimeSlotViewHolder)holder).edge.setVisibility(View.GONE);
+                ((TimeSlotViewHolder)holder).separator.setVisibility(View.GONE);
                 ((TimeSlotViewHolder)holder).task1.setVisibility(View.GONE);
                 ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
-                ((TimeSlotViewHolder)holder).separator.setVisibility(View.GONE);
             }
 
             //-------- FOR TESTING: toast + logging
