@@ -4,6 +4,14 @@ import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.model.Week;
 
 public class CreateWeek {
+
+    public static Week emptyWeek() {
+        // TEST WeekTableAdapter:
+        // create week
+        Week emptyWeek = new Week(1);
+
+        return emptyWeek;
+    }
     public static Week createTestWeek() {
         // TEST WeekTableAdapter:
         // create week

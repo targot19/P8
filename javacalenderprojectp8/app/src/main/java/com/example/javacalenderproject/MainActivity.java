@@ -2,21 +2,28 @@ package com.example.javacalenderproject;
 
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
+import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
+import com.example.javacalenderproject.functionlayer.GetWeekDates;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
 import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,8 +70,55 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
             }
         });
+
         // create test week data
-        Week testWeek = CreateWeek.createTestWeek();
+        Week testWeek = CreateWeek.emptyWeek();
+
+        // 1. get today's date /  set date
+        LocalDate date = LocalDate.now();
+        //LocalDateTime date = LocalDateTime.of(2024,4,1,00,00);
+
+        // create weekfields object, specifying that first day of the week is monday
+        //WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,4);
+        WeekFields weekFields = WeekFields.ISO;
+
+        // 2. Get the week of the year
+        // get the week of the year using weekFields
+        int weekOfYear = date.get(weekFields.weekOfYear());
+
+        // 3. get year from date (required to get dates from week)
+        int year = date.getYear();
+
+        List<LocalDate> weekDates = GetWeekDates.GetWeekDates(weekOfYear, year);
+
+        // set TaskPlanned for test
+        TaskPlanned task1 = new TaskPlanned("weekOfYear: "+weekOfYear);
+        //TaskPlanned task2 = new TaskPlanned("firstDayOfWeek: "+startOfWeekDateTime);
+        TaskPlanned day1 = new TaskPlanned("monday: "+weekDates.get(0));
+        TaskPlanned day2 = new TaskPlanned("tuesday: "+weekDates.get(1));
+        TaskPlanned day3 = new TaskPlanned("wednesday: "+weekDates.get(2));
+        TaskPlanned day4 = new TaskPlanned("thursday: "+weekDates.get(3));
+        TaskPlanned day5 = new TaskPlanned("friday: "+weekDates.get(4));
+        TaskPlanned day6 = new TaskPlanned("saturday: "+weekDates.get(5));
+        TaskPlanned day7 = new TaskPlanned("sunday: "+weekDates.get(6));
+
+        testWeek.getTimeSlots()[0][8].addTask(task1);
+        //testWeek.getTimeSlots()[1][7].addTask(task2);
+        //test days of week
+        testWeek.getTimeSlots()[0][9].addTask(day1);
+        testWeek.getTimeSlots()[1][9].addTask(day2);
+        testWeek.getTimeSlots()[2][9].addTask(day3);
+        testWeek.getTimeSlots()[3][9].addTask(day4);
+        testWeek.getTimeSlots()[4][9].addTask(day5);
+        testWeek.getTimeSlots()[5][9].addTask(day6);
+        testWeek.getTimeSlots()[6][9].addTask(day7);
+
+
+
+
+        System.out.println("Date: " + date);
+        System.out.println("Week of the year: " + weekOfYear);
+
         // ---- setup recyclerview for weekplan
         // create recyclerview and initialize by finding view by id
         RecyclerView recyclerView = findViewById(R.id.hourView);
