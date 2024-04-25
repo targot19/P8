@@ -15,7 +15,7 @@ import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import java.util.List;
+
 import java.util.Calendar;
 
 
@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_main);
+
+        // Set database
         database = TaskDatabase.getDatabase(getApplicationContext());
 
         // TEST: API call & fetch data + do something with it.
@@ -63,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Create FamilyGrid instance and add the grid to the layout
+        FamilyGrid familyGrid = new FamilyGrid();
+        familyGrid.createGridView(this);
+
         // create test week data
         Week testWeek = CreateWeek.createTestWeek();
         // ---- setup recyclerview for weekplan
@@ -70,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.hourView);
         // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
         // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity?
-        SetupHourView.setup(this,recyclerView, getApplicationContext(), testWeek);
+        SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
 
         // moved to SetupHourView class. Better to keep in MainActivity?
         /*
@@ -87,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
          // WeekTableAdapter
         recyclerView.setAdapter(new WeekTableAdapter(getApplicationContext(), testWeek, timeList));
         */
-
 
 
         // TestPriceAdapterCombined (added time column)
