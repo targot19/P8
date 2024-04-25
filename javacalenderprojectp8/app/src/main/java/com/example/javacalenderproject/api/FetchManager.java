@@ -21,8 +21,8 @@ public class FetchManager {
                     Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
                     Log.d("Api",  "Hour: " + hourlyPrice.getHour());
                 }
-
             }
+
             // If fetchData fails: Print error message
             @Override
             public void onFailure(IOException e) {
