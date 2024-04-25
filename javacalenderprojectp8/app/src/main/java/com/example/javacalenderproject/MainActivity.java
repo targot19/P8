@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         // 3. get year from date (required to get dates from week)
         int year = date.getYear();
 
-        List<LocalDate> weekDates = GetWeekDates.GetWeekDates(weekOfYear, year);
+        List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
 
         // set TaskPlanned for test
         TaskPlanned task1 = new TaskPlanned("weekOfYear: "+weekOfYear);
@@ -112,12 +112,6 @@ public class MainActivity extends AppCompatActivity {
         testWeek.getTimeSlots()[4][9].addTask(day5);
         testWeek.getTimeSlots()[5][9].addTask(day6);
         testWeek.getTimeSlots()[6][9].addTask(day7);
-
-
-
-
-        System.out.println("Date: " + date);
-        System.out.println("Week of the year: " + weekOfYear);
 
         // ---- setup recyclerview for weekplan
         // create recyclerview and initialize by finding view by id
