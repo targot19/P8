@@ -1,6 +1,9 @@
 package com.example.javacalenderproject;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,11 +18,11 @@ import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import java.util.List;
+
 import java.util.Calendar;
 
 
-public class MainActivity extends AppCompatActivity {
+public abstract class MainActivity extends AppCompatActivity {
 
     // Declare the MaterialCalendarView and Calendar objects.
     MaterialCalendarView calendarView;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_main);
+
+        // Set database
         database = TaskDatabase.getDatabase(getApplicationContext());
 
         // TEST: API call & fetch data + do something with it.
@@ -94,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
         //recyclerView.setAdapter(new TestPriceAdapterCombined(getApplicationContext(), priceArray,timeList));
 
     }
+
+    public abstract View onCreateView(
+            @NonNull LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
+    );
 }
 /**
  * // calender ting
