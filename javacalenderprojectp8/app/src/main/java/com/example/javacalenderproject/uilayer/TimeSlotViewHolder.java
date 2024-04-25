@@ -14,11 +14,15 @@ public class TimeSlotViewHolder extends RecyclerView.ViewHolder implements View.
     public LinearLayout container;
     TextView task1;
     TextView task2;
+    View separator;
+    View edge;
     public TimeSlotViewHolder(@NonNull View itemView) {
         super(itemView);
         container = itemView.findViewById(R.id.time_slot_view_container);
         task1 = itemView.findViewById(R.id.task1);
         task2 = itemView.findViewById(R.id.task2);
+        separator = itemView.findViewById(R.id.task_separator);
+        edge = itemView.findViewById(R.id.edge);
 
         // on click listener for testing position calculation/databind logic
         itemView.setOnClickListener(this);

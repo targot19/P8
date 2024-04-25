@@ -3,9 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#A1EA81</color>
-    <color name="yellow">#EADC81</color>
+    <color name="yellow">#EADC80</color>
     <color name="red">#EA8181</color>
-    <color name="task">#DCD1D1</color>
-    <color name="task1">#4D686A6E</color>
+    <color name="task">#34686A6E</color>
     <color name="timeBlock">#EDE9E9</color>
 </resources>

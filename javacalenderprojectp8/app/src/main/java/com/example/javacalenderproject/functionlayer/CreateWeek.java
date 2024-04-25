@@ -32,12 +32,10 @@ public class CreateWeek {
         testWeek.getTimeSlots()[0][7].addTask(task2);
         testWeek.getTimeSlots()[0][7].addTask(task3);
 
-
         testWeek.getTimeSlots()[6][23].addTask(task1);
         testWeek.getTimeSlots()[1][9].addTask(task2);
         testWeek.getTimeSlots()[2][9].addTask(task1);
         testWeek.getTimeSlots()[3][9].addTask(task3);
-
 
         return testWeek;
     }
