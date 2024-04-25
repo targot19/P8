@@ -1,9 +1,6 @@
 package com.example.javacalenderproject;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +19,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.Calendar;
 
 
-public abstract class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     // Declare the MaterialCalendarView and Calendar objects.
     MaterialCalendarView calendarView;
@@ -68,6 +65,11 @@ public abstract class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Create FamilyGrid instance and add the grid to the layout
+        FamilyGrid familyGrid = new FamilyGrid();
+        familyGrid.createGridView(this);
+
         // create test week data
         Week testWeek = CreateWeek.createTestWeek();
         // ---- setup recyclerview for weekplan
@@ -75,7 +77,7 @@ public abstract class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.hourView);
         // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
         // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity?
-        SetupHourView.setup(this,recyclerView, getApplicationContext(), testWeek);
+        SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
 
         // moved to SetupHourView class. Better to keep in MainActivity?
         /*
@@ -94,16 +96,10 @@ public abstract class MainActivity extends AppCompatActivity {
         */
 
 
-
         // TestPriceAdapterCombined (added time column)
         //recyclerView.setAdapter(new TestPriceAdapterCombined(getApplicationContext(), priceArray,timeList));
 
     }
-
-    public abstract View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    );
 }
 /**
  * // calender ting

@@ -1,36 +1,18 @@
 package com.example.javacalenderproject;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
-
-import androidx.annotation.NonNull;
 
 import com.example.javacalenderproject.uilayer.CustomGridAdapter;
 
-public class FamilyGrid extends MainActivity {
+public class FamilyGrid {
     // Make list of images from drawables to use in gridview
     private final Integer[] images = {R.drawable.mom, R.drawable.dad};
 
-    //private FragmentFirstBinding binding;
+    public void createGridView(MainActivity activity) {
+        // Find the grid view in the activity layout
+        GridView gridView = activity.findViewById(R.id.familymember);
 
-    @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
-
-        GridView gridView = (GridView) view.findViewById(R.id.familymember);
-
-        gridView.setAdapter(new CustomGridAdapter(getApplicationContext(), images));
-
-        return view;
-
-        //binding = FragmentFirstBinding.inflate(inflater, container, false);
-        //return binding.getRoot();
-
+        // Set the adapter to display the images in the grid view
+        gridView.setAdapter(new CustomGridAdapter(activity, images));
     }
 }

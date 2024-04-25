@@ -1,35 +1,34 @@
 package com.example.javacalenderproject.uilayer;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 public class CustomGridAdapter extends BaseAdapter {
     private final Context mContext;
+    private final Integer[] mThumbIds;
 
-    public Integer[] mThumbIds;
-
-    public CustomGridAdapter(Context context, Integer[] items) {
+    public CustomGridAdapter(Context context, Integer[] images) {
         this.mContext = context;
-        this.mThumbIds = items;
+        this.mThumbIds = images;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return mThumbIds.length; // Return the number of items in the array
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mThumbIds[position]; // Return the item at the specified position
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position; // Return the position as the item ID
     }
 
     @Override
@@ -37,14 +36,12 @@ public class CustomGridAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
+            imageView.setLayoutParams(new LayoutParams(100, 100));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageResource(mThumbIds[ position]);
-
-        Log.v("CustomAdapter", "Calling convertView " + convertView);
+        imageView.setImageResource(mThumbIds[position]);
 
         return imageView;
     }
