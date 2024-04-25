@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="165dp"
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/tilføj_opgave"
+            android:layout_width="113dp"
+            android:layout_height="match_parent"
+            android:hint="@string/tilf_j_opgave"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/addtask"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@color/opgavebaggrund"
+            android:backgroundTint="@color/opgaver"
+            android:scaleType="centerCrop"
+            android:textColorLink="@color/opgavebaggrund"
+            app:icon="@android:drawable/ic_menu_add"
+            app:rippleColor="@color/opgaver" />
+    </LinearLayout>
+</RelativeLayout>

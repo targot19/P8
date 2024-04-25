@@ -58,4 +58,6 @@
     <string name="tirsdag">Tirsdag</string>
     <string name="mandag">Mandag</string>
     <string name="opgaver">Opgaver</string>
+    <string name="tilf_j_opgave">Tilføj opgave</string>
+    <string name="tilf_j">Tilføj</string>
 </resources>

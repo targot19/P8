@@ -3,6 +3,8 @@
     <color name="task">#C5C5C5</color>
     <color name="timeBlock">#EDE9E9</color>
     <color name="task1">#4D686A6E</color>
+    <color name="opgaver">#64748B</color>
+    <color name="opgavebaggrund">#F8FAFC</color>
 
     <!-- Android style -->
     <color name="android_green">#A4C639</color>
