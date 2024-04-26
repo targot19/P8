@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">javacalenderproject</string>
     <string name="action_settings">Settings</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -43,6 +44,8 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+    <!-- Strings used for overall UI -->
     <string name="get_help">Get help</string>
     <string name="edit_family_and_tasks">Edit family and tasks</string>
     <string name="logo">Logo</string>
@@ -50,4 +53,10 @@
     <string name="drag_and_drop">Drag and drop</string>
     <string name="edit">Edit</string>
     <string name="get_help_img">Get Help</string>
+
+    <!-- Strings used for the get help popup -->
+    <string name="welcome_message">Velkommen til EcoHour! Læs mere om appens funktionalitet her:</string>
+    <string name="weekly_overview">Ugeoversigt - Skift mellem hvilken uge, der vises med tilbage- og frem-knapperne. Se de estimerede elpriser for hver time på hver dag, angivet med henholdsvis grøn, gul eller rød for at afspejle den relative elpris.</string>
+    <string name="tasks_info">Opgaver - Her kan du oprette nye opgaver og også trække og slippe eksisterende opgaver ind i kalenderen for at tilføje dem til en dag. Fjern eksisterende opgaver i tilstanden \"Rediger familie og opgaver\".</string>
+    <string name="family_members">Familiemedlemmer - Her kan du trække og slippe familiemedlemmer til opgaver for at tildele dem. Tilføj og fjern medlemmer i tilstanden \"Rediger familie og opgaver\".</string>
 </resources>

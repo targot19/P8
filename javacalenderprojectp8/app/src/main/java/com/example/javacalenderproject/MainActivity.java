@@ -1,6 +1,9 @@
 package com.example.javacalenderproject;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
+import com.example.javacalenderproject.functionlayer.HelpPopup;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
 import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -36,6 +40,24 @@ public class MainActivity extends AppCompatActivity {
 
         // TEST: API call & fetch data + do something with it.
         FetchManager.fetchApiData();
+
+        // Our 'Get Help' text button initializer and onclicklistener
+        Button helpButton = findViewById(R.id.button1);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HelpPopup.showHelpPopup(MainActivity.this);
+            }
+        });
+
+        // Our 'Get Help' text button initializer and onclicklistener
+        ImageButton helpImageButton = findViewById(R.id.help);
+        helpImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HelpPopup.showHelpPopup(MainActivity.this);
+            }
+        });
 
         // Initialize the calendarView by finding it in the layout.
         calendarView = findViewById(R.id.calenderView);
