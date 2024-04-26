@@ -12,9 +12,7 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:hint="@string/tilf_j_opgave"
-            android:id="@+id/tilføj_opgave"
-
-            />
+            android:id="@+id/tilføj_opgave" />
 
         <Button
             android:id="@+id/addtask"

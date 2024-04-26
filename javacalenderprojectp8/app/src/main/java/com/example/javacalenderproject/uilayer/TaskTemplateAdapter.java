@@ -24,8 +24,8 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Implement this method to inflate the item layout
-        TextView textView = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main, parent, false);
-        return new ViewHolder(textView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_template, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
