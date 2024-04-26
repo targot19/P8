@@ -113,6 +113,5 @@ public class Task {
 
     public void reload() {
         tasks = MainActivity.database.taskDAO().getAllTasks();
-
     }
 }

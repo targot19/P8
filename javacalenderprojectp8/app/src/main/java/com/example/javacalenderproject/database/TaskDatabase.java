@@ -5,9 +5,8 @@ import androidx.room.RoomDatabase;
 import android.content.Context;
 import androidx.room.Room;
 import androidx.room.TypeConverters;
-
-
-@Database(entities = {Task.class, TaskPlanned.class}, version = 4, exportSchema = false)
+// changed version to 5
+@Database(entities = {Task.class, TaskPlanned.class}, version = 5, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class TaskDatabase extends RoomDatabase {
     public abstract TaskDAO taskDAO();
@@ -22,6 +21,8 @@ public abstract class TaskDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     TaskDatabase.class, "tasks")
                             .fallbackToDestructiveMigration()
+                            // allow mainthreadqueries ---------
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

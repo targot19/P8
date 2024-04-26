@@ -1,14 +1,69 @@
 package com.example.javacalenderproject.functionlayer;
 
+import static com.example.javacalenderproject.MainActivity.database;
+
+import androidx.room.Database;
+
+import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.model.Week;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateWeek {
+
+    public static List<TaskPlanned> getWeekTasks (List<LocalDate> weekDays) {
+        // get list of all planned tasks
+        List<TaskPlanned> allTasks = database.taskPlannedDAO().getAllPlannedTasks();
+
+        // create new list to hold tasks for specified days
+        List<TaskPlanned> weekTasks = new ArrayList<>();
+
+        // TEST
+        /*
+        LocalDateTime date1 = LocalDateTime.of(2024, 4, 25, 1,1 );
+        LocalDateTime date2 = LocalDateTime.of(2024, 4, 25, 1, 1);
+        TaskPlanned tAsK = new TaskPlanned("taaaaask", date1);
+        allTasks.add(tAsK);
+
+         */
+
+
+        // loop through list of all planned tasks and add the ones where date variable matches the week days
+        // iterate all planned tasks
+        for (int i = 0; i < allTasks.size(); i ++) {
+            for (int j = 0; j < weekDays.size(); j++) {
+                if (allTasks.get(i).getDate().toLocalDate().equals(weekDays.get(j))) {
+                    weekTasks.add(allTasks.get(i));
+                }
+            }
+        }
+
+        /*
+        for (TaskPlanned task: allTasks) {
+            // iterate all days in the week
+            for (LocalDate weekDate: weekDays) {
+                // if date of weekday matches date of task: add task to list of week tasks
+                LocalDate temp = task.getDate().toLocalDate();
+                if (temp.equals(weekDate)) {
+                    weekTasks.add(task);
+                }
+            }
+        }
+
+         */
+
+        return weekTasks;
+        //return allTasks;
+    }
+
+
+
+    // method returns list of the days of the week from the given weeknumber and year
     public static List<LocalDate> GetWeekDates (int weekOfYear, int year) {
 
         WeekFields weekFields = WeekFields.ISO;
@@ -33,6 +88,8 @@ public class CreateWeek {
         return weekDates;
     }
 
+    // method creates new week with no data
+    // OBS: Currently returns week with testdata (not empty week)
     public static Week emptyWeek() {
         // TEST WeekTableAdapter:
         // create week
@@ -54,6 +111,8 @@ public class CreateWeek {
                 testWeek.getTimeSlots()[i][k].setColor("red");
             }
         }
+
+        // TEST DATA
         testWeek.getTimeSlots()[2][7].setColor("yellow");
         testWeek.getTimeSlots()[3][7].setColor("yellow");
         testWeek.getTimeSlots()[0][7].setColor("green");

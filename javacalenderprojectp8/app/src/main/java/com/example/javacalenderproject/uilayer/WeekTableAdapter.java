@@ -124,7 +124,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
             //LOGGING
-            Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
+            //Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
 
         } else if (viewType == TYPE_HEADER) {
             // calculate index in rowHeader list from position
