@@ -1,5 +1,6 @@
 package com.example.javacalenderproject;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
+import com.example.javacalenderproject.model.HourlyPrice;
 import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -18,6 +20,8 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static TaskDatabase database;
 
+    @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         database = TaskDatabase.getDatabase(getApplicationContext());
 
         // TEST: API call & fetch data + do something with it.
-        //FetchManager.fetchApiData();
+        FetchManager.fetchApiData();
 
         // Initialize the calendarView by finding it in the layout.
         calendarView = findViewById(R.id.calenderView);
@@ -63,18 +68,30 @@ public class MainActivity extends AppCompatActivity {
                 // Add 1 to month since CalendarDay months are 0-based (January is 0).
                 int month = date.getMonth() + 1;
                 int day = date.getDay();
-
                 // Display a toast message showing the selected date.
                 Toast.makeText(MainActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
             }
         });
 
         // CREATE TESTDATA IN DATABASE
-        //CreateTaskPlanned.createTask("TestTask",LocalDateTime.now());
-        //CreateTaskPlanned.createTask("T2",LocalDateTime.now());
-        //CreateTaskPlanned.createTask("T3",LocalDateTime.now());
-        //CreateTaskPlanned.createTask("T4",LocalDateTime.now());
-        //CreateTaskPlanned.createTask("T5",LocalDateTime.now());
+        /*
+        CreateTaskPlanned.createTask("TestTask", ZonedDateTime.now(ZoneId.of("Europe/Copenhagen")).toLocalDateTime());
+        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,4,25,1,1));
+        CreateTaskPlanned.createTask("T3",LocalDateTime.now());
+        CreateTaskPlanned.createTask("T4",LocalDateTime.now());
+        CreateTaskPlanned.createTask("T5",LocalDateTime.now());
+
+         */
+
+        // create tasks for different week
+/*
+        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
+        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
+        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
+        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
+ */
+        // clear all data in database
+        //database.clearAllTables();
 
         // create test week data
         Week testWeek = CreateWeek.emptyWeek();
@@ -94,12 +111,13 @@ public class MainActivity extends AppCompatActivity {
         // 3. get year from date (required to get dates from week)
         int year = date.getYear();
 
+        // 4. get list of dates for specified weeknumber and year
         List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
 
-        // get tasks for week
+        // 5. get tasks for week
         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
 
-
+/*
         // set weekdays as TaskPlanned for test
         TaskPlanned task1 = new TaskPlanned("weekOfYear: "+weekOfYear);
         //TaskPlanned task2 = new TaskPlanned("firstDayOfWeek: "+startOfWeekDateTime);
@@ -121,28 +139,37 @@ public class MainActivity extends AppCompatActivity {
         testWeek.getTimeSlots()[4][9].addTask(day5);
         testWeek.getTimeSlots()[5][9].addTask(day6);
         testWeek.getTimeSlots()[6][9].addTask(day7);
+ */
 
-
-        /*
         // TEST get LENGTH OF weekTasks list
+
         TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
-        TaskPlanned taskDate = new TaskPlanned("date weekTasks[0]: " +weekTasks.get(0).getDate());
+        /*
+        if (weekTasks.size() > 1) {
+            TaskPlanned taskDate1 = new TaskPlanned("date weekTasks[0]: " + weekTasks.get(0).getDate());
+            testWeek.getTimeSlots()[1][9].addTask(taskDate1);
+            TaskPlanned taskDate2 = new TaskPlanned("date weekTasks[1]: " + weekTasks.get(1).getDate());
+            testWeek.getTimeSlots()[2][9].addTask(taskDate2);
+        }
+        */
 
         testWeek.getTimeSlots()[0][9].addTask(taskLen);
-        testWeek.getTimeSlots()[1][9].addTask(taskDate);
 
         // test: add tasks from database to week
-        testWeek.getTimeSlots()[1][9].addTask(weekTasks.get(1));
-        testWeek.getTimeSlots()[2][9].addTask(weekTasks.get(2));
-        testWeek.getTimeSlots()[3][9].addTask(weekTasks.get(3));
-        */
+
+        testWeek.getTimeSlots()[1][9].addTask(weekTasks.get(0));
+        testWeek.getTimeSlots()[2][9].addTask(weekTasks.get(1));
+        testWeek.getTimeSlots()[3][9].addTask(weekTasks.get(2));
+        testWeek.getTimeSlots()[4][9].addTask(weekTasks.get(3));
+        testWeek.getTimeSlots()[5][9].addTask(weekTasks.get(4));
+
 
         // ---- setup recyclerview for weekplan
         // create recyclerview and initialize by finding view by id
         RecyclerView recyclerView = findViewById(R.id.hourView);
         // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
         // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity?
-        SetupHourView.setup(this,recyclerView, getApplicationContext(), testWeek);
+        SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
 
         // moved to SetupHourView class. Better to keep in MainActivity?
         /*

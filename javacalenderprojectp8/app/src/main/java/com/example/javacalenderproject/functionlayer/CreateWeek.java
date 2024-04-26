@@ -29,12 +29,12 @@ public class CreateWeek {
         LocalDateTime date2 = LocalDateTime.of(2024, 4, 25, 1, 1);
         TaskPlanned tAsK = new TaskPlanned("taaaaask", date1);
         allTasks.add(tAsK);
-
          */
 
 
         // loop through list of all planned tasks and add the ones where date variable matches the week days
         // iterate all planned tasks
+        /*
         for (int i = 0; i < allTasks.size(); i ++) {
             for (int j = 0; j < weekDays.size(); j++) {
                 if (allTasks.get(i).getDate().toLocalDate().equals(weekDays.get(j))) {
@@ -42,8 +42,9 @@ public class CreateWeek {
                 }
             }
         }
+         */
 
-        /*
+
         for (TaskPlanned task: allTasks) {
             // iterate all days in the week
             for (LocalDate weekDate: weekDays) {
@@ -55,7 +56,7 @@ public class CreateWeek {
             }
         }
 
-         */
+
 
         return weekTasks;
         //return allTasks;
@@ -97,6 +98,7 @@ public class CreateWeek {
 
         return emptyWeek;
     }
+
     public static Week createTestWeek() {
         // TEST WeekTableAdapter:
         // create week
