@@ -11,6 +11,7 @@ import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
+import com.example.javacalenderproject.model.TaskTemplate;
 import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -70,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         FamilyGrid familyGrid = new FamilyGrid();
         familyGrid.createGridView(this);
 
+        // Create TaskTemplate to display tasks in the sidebar
+        TaskTemplate taskTemplate = new TaskTemplate();
+        taskTemplate.createTaskTemplate(this);
+
         // create test week data
         Week testWeek = CreateWeek.createTestWeek();
         // ---- setup recyclerview for weekplan
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
 
         // moved to SetupHourView class. Better to keep in MainActivity?
-        /*
+        /**
         GridLayoutManager layoutManager = new GridLayoutManager(this,8, RecyclerView.VERTICAL,false);
         // scroll to make specified position visible initially (will scroll the minimal "distance"/lines required) https://developer.android.com/reference/androidx/recyclerview/widget/LinearLayoutManager#scrollToPosition(int)
         layoutManager.scrollToPosition(60);

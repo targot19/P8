@@ -180,7 +180,7 @@
             android:layout_width="10dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Tid"
+            android:text="@string/tid"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
