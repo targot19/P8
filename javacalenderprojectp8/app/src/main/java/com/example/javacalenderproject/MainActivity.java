@@ -11,6 +11,7 @@ import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
+import com.example.javacalenderproject.functionlayer.WeekNumberTest;
 import com.example.javacalenderproject.model.Week;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         // TEST: API call & fetch data + do something with it.
         FetchManager.fetchApiData();
+
+        //TEST: Week Number
+        WeekNumberTest weekNumberTest = new WeekNumberTest();
+        weekNumberTest.runTest();
 
         // Initialize the calendarView by finding it in the layout.
         calendarView = findViewById(R.id.calenderView);

@@ -12,15 +12,18 @@ public class FetchManager {
             // If fetchData is successful: Update UI with data
             @Override
             public void onSuccess(HourlyPrice[] allHourlyPrices) {
-                // Everything that should happen when API Call is successful:
+                // Making the data accessible everywhere:
+
 
                 //TESTS FOR API RESPONSE:
                 Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
                 // Log each individual price
+                /*
                 for (HourlyPrice hourlyPrice : allHourlyPrices) {
                     Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
                     Log.d("Api",  "Hour: " + hourlyPrice.getHour());
                 }
+                 */
             }
 
             // If fetchData fails: Print error message
