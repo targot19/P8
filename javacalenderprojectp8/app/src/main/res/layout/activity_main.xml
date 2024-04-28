@@ -80,7 +80,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/button3"
             app:layout_constraintStart_toEndOf="@+id/help" />
-
+<!--
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calenderView"
             android:layout_width="1015dp"
@@ -96,6 +96,43 @@
             app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Large">
 
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+-->
+        <!--Week number-->
+
+        <LinearLayout
+            android:layout_width="1000dp"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/weekNumberDecrement"
+                    android:layout_width="67dp"
+                    android:layout_height="47dp"
+                    app:icon="@drawable/mcv_action_previous"
+                    tools:layout_editor_absoluteX="136dp"
+                    tools:layout_editor_absoluteY="51dp" />
+
+                <TextView
+                    android:id="@+id/weekNumberView"
+                    android:layout_width="500dp"
+                    android:layout_height="wrap_content"
+                    android:text="Week: ??"
+                    android:gravity="center"
+                    tools:layout_editor_absoluteX="234dp"
+                    tools:layout_editor_absoluteY="66dp" />
+
+                <Button
+                    android:id="@+id/weekNumberIncrement"
+                    android:layout_width="67dp"
+                    android:layout_height="47dp"
+                    app:icon="@drawable/mcv_action_next"
+                    tools:layout_editor_absoluteX="742dp"
+                    tools:layout_editor_absoluteY="50dp" />
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/edit"

@@ -1,6 +1,7 @@
 package com.example.javacalenderproject;
 
 import android.os.Bundle;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,8 +12,9 @@ import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
-import com.example.javacalenderproject.functionlayer.WeekNumberTest;
 import com.example.javacalenderproject.model.Week;
+import com.example.javacalenderproject.uilayer.WeekNumberDisplay;
+import com.example.javacalenderproject.uilayer.WeekTableAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -23,7 +25,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     // Declare the MaterialCalendarView and Calendar objects.
-    MaterialCalendarView calendarView;
+    //MaterialCalendarView calendarView;
     java.util.Calendar calendar;
 
     public static TaskDatabase database;
@@ -38,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         // TEST: API call & fetch data + do something with it.
         FetchManager.fetchApiData();
 
-        //TEST: Week Number
-        WeekNumberTest weekNumberTest = new WeekNumberTest();
-        weekNumberTest.runTest();
+        // Display current week number + related buttons at top of screen:
+        WeekNumberDisplay weekNumberDisplay = new WeekNumberDisplay();
+        weekNumberDisplay.show(this); // Pass the activity's context
 
         // Initialize the calendarView by finding it in the layout.
-        calendarView = findViewById(R.id.calenderView);
+        // calendarView = findViewById(R.id.calenderView);
 
         // Initialize tableLayout by finding it from tablelayout.xml.
         //TableLayout tableLayout = findViewById(R.id.tableLayout);
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //setDate(1, 1, 2024);
 
         // Set a listener to handle changes when a user selects a date on the calendar.
-        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+        /*calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 // Extract the year, month, and day from the selected date.
@@ -67,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 // Display a toast message showing the selected date.
                 Toast.makeText(MainActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
+
         // create test week data
         Week testWeek = CreateWeek.createTestWeek();
         // ---- setup recyclerview for weekplan
