@@ -47,7 +47,7 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
         public ViewHolder(View itemView) {
             super(itemView);
             // Initialize views here
-            taskTextView = itemView.findViewById(R.id.taskview);
+            taskTextView = itemView.findViewById(R.id.taskTextView);
         }
 
         public void bind(String task) {
