@@ -1,8 +1,9 @@
 package com.example.javacalenderproject.model;
 
-// weekNumber variable overflødig? bruges ikke til noget ..
+
 // flyt Week klassen til function eller ui layer?
 public class Week {
+    // weekNumber variabel overflødig? bruges ikke til noget
     private int weekNumber;
     private TimeSlot[][] timeSlots;
 
@@ -35,6 +36,7 @@ public class Week {
         }
     }
 
+    // method to clear data of all timeslots
     public void clearWeek () {
         for (int i = 0; i < timeSlots.length; i++) {
             for (int j = 0; j < timeSlots[0].length; j++ ) {

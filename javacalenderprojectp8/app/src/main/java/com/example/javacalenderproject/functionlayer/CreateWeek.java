@@ -2,14 +2,10 @@ package com.example.javacalenderproject.functionlayer;
 
 import static com.example.javacalenderproject.MainActivity.database;
 import android.widget.TextView;
-import androidx.room.Database;
-import com.example.javacalenderproject.R;
-import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +14,10 @@ public class CreateWeek {
 
     public static void loadWeekTasks(List<TaskPlanned> weekTasks, Week week) {
         for (TaskPlanned task: weekTasks) {
-            int dayOfweek = task.getDate().getDayOfWeek().getValue();
+            // zero indexing dayOfWeek by subtracting 1
+            int dayOfweek = task.getDate().getDayOfWeek().getValue() -1;
             int hourOfDay = task.getHour();
-            TimeSlot timeSlot = week.getTimeSlots()[dayOfweek-1][hourOfDay];
+            TimeSlot timeSlot = week.getTimeSlots()[dayOfweek][hourOfDay];
             timeSlot.addTask(task);
         }
     }
@@ -70,7 +67,7 @@ public class CreateWeek {
     }
 
     // method returns list of the days of the week from the given weeknumber and year
-    public static List<LocalDate> GetWeekDates (int weekOfYear, int year) {
+    public static List<LocalDate> getWeekDates (int weekOfYear, int year) {
 
         WeekFields weekFields = WeekFields.ISO;
 
@@ -79,23 +76,15 @@ public class CreateWeek {
                 .with(weekFields.weekOfYear(), weekOfYear) // Adjust to the week number
                 .with(weekFields.dayOfWeek(), 1); // Move to the first day of the week
 
-        // Generate all dates in the week
         List<LocalDate> weekDates = new ArrayList<>();
-
+        // from date of the first day of the week: get dates of remaining 6 days
         for (int i = 0; i < 7; i++) {
-            LocalDate weekDate = startOfWeek.plusDays(i); // add days to get the whole week
+            LocalDate weekDate = startOfWeek.plusDays(i);
             weekDates.add(weekDate);
         }
         return weekDates;
     }
 
-    // method creates new week with no data
-    public static Week emptyWeek() {
-
-        Week emptyWeek = new Week(1);
-
-        return emptyWeek;
-    }
 
     // TEST returns week with testdata (not empty week)
     public static Week createTestWeek() {

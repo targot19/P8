@@ -13,7 +13,6 @@ public class TimeSlot {
     private ArrayList<TaskPlanned> tasks;
 
     TimeSlot() {
-        // CHANGE DATE - til hvad?
         this.date = null;
         hour = -1;
         this.color = "noColor";

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     // static variables for the weeknumber to be dispalyed and Week variable to hold data for the week to be displayed
     static int weekOfYear;
-    static Week testWeek;
+    static Week weekDisplayed;
 
     @SuppressLint("WrongThread")
     @Override
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         database = TaskDatabase.getDatabase(getApplicationContext());
 
         // TEST: API call & fetch data + do something with it.
-        //FetchManager.fetchApiData();
+        FetchManager.fetchApiData();
 
         // Initialize the calendarView by finding it in the layout.
         //calendarView = findViewById(R.id.calenderView);
@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 1. get today's date /  set date (todays date on program  start)
         LocalDate date = LocalDate.now();
-        //LocalDate date = LocalDate.of(2024,5,10);
         // week 13 test
         //LocalDate date = LocalDate.of(2024,3,25);
 
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         int year = date.getYear();
 
         // 4. get list of dates for given weeknumber of the given year
-        List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
+        List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
 
         // 5. get all tasks planned for week
         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
@@ -140,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
         // create week object and assign to global variable testWeek (rename variable)
         //testWeek = CreateWeek.emptyWeek();
-        testWeek = new Week();
+        weekDisplayed = new Week();
 
         // TEST get LENGTH OF weekTasks list
         TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
-        testWeek.getTimeSlots()[0][9].addTask(taskLen);
+        weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
 
         /*
         // test: add tasks from database to week
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
          */
         // load weeks planned tasks into week object testWeek
-        CreateWeek.loadWeekTasks(weekTasks, testWeek);
+        CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
 
         // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
         // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity..
@@ -185,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         // get list of timeIntervals
         List<String> timeList= CreateWeek.getTimeIntervals();
         // create adapter
-        WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), testWeek, timeList);
+        WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), weekDisplayed, timeList);
          // WeekTableAdapter
         recyclerView.setAdapter(weekAdapter);
 
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 if (weekOfYear>1) {weekOfYear = weekOfYear -1;}
 
                 // 1. get list of dates for specified weeknumber and year
-                List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
+                List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
 
                 // 2. set dates, week, month for week
                 CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
@@ -206,15 +205,15 @@ public class MainActivity extends AppCompatActivity {
                 List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
 
                 // 4. clear data (tasks and pricecolors) of Week object
-                testWeek.clearWeek();
+                weekDisplayed.clearWeek();
 
                 // 5. load tasks (and PRICES) into week
                 // TEST get LENGTH OF weekTasks list
                 TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
-                testWeek.getTimeSlots()[0][9].addTask(taskLen);
+                weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
 
                 // load data (not test)
-                CreateWeek.loadWeekTasks(weekTasks, testWeek);
+                CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
 
                 // 6. notify adapter that data has changed
                 weekAdapter.notifyDataSetChanged();
@@ -228,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 if (weekOfYear<53) {weekOfYear = weekOfYear +1;}
 
                 // 1. get list of dates for week
-                List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
+                List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
 
                 // 2. set dates, week, month for week
                 CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
@@ -237,14 +236,14 @@ public class MainActivity extends AppCompatActivity {
                 List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
 
                 // 4. clear data (tasks and pricecolors) of Week object
-                testWeek.clearWeek();
+                weekDisplayed.clearWeek();
 
                 // 5. load tasks (and PRICES) into week
                 // TEST get LENGTH OF weekTasks list
                 TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
-                testWeek.getTimeSlots()[0][9].addTask(taskLen);
+                weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
 
-                CreateWeek.loadWeekTasks(weekTasks, testWeek);
+                CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
 
                 // 6. notify adapter that data has changed
                 weekAdapter.notifyDataSetChanged();
