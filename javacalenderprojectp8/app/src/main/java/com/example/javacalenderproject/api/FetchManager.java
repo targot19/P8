@@ -14,6 +14,7 @@ public class FetchManager {
             public void onSuccess(HourlyPrice[] allHourlyPrices) {
                 // Everything that should happen when API Call is successful:
 
+
                 //TESTS FOR API RESPONSE:
                 Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
                 // Log each individual price

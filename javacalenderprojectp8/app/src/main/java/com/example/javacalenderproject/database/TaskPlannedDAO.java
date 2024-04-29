@@ -14,7 +14,6 @@ public interface TaskPlannedDAO {
         @Query("SELECT * FROM planned_tasks")
         List<TaskPlanned> getAllPlannedTasks();
 
-
     }
 
 

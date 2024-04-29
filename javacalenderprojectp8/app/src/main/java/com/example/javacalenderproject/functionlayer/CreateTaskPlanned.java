@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class CreateTaskPlanned {
-    // Method to create a new task
+    // Method to create a new task and add it to the database directly
     public static void createTask(String name, LocalDateTime date) {
         TaskPlanned newTask = new TaskPlanned(name, date);
         new Thread(() -> {

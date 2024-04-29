@@ -1,10 +1,16 @@
 package com.example.javacalenderproject;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
@@ -12,8 +18,11 @@ import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.SetupHourView;
+import com.example.javacalenderproject.functionlayer.TestData;
 import com.example.javacalenderproject.model.HourlyPrice;
+import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
+import com.example.javacalenderproject.uilayer.WeekTableAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -24,9 +33,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
     java.util.Calendar calendar;
 
     public static TaskDatabase database;
+
+    // static variables for the weeknumber to be dispalyed and Week variable to hold data for the week to be displayed
+    static int weekOfYear;
+    static Week testWeek;
 
     @SuppressLint("WrongThread")
     @Override
@@ -45,20 +58,20 @@ public class MainActivity extends AppCompatActivity {
         database = TaskDatabase.getDatabase(getApplicationContext());
 
         // TEST: API call & fetch data + do something with it.
-        FetchManager.fetchApiData();
+        //FetchManager.fetchApiData();
 
         // Initialize the calendarView by finding it in the layout.
-        calendarView = findViewById(R.id.calenderView);
+        //calendarView = findViewById(R.id.calenderView);
 
         // Initialize tableLayout by finding it from tablelayout.xml.
         //TableLayout tableLayout = findViewById(R.id.tableLayout);
 
         // Get an instance of the current calendar.
-        calendar = Calendar.getInstance();
+        //calendar = Calendar.getInstance();
 
         // Set an initial date for the calendar view.
         //setDate(1, 1, 2024);
-
+/*
         // Set a listener to handle changes when a user selects a date on the calendar.
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -73,126 +86,174 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // CREATE TESTDATA IN DATABASE
-        /*
-        CreateTaskPlanned.createTask("TestTask", ZonedDateTime.now(ZoneId.of("Europe/Copenhagen")).toLocalDateTime());
-        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,4,25,1,1));
-        CreateTaskPlanned.createTask("T3",LocalDateTime.now());
-        CreateTaskPlanned.createTask("T4",LocalDateTime.now());
-        CreateTaskPlanned.createTask("T5",LocalDateTime.now());
-
-         */
-
-        // create tasks for different week
-/*
-        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
-        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
-        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
-        CreateTaskPlanned.createTask("T2",LocalDateTime.of(2024,3,25,1,1));
  */
+        // CREATE TESTDATA IN DATABASE
+        //  create testTasks
+        //TestData.createTestData();
         // clear all data in database
         //database.clearAllTables();
 
-        // create test week data
-        Week testWeek = CreateWeek.emptyWeek();
+        // get views by id: dateviews, weekview, monthview, recyclerview:
+        TextView weekDay1 = findViewById(R.id.date0_tv);
+        TextView weekDay2 = findViewById(R.id.date1_tv);
+        TextView weekDay3 = findViewById(R.id.date2_tv);
+        TextView weekDay4 = findViewById(R.id.date3_tv);
+        TextView weekDay5 = findViewById(R.id.date4_tv);
+        TextView weekDay6 = findViewById(R.id.date5_tv);
+        TextView weekDay7 = findViewById(R.id.date6_tv);
+        // put dateViews in list:
+        ArrayList<TextView> dateViews = new ArrayList<>();
+        dateViews.add(weekDay1);
+        dateViews.add(weekDay2);
+        dateViews.add(weekDay3);
+        dateViews.add(weekDay4);
+        dateViews.add(weekDay5);
+        dateViews.add(weekDay6);
+        dateViews.add(weekDay7);
+        TextView weekView = findViewById(R.id.week_tv);
+        TextView monthView = findViewById(R.id.month_tv);
+        RecyclerView recyclerView = findViewById(R.id.hourView);
 
-        // 1. get today's date /  set date
+        // 1. get today's date /  set date (todays date on program  start)
         LocalDate date = LocalDate.now();
-        //LocalDateTime date = LocalDateTime.of(2024,4,1,00,00);
+        //LocalDate date = LocalDate.of(2024,5,10);
+        // week 13 test
+        //LocalDate date = LocalDate.of(2024,3,25);
 
+        // 2. Get the week of the year from date
         // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
-        //WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,4);
         WeekFields weekFields = WeekFields.ISO;
-
-        // 2. Get the week of the year
         // get the week of the year using weekFields
-        int weekOfYear = date.get(weekFields.weekOfYear());
+        weekOfYear = date.get(weekFields.weekOfYear());
 
-        // 3. get year from date (required to get dates from week)
+        // 3. get year from date (required to get dates of the week)
         int year = date.getYear();
 
-        // 4. get list of dates for specified weeknumber and year
+        // 4. get list of dates for given weeknumber of the given year
         List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
 
-        // 5. get tasks for week
+        // 5. get all tasks planned for week
         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
 
-/*
-        // set weekdays as TaskPlanned for test
-        TaskPlanned task1 = new TaskPlanned("weekOfYear: "+weekOfYear);
-        //TaskPlanned task2 = new TaskPlanned("firstDayOfWeek: "+startOfWeekDateTime);
-        TaskPlanned day1 = new TaskPlanned("monday: "+weekDates.get(0));
-        TaskPlanned day2 = new TaskPlanned("tuesday: "+weekDates.get(1));
-        TaskPlanned day3 = new TaskPlanned("wednesday: "+weekDates.get(2));
-        TaskPlanned day4 = new TaskPlanned("thursday: "+weekDates.get(3));
-        TaskPlanned day5 = new TaskPlanned("friday: "+weekDates.get(4));
-        TaskPlanned day6 = new TaskPlanned("saturday: "+weekDates.get(5));
-        TaskPlanned day7 = new TaskPlanned("sunday: "+weekDates.get(6));
+        // set dates, week, month for week
+        CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
 
-        testWeek.getTimeSlots()[0][8].addTask(task1);
-        //testWeek.getTimeSlots()[1][7].addTask(task2);
-        //test days of week
-        testWeek.getTimeSlots()[0][9].addTask(day1);
-        testWeek.getTimeSlots()[1][9].addTask(day2);
-        testWeek.getTimeSlots()[2][9].addTask(day3);
-        testWeek.getTimeSlots()[3][9].addTask(day4);
-        testWeek.getTimeSlots()[4][9].addTask(day5);
-        testWeek.getTimeSlots()[5][9].addTask(day6);
-        testWeek.getTimeSlots()[6][9].addTask(day7);
- */
+        // create week object and assign to global variable testWeek (rename variable)
+        //testWeek = CreateWeek.emptyWeek();
+        testWeek = new Week();
 
         // TEST get LENGTH OF weekTasks list
-
         TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
-        /*
-        if (weekTasks.size() > 1) {
-            TaskPlanned taskDate1 = new TaskPlanned("date weekTasks[0]: " + weekTasks.get(0).getDate());
-            testWeek.getTimeSlots()[1][9].addTask(taskDate1);
-            TaskPlanned taskDate2 = new TaskPlanned("date weekTasks[1]: " + weekTasks.get(1).getDate());
-            testWeek.getTimeSlots()[2][9].addTask(taskDate2);
-        }
-        */
-
         testWeek.getTimeSlots()[0][9].addTask(taskLen);
 
-        // test: add tasks from database to week
-
-        testWeek.getTimeSlots()[1][9].addTask(weekTasks.get(0));
-        testWeek.getTimeSlots()[2][9].addTask(weekTasks.get(1));
-        testWeek.getTimeSlots()[3][9].addTask(weekTasks.get(2));
-        testWeek.getTimeSlots()[4][9].addTask(weekTasks.get(3));
-        testWeek.getTimeSlots()[5][9].addTask(weekTasks.get(4));
-
-
-        // ---- setup recyclerview for weekplan
-        // create recyclerview and initialize by finding view by id
-        RecyclerView recyclerView = findViewById(R.id.hourView);
-        // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
-        // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity?
-        SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
-
-        // moved to SetupHourView class. Better to keep in MainActivity?
         /*
+        // test: add tasks from database to week
+        if (weekTasks.size()>4) {
+            testWeek.getTimeSlots()[1][9].addTask(weekTasks.get(0));
+            testWeek.getTimeSlots()[2][9].addTask(weekTasks.get(1));
+            testWeek.getTimeSlots()[3][9].addTask(weekTasks.get(2));
+            testWeek.getTimeSlots()[4][9].addTask(weekTasks.get(3));
+            testWeek.getTimeSlots()[5][9].addTask(weekTasks.get(4));
+        }
+         */
+
+        /*
+        for (TaskPlanned task: weekTasks) {
+            int dayOfweek = task.getDate().getDayOfWeek().getValue();
+            int hourOfDay = task.getHour();
+            TimeSlot timeSlot = testWeek.getTimeSlots()[dayOfweek-1][hourOfDay];
+            timeSlot.addTask(task);
+        }
+
+         */
+        // load weeks planned tasks into week object testWeek
+        CreateWeek.loadWeekTasks(weekTasks, testWeek);
+
+        // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
+        // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity..
+        //SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
+
         GridLayoutManager layoutManager = new GridLayoutManager(this,8, RecyclerView.VERTICAL,false);
         // scroll to make specified position visible initially (will scroll the minimal "distance"/lines required) https://developer.android.com/reference/androidx/recyclerview/widget/LinearLayoutManager#scrollToPosition(int)
         layoutManager.scrollToPosition(60);
         recyclerView.setLayoutManager(layoutManager);
-        //add lines using recyclerview itemDecoration
+        //add lines between cells with recyclerview itemDecoration
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL));
-
+        // get list of timeIntervals
+        List<String> timeList= CreateWeek.getTimeIntervals();
+        // create adapter
+        WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), testWeek, timeList);
          // WeekTableAdapter
-        recyclerView.setAdapter(new WeekTableAdapter(getApplicationContext(), testWeek, timeList));
-        */
+        recyclerView.setAdapter(weekAdapter);
 
+        // onclick listeners to next/previous week buttons
+        findViewById(R.id.btn_weekminus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if (weekOfYear>1) {weekOfYear = weekOfYear -1;}
 
-        // TestPriceAdapterCombined (added time column)
-        //recyclerView.setAdapter(new TestPriceAdapterCombined(getApplicationContext(), priceArray,timeList));
+                // 1. get list of dates for specified weeknumber and year
+                List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
+
+                // 2. set dates, week, month for week
+                CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
+
+                // 3. get tasks for week
+                List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
+
+                // 4. clear data (tasks and pricecolors) of Week object
+                testWeek.clearWeek();
+
+                // 5. load tasks (and PRICES) into week
+                // TEST get LENGTH OF weekTasks list
+                TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
+                testWeek.getTimeSlots()[0][9].addTask(taskLen);
+
+                // load data (not test)
+                CreateWeek.loadWeekTasks(weekTasks, testWeek);
+
+                // 6. notify adapter that data has changed
+                weekAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+        findViewById(R.id.btn_weekplus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (weekOfYear<53) {weekOfYear = weekOfYear +1;}
+
+                // 1. get list of dates for week
+                List<LocalDate> weekDates = CreateWeek.GetWeekDates(weekOfYear, year);
+
+                // 2. set dates, week, month for week
+                CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
+
+                // 3. get tasks for week
+                List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
+
+                // 4. clear data (tasks and pricecolors) of Week object
+                testWeek.clearWeek();
+
+                // 5. load tasks (and PRICES) into week
+                // TEST get LENGTH OF weekTasks list
+                TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
+                testWeek.getTimeSlots()[0][9].addTask(taskLen);
+
+                CreateWeek.loadWeekTasks(weekTasks, testWeek);
+
+                // 6. notify adapter that data has changed
+                weekAdapter.notifyDataSetChanged();
+
+            }
+        });
 
     }
+
 }
 /**
  * // calender ting

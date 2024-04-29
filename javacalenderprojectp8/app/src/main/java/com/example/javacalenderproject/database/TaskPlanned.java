@@ -33,21 +33,19 @@ public class TaskPlanned {
     //@TypeConverters({Converters.class})
     @ColumnInfo(name = "taskDateTime")
     private LocalDateTime date;
-    //int hour;
 
     // Public no-arg constructor required by Room
     public TaskPlanned() {
     }
     public TaskPlanned(String name) {
         this.taskName = name;
-        //this.date = null;
+        this.date = null;
         // get hour from date to set hour
         taskDuration = 0;
     }
     public TaskPlanned(String name, LocalDateTime date) {
         this.taskName = name;
         this.date = date;
-        // get hour from date: this.hour = date.getHour();
         taskDuration = 0;
     }
 
@@ -109,16 +107,11 @@ public class TaskPlanned {
         this.date = date;
     }
 
-
-
-    /*
     public int getHour() {
-        return hour;
+        return date.getHour();
     }
 
-    public void setHour(int hour) {
-        this.hour = hour;
-    }*/
+
 }
 
 
