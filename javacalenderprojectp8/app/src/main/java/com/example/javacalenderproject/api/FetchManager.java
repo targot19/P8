@@ -1,34 +1,37 @@
 package com.example.javacalenderproject.api;
 
 import android.util.Log;
-
 import com.example.javacalenderproject.model.HourlyPrice;
-
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class FetchManager {
-    public static void fetchApiData() {
+    // Fetches API data asynchronously, into array of HourlyPrice on success
+    public static Future<HourlyPrice[]> fetchApiData() {
+        // Creates a single-threaded ExecutorService for managing background tasks
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        // Creates a CompletableFuture object that will hold the result of the asynchronous operation
+        CompletableFuture<HourlyPrice[]> future = new CompletableFuture<>();
+
         ApiClient.fetchData(new ApiClient.ApiCallback() {
-            // If fetchData is successful: Update UI with data
             @Override
             public void onSuccess(HourlyPrice[] allHourlyPrices) {
-                // Everything that should happen when API Call is successful:
-
-
-                //TESTS FOR API RESPONSE:
                 Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
-                // Log each individual price
-                for (HourlyPrice hourlyPrice : allHourlyPrices) {
-                    Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
-                    Log.d("Api",  "Hour: " + hourlyPrice.getHour());
-                }
-
+                future.complete(allHourlyPrices); // Completes the CompletableFuture with the received hourly prices
             }
-            // If fetchData fails: Print error message
+
             @Override
             public void onFailure(IOException e) {
                 Log.d("ApiClient", "Unsuccessful");
+                future.completeExceptionally(e);
             }
         });
+
+        executor.shutdown(); // Shuts down the ExecutorService after submitting the task
+        return future; // Returns the CompletableFuture object (fetchApiData result)
     }
 }
