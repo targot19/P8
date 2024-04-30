@@ -18,7 +18,7 @@ public interface TaskDAO {
     List<Task> getAllTasks();
 
     // method for saving tasks to database
-  //  @Query("UPDATE taskTable SET taskType = :taskName WHERE id = :id")
+  //  @Query("UPDATE taskTable SET taskType = :taskName HERE id = :id")
    // void save(String taskName, int id);
 
     // Insert bruges til at proppe en task i databasen.
