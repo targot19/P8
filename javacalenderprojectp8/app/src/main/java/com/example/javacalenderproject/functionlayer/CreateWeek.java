@@ -3,6 +3,7 @@ package com.example.javacalenderproject.functionlayer;
 import static com.example.javacalenderproject.MainActivity.database;
 import android.widget.TextView;
 import com.example.javacalenderproject.database.TaskPlanned;
+import com.example.javacalenderproject.model.HourlyPrice;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 import java.time.LocalDate;
@@ -11,6 +12,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateWeek {
+    public static void setCalendarView(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, List<LocalDate> weekDates, int weeknumber) {
+
+        // set dates
+        for (int i = 0; i < 7; i++){
+            dateViews.get(i).setText(""+weekDates.get(i).getDayOfMonth());
+        }
+        // set week number
+        weekView.setText("Uge "+weeknumber);
+        // set month
+        monthView.setText(""+weekDates.get(0).getMonth());
+    }
+
+    public static void loadWeekPrices (List<HourlyPrice> weekPrices, Week week) {
+        for (HourlyPrice hourPrice: weekPrices) {
+            // get ints representing day of week and hour of day from data of the HourlyPrice object
+            int dayOfweek = hourPrice.getDate().getDayOfWeek().getValue() -1; // zero indexing dayOfWeek by subtracting 1
+            int hourOfDay = hourPrice.getHour();
+
+            // get timeslot using day and hour
+            TimeSlot timeSlot = week.getTimeSlots()[dayOfweek][hourOfDay];
+
+            // set color of timeslot after price-color logic
+            String color = null;
+            if (hourPrice.getPrice() < 0.5) {
+                color = "green";
+            }
+            else if (hourPrice.getPrice() > 0.5 && hourPrice.getPrice() < 1.5) {
+                color = "yellow";
+            }
+            else if (hourPrice.getPrice() >= 1.5) {
+                color = "red";
+            }
+            timeSlot.setColor(color);
+        }
+    }
 
     public static void loadWeekTasks(List<TaskPlanned> weekTasks, Week week) {
         for (TaskPlanned task: weekTasks) {
@@ -33,16 +69,24 @@ public class CreateWeek {
         return timeList;
     }
 
-    public static void setCalendarView(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, List<LocalDate> weekDates, int weeknumber) {
+    public static List<HourlyPrice> getWeekPrices (List<LocalDate> weekDays, HourlyPrice[] testPriceData) {
 
-        // set dates
-        for (int i = 0; i < 7; i++){
-            dateViews.get(i).setText(""+weekDates.get(i).getDayOfMonth());
+        // Evt. indsæt kode der finder alle timepriser fra database afhængig af løsning.
+
+        List<HourlyPrice> weekPrices = new ArrayList<>();
+
+        for (HourlyPrice hourPrice: testPriceData) {
+            // iterate all days in the week
+            for (LocalDate weekDate: weekDays) {
+                // if date of weekday matches date of hourPrice: add hourPrice object to list of week prices
+                LocalDate temp = hourPrice.getDate().toLocalDate();
+                if (temp.equals(weekDate)) {
+                    weekPrices.add(hourPrice);
+                }
+            }
         }
-        // set week number
-        weekView.setText("Uge "+weeknumber);
-        // set month
-        monthView.setText(""+weekDates.get(0).getMonth());
+
+        return weekPrices;
     }
 
     public static List<TaskPlanned> getWeekTasks (List<LocalDate> weekDays) {
@@ -86,7 +130,7 @@ public class CreateWeek {
     }
 
 
-    // TEST returns week with testdata (not empty week)
+    // TEST returns week with testdata (not empty week) - kan slettes når vi har rigtig data at lege med
     public static Week createTestWeek() {
 
         Week testWeek = new Week(1);
