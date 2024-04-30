@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static TaskDatabase database;
 
+    public static LocalDateTime apiFetchTime;
+
     @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             for (HourlyPrice hourlyPrice : allHourlyPrices) {
                 Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
                 Log.d("Api",  "Hour: " + hourlyPrice.getHour());
+
+                apiFetchTime = LocalDateTime.now();
             }
 
         } catch (InterruptedException | ExecutionException e) {
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         // get list of timeIntervals
         List<String> timeList= CreateWeek.getTimeIntervals();
         // create adapter
-        WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), weekDisplayed, timeList);
+        WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), weekDisplayed, timeList, apiFetchTime);
         // WeekTableAdapter
         recyclerView.setAdapter(weekAdapter);
 

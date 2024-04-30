@@ -27,6 +27,7 @@ public class CreateWeek {
     public static void loadWeekPrices (List<HourlyPrice> weekPrices, Week week) {
         for (HourlyPrice hourPrice: weekPrices) {
             // get ints representing day of week and hour of day from data of the HourlyPrice object
+
             int dayOfweek = hourPrice.getDate().getDayOfWeek().getValue() -1; // zero indexing dayOfWeek by subtracting 1
             int hourOfDay = hourPrice.getHour();
 
@@ -45,6 +46,9 @@ public class CreateWeek {
                 color = "red";
             }
             timeSlot.setColor(color);
+
+            // set date of timeslot
+            timeSlot.setDate(hourPrice.getDate());
         }
     }
 
@@ -69,13 +73,13 @@ public class CreateWeek {
         return timeList;
     }
 
-    public static List<HourlyPrice> getWeekPrices (List<LocalDate> weekDays, HourlyPrice[] testPriceData) {
+    public static List<HourlyPrice> getWeekPrices (List<LocalDate> weekDays, HourlyPrice[] priceData) {
 
         // Evt. indsæt kode der finder alle timepriser fra database afhængig af løsning.
 
         List<HourlyPrice> weekPrices = new ArrayList<>();
 
-        for (HourlyPrice hourPrice: testPriceData) {
+        for (HourlyPrice hourPrice: priceData) {
             // iterate all days in the week
             for (LocalDate weekDate: weekDays) {
                 // if date of weekday matches date of hourPrice: add hourPrice object to list of week prices

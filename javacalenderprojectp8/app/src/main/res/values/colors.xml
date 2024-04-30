@@ -6,9 +6,9 @@
     <color name="yellow">#EADC80</color>
     <color name="red">#EA8181</color>
 
-    <color name="greenForecast">#FCBCDCAE</color>
-    <color name="yellowForecast">#EAE3B3</color>
-    <color name="redForecast">#E8B0B0</color>
+    <color name="greenForecast">#FCC3DFB7</color>
+    <color name="yellowForecast">#EAE4BC</color>
+    <color name="redForecast">#EABABA</color>
 
     <color name="task">#34686A6E</color>
     <color name="timeBlock">#EDE9E9</color>

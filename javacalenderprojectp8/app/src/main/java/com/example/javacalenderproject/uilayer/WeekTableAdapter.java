@@ -15,6 +15,7 @@ import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -27,12 +28,14 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     Context context;
     TimeSlot[][] timeSlots;
     List<String> rowHeader;
+    LocalDateTime apiFetchTime;
 
     // constructor
-    public WeekTableAdapter(Context context, Week weekData, List<String> timeintervals) {
+    public WeekTableAdapter(Context context, Week weekData, List<String> timeintervals, LocalDateTime apiFetchTime) {
         this.rowHeader = timeintervals;
         this.context = context;
         timeSlots = weekData.getTimeSlots();
+        this.apiFetchTime = apiFetchTime;
     }
     @NonNull
     @Override
@@ -74,12 +77,18 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.white);
             }
             else {
+                // apiDateTime for testing
+                //LocalDateTime apiDateTime = LocalDateTime.now();
+                LocalDateTime apiDateTime = LocalDateTime.of(2024, 4, 30, 13, 0, 1);
+                LocalDateTime newPricesDate = LocalDateTime.now().with(LocalTime.of(13,0));
+                LocalDate todayDate = LocalDateTime.now().toLocalDate();
+                LocalDate timeSlotDate = timeSlots[day][hour].getDate().toLocalDate();
+                LocalDate tomorrowDate = LocalDateTime.now().toLocalDate().plusDays(1);
+
                 // if date of timeslot is today: show strong colors for determined prices
-                // else if date of timeslot is tomorrow and time of last successful API price fetch is after 13.00 today: show strong colors for determined prices
-                LocalDateTime apiDateTime = LocalDateTime.now();
-                LocalDateTime pricesDetermined = LocalDateTime.now().with(LocalTime.of(13,0));
-                // if date of timeslot is today: show strong colors for determined prices
-                if (LocalDateTime.now().toLocalDate() == timeSlots[day][hour].getDate().toLocalDate()) {
+                if (todayDate.equals(timeSlots[day][hour].getDate().toLocalDate())) {
+                    Log.d("TIMELOGIC", "LocalDateTime.now():" + todayDate);
+                    Log.d("TIMELOGIC", "LocalDateTime timeslot:" + timeSlots[day][hour].getDate().toLocalDate());
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
                     }
@@ -91,7 +100,8 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 }
                 // else if date of timeslot is tomorrow and time of last successful API price fetch is after 13.00 today: show strong colors for determined prices
-                else if (timeSlots[day][hour].getDate().toLocalDate() == LocalDateTime.now().toLocalDate().plusDays(1)) {
+                else if (timeSlotDate.equals(tomorrowDate) && apiFetchTime.isAfter(newPricesDate)) {
+                    // timeSlots[day][hour].getDate().toLocalDate() == LocalDateTime.now().toLocalDate().plusDays(1)
                     // tilføj condition: && apiDateTime.isAfter(pricesDetermined)
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
@@ -116,14 +126,8 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             }
 
-
-
-
-
-
-
-
-
+            // øøøøøøøøøøøø
+/*
             if (priceColor == "green") {
                 ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
             }
@@ -138,6 +142,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.white);
             }
 
+ */
             // set tasks
             if (!tasks.isEmpty()) {
                 // make edge line visible

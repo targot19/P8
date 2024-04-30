@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.javacalenderproject.model.Week;
 import com.example.javacalenderproject.uilayer.WeekTableAdapter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SetupHourView {
-    public static void setup(Context context, RecyclerView recyclerView, Context applicationContext, Week weekData) {
+    public static void setup(Context context, RecyclerView recyclerView, Context applicationContext, Week weekData, LocalDateTime apiTime) {
 
         /*
         // create time data for row header -- move to adapter?
@@ -39,6 +40,6 @@ public class SetupHourView {
         recyclerView.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.HORIZONTAL));
         // set adapter and pass data
-        recyclerView.setAdapter(new WeekTableAdapter(applicationContext, weekData, timeList));
+        recyclerView.setAdapter(new WeekTableAdapter(applicationContext, weekData, timeList, apiTime));
     }
 }
