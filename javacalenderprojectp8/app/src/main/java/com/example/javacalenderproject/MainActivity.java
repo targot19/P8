@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import com.example.javacalenderproject.functionlayer.HelpPopup;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         List<String> timeList= CreateWeek.getTimeIntervals();
         // create adapter
         WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), weekDisplayed, timeList);
-         // WeekTableAdapter
+        // WeekTableAdapter
         recyclerView.setAdapter(weekAdapter);
 
         //  get button Views by id with other Views in start of onCreate() method ?
@@ -185,6 +190,23 @@ public class MainActivity extends AppCompatActivity {
         taskTemplate.createTaskTemplate(this);
 
 
+        // Our 'Get Help' text button initializer and onclicklistener
+        Button helpButton = findViewById(R.id.button1);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HelpPopup.showHelpPopup(MainActivity.this);
+            }
+        });
+
+        // Our 'Get Help' text button initializer and onclicklistener
+        ImageButton helpImageButton = findViewById(R.id.help);
+        helpImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HelpPopup.showHelpPopup(MainActivity.this);
+            }
+        });
 
 
 
@@ -267,6 +289,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
 }
 /**
  * // calender ting
@@ -333,11 +357,11 @@ public class MainActivity extends AppCompatActivity {
  }
  }
 
-    public void setDate(int day, int month, int year) {
-        // Set the calendar to the specified year, month, and day.
-        calendar.set(Calendar.YEAR, year);
-        // Subtract 1 from month because Calendar.MONTH is 0-based.
-        calendar.set(Calendar.MONTH, month - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
+ public void setDate(int day, int month, int year) {
+ // Set the calendar to the specified year, month, and day.
+ calendar.set(Calendar.YEAR, year);
+ // Subtract 1 from month because Calendar.MONTH is 0-based.
+ calendar.set(Calendar.MONTH, month - 1);
+ calendar.set(Calendar.DAY_OF_MONTH, day);
 
  } **/
