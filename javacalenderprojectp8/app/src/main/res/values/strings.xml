@@ -50,4 +50,12 @@
     <string name="drag_and_drop">Drag and drop</string>
     <string name="edit">Edit</string>
     <string name="get_help_img">Get Help</string>
+    <string name="torsdag">Torsdag</string>
+    <string name="fredag">Fredag</string>
+    <string name="l_rdag">Lørdag</string>
+    <string name="s_ndag">Søndag</string>
+    <string name="onsdag">Onsdag</string>
+    <string name="tirsdag">Tirsdag</string>
+    <string name="mandag">Mandag</string>
+    <string name="opgaver">Opgaver</string>
 </resources>

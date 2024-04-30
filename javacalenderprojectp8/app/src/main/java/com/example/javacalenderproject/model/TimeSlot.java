@@ -9,6 +9,7 @@ public class TimeSlot {
     LocalDateTime date;
     int hour;
     private String color;
+
     private ArrayList<TaskPlanned> tasks;
 
     TimeSlot() {
