@@ -1,5 +1,7 @@
 package com.example.javacalenderproject.functionlayer;
 
+import android.util.Log;
+
 import com.example.javacalenderproject.model.HourlyPrice;
 
 import java.time.LocalDateTime;
@@ -29,24 +31,29 @@ public class TestData {
 
     }
 
-    public static HourlyPrice[] createPriceTestData () {
+    public static HourlyPrice[] getTestPriceData () {
         HourlyPrice[] testPriceData = new HourlyPrice[24*7];
         int dayCount = 0;
-
+        int index = 0;
         for (int i = 0; i < 7; i++) {
             dayCount = i;
             for (int j = 0; j < 24; j++) {
-                int index = i+1*j+1;
                 double price = 0.4;
+                if (dayCount > 3) {price = 1.5;}
                 int dayOfMonth = 1+i;
-                int hourOfDay = 1+j;
-                //Date date = Date.of(2024,5, dayOfMonth,hourOfDay,1);
-                testPriceData[index] = new HourlyPrice(price, new Date());
+                int hourOfDay = j;
+                LocalDateTime localDateTime = LocalDateTime.of(2024,5, dayOfMonth,hourOfDay,1);
+                Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+                testPriceData[index] = new HourlyPrice(price, date);
+                index++;
             }
+        }
+        // Log each individual price
+        for (HourlyPrice hourlyPrice : testPriceData) {
+            Log.d("TestData", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
+            Log.d("TestData",  "Hour: " + hourlyPrice.getHour());
         }
 
         return testPriceData;
-
     }
-
 }

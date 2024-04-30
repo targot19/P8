@@ -113,10 +113,8 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:background="@android:color/transparent"
-                                    android:paddingStart="0dp"
                                     app:icon="@drawable/mcv_action_previous"
                                     app:iconTint="@color/black"
-                                    android:gravity="center"
                                     />
                                 <TextView
                                     android:id="@+id/week_tv"
@@ -133,11 +131,9 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:background="@android:color/transparent"
-                                    android:paddingStart="0dp"
-                                    android:paddingEnd="0dp"
+                                    android:paddingStart="10dp"
                                     app:icon="@drawable/mcv_action_next"
                                     app:iconTint="@color/black"
-                                    android:gravity="center"
                                     />
 
                         </LinearLayout>
