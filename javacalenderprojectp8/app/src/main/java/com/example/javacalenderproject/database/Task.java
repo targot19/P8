@@ -19,7 +19,6 @@ public class Task {
     @ColumnInfo(name = "taskType")
     public String taskName;
 
-
     @ColumnInfo(name = "taskColor")
     private String taskColor;
     @ColumnInfo(name = "taskDuration")
@@ -28,8 +27,6 @@ public class Task {
     private String taskIcon;
     @ColumnInfo(name = "taskAssignedMembers")
     private ArrayList<FamilyMember> assignedFamilyMembers;
-
-
 
     public Task() {
     }
@@ -113,6 +110,5 @@ public class Task {
 
     public void reload() {
         tasks = MainActivity.database.taskDAO().getAllTasks();
-
     }
 }

@@ -13,9 +13,8 @@ public class TimeSlot {
     private ArrayList<TaskPlanned> tasks;
 
     TimeSlot() {
-        // CHANGE DATE - til hvad?
-        this.date = LocalDateTime.now();
-        hour = date.getHour();
+        this.date = null;
+        hour = -1;
         this.color = "noColor";
         tasks = new ArrayList<TaskPlanned>();
     }
@@ -36,7 +35,25 @@ public class TimeSlot {
         tasks.add(newTask);
     }
 
-    public void setDate(LocalDateTime date) {this.date = date; }
+    public void clearData() {
+        tasks.clear();
+        deleteDate();
+        setColor("noColor");
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+        setHour();
+    }
+
+    public void deleteDate() {date = null;}
+
+    public void setHour() {
+        if (date != null) {
+            hour = date.getHour();
+        }
+       else {hour = -1;}
+    }
 
     public LocalDateTime getDate() {return date; }
 }

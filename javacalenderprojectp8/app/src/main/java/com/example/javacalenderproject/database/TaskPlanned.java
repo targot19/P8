@@ -3,6 +3,9 @@ package com.example.javacalenderproject.database;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -27,22 +30,22 @@ public class TaskPlanned {
     private ArrayList<FamilyMember> assignedFamilyMembers;
 
     // OBS database date + hour
-    //LocalDateTime date;
-    //int hour;
+    //@TypeConverters({Converters.class})
+    @ColumnInfo(name = "taskDateTime")
+    private LocalDateTime date;
 
     // Public no-arg constructor required by Room
     public TaskPlanned() {
     }
     public TaskPlanned(String name) {
         this.taskName = name;
-        //this.date = null;
+        this.date = null;
         // get hour from date to set hour
         taskDuration = 0;
     }
-    TaskPlanned(String name, LocalDateTime date) {
+    public TaskPlanned(String name, LocalDateTime date) {
         this.taskName = name;
-        //this.date = date;
-        // get hour from date: this.hour = date.getHour();
+        this.date = date;
         taskDuration = 0;
     }
 
@@ -95,7 +98,7 @@ public class TaskPlanned {
     public void setAssignedFamilyMembers(ArrayList<FamilyMember> assignedFamilyMembers) {
         this.assignedFamilyMembers = assignedFamilyMembers;
     }
-    /*
+
     public LocalDateTime getDate() {
         return date;
     }
@@ -105,12 +108,10 @@ public class TaskPlanned {
     }
 
     public int getHour() {
-        return hour;
+        return date.getHour();
     }
 
-    public void setHour(int hour) {
-        this.hour = hour;
-    }*/
+
 }
 
 

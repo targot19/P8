@@ -6,6 +6,9 @@ import com.example.javacalenderproject.database.FamilyMember;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,5 +39,22 @@ public class Converters {
         Gson gson = new Gson();
         return gson.toJson(list);
 
+    }
+
+// fatter ikke den her kode
+    @TypeConverter
+    public static Long fromDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        return dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    }
+
+    @TypeConverter
+    public static LocalDateTime toDateTime(Long dbValue) {
+        if (dbValue == 0) {
+            return null;
+        }
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(dbValue), ZoneId.systemDefault());
     }
 }

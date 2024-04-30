@@ -6,63 +6,52 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    android:background="@color/gray"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="166dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:background="@color/gray"
-        android:contentDescription="@string/logo"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="208dp"
+            android:layout_height="68dp"
+            android:contentDescription="@string/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <GridView
-        android:id="@+id/familymember"
-        android:layout_width="166dp"
-        android:layout_height="111dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:numColumns="auto_fit"
-        android:gravity="center"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo"
-        tools:visibility="visible" />
+        <GridView
+            android:id="@+id/familymember"
+            android:layout_width="175dp"
+            android:layout_height="111dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="166dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/white"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/opgaver"
-        android:textColor="@color/Opgaver"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/familymember" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="122dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingStart="20dp"
+            android:text="Opgaver"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/familymember" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="166dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/white"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/drag_and_drop"
-        android:textColor="@color/Drag_and_drop"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@id/taskview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="122dp"
+            android:layout_height="18dp"
+            android:fontFamily="sans-serif-light"
+            android:paddingStart="20dp"
+            android:text="@string/drag_and_drop"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@id/taskview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <Button
             android:id="@+id/button3"
@@ -70,9 +59,10 @@
             android:layout_height="40dp"
             android:background="@android:color/transparent"
             android:fontFamily="sans-serif-light"
+            android:paddingStart="0dp"
             android:text="@string/edit_family_and_tasks"
             android:textAlignment="viewStart"
-            android:textColor="@color/Textgray"
+            android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edit" />
@@ -80,55 +70,245 @@
         <Button
             android:id="@+id/button1"
             android:layout_width="151dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:background="@android:color/transparent"
             android:fontFamily="sans-serif-light"
+            android:paddingStart="0dp"
             android:text="@string/get_help"
             android:textAlignment="viewStart"
-            android:textColor="@color/Textgray"
+            android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/button3"
             app:layout_constraintStart_toEndOf="@+id/help" />
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:id="@+id/calenderView"
-            android:layout_width="1015dp"
-            android:layout_height="296dp"
-            app:layout_constraintBottom_toTopOf="@+id/days"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:mcv_calendarMode="week"
-            app:mcv_dateTextAppearance="@style/TextAppearance.AppCompat.Large"
-            app:mcv_firstDayOfWeek="monday"
-            app:mcv_tileHeight="100dp"
-            app:mcv_tileWidth="140dp"
-            app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Large">
+        <LinearLayout
+            android:id="@+id/calendar_view"
+            android:layout_width="889dp"
+            android:layout_height="135dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/date_view"
+            app:layout_constraintEnd_toEndOf="parent">
+                <LinearLayout
+                    android:id="@+id/monthweek_container"
+                    android:layout_width="250dp"
+                    android:layout_height="98dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/month_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center|bottom"
+                            android:text="April"
+                            android:textSize="15dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
 
-        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+                                <Button
+                                    android:id="@+id/btn_weekminus"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@android:color/transparent"
+                                    app:icon="@drawable/mcv_action_previous"
+                                    app:iconTint="@color/black"
+                                    />
+                                <TextView
+                                    android:id="@+id/week_tv"
+                                    android:layout_width="0dp"
+                                    android:layout_height="40dp"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center"
+                                    android:text="Uge 42"
+                                    android:textSize="20dp"
+                                    android:paddingBottom="5dp" />
+                                <Button
+                                    android:id="@+id/btn_weekplus"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/transparent"
+                                    android:paddingStart="10dp"
+                                    app:icon="@drawable/mcv_action_next"
+                                    app:iconTint="@color/black"
+                                    />
+
+                        </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/day_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Mandag"
+                            android:textAlignment="center"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Tirsdag"
+                            android:textAlignment="center"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Onsdag"
+                            android:textAlignment="center"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Torsdag"
+                            android:textAlignment="center"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Fredag"
+                            android:textAlignment="center"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Lørdag"
+                            android:textAlignment="center"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Søndag"
+                            android:textAlignment="center"
+                            android:textSize="15sp" />
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hourView"
+            android:layout_width="1016dp"
+            android:layout_height="580dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/date_view"
+            android:layout_width="889dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/hourView"
+            app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/date0_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="dato"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date1_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="dato"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date2_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="dato"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date3_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="dato"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date4_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="dato"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date5_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="dato"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date6_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="dato"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/edit"
             android:layout_width="41dp"
             android:layout_height="40dp"
-            android:backgroundTint="@color/gray"
             android:contentDescription="@string/edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_edit"
-            app:tint="@android:color/black" />
+            app:srcCompat="@android:drawable/ic_menu_edit" />
 
         <ImageButton
             android:id="@+id/help"
-            style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="41dp"
-            android:layout_height="48dp"
-            android:background="@color/gray"
+            android:layout_height="40dp"
             android:contentDescription="@string/get_help_img"
-            android:scaleType="center"
             app:layout_constraintBottom_toTopOf="@+id/edit"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_info_details"
-            app:tint="@android:color/black" />
+            app:srcCompat="@android:drawable/ic_menu_info_details" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/taskview"
@@ -136,100 +316,10 @@
             android:layout_height="430dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="36dp"
-            android:paddingTop="10dp"
-            android:background="@android:color/white"
-            android:isScrollContainer="true"
-            android:longClickable="true"
             app:layout_constraintBottom_toTopOf="@+id/button1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <LinearLayout
-            android:id="@+id/days"
-            android:layout_width="1016dp"
-            android:layout_height="49dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/hourView"
-            app:layout_constraintEnd_toEndOf="parent">
-
-                <TextView
-                    android:layout_width="10dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Tid"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/mandag"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/tirsdag"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/onsdag"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/torsdag"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/fredag"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/l_rdag"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/s_ndag"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/hourView"
-            android:layout_width="1017dp"
-            android:layout_height="454dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

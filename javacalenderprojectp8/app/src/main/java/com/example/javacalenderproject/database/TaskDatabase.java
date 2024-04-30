@@ -5,10 +5,8 @@ import androidx.room.RoomDatabase;
 import android.content.Context;
 import androidx.room.Room;
 import androidx.room.TypeConverters;
-
-// Annotation to specify the entities for the database and its version
-@Database(entities = {Task.class, TaskPlanned.class}, version = 4, exportSchema = false)
-// Annotation to specify the converters for the database
+// changed version to 5
+@Database(entities = {Task.class, TaskPlanned.class}, version = 5, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class TaskDatabase extends RoomDatabase {
     // Abstract method to get the DAO for Task
@@ -32,6 +30,8 @@ public abstract class TaskDatabase extends RoomDatabase {
                                     TaskDatabase.class, "tasks")
                             // If the schema has changed and we didn't define a migration strategy, destroy and recreate the database
                             .fallbackToDestructiveMigration()
+                            // allow mainthreadqueries ---------
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
@@ -40,3 +40,4 @@ public abstract class TaskDatabase extends RoomDatabase {
         return INSTANCE;
     }
 }
+

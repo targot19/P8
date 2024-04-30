@@ -15,13 +15,16 @@ import java.util.List;
 public class SetupHourView {
     public static void setup(Context context, RecyclerView recyclerView, Context applicationContext, Week weekData) {
 
-        // create time data for row header
+        /*
+        // create time data for row header -- move to adapter?
         List<String> timeList = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
             String tempString = i + ".00";
             if (i <10) { tempString = "0" + tempString;}
             timeList.add(tempString);
-        }
+        } */
+
+        List<String> timeList= CreateWeek.getTimeIntervals();
 
         // initialize gridlayoutmanager. Spancount = number of columns
         GridLayoutManager layoutManager = new GridLayoutManager(context,8, RecyclerView.VERTICAL,false);

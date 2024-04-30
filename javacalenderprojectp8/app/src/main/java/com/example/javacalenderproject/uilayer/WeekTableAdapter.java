@@ -82,35 +82,35 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.white);
             }
 
-            // set tasks: REVIDERES: skal læse og vise flere tasks
+            // set tasks
             if (!tasks.isEmpty()) {
+                // make edge line visible
+                ((TimeSlotViewHolder)holder).edge.setVisibility(View.VISIBLE);
 
+                // if 1 task in timeslot: Make 1 task textview visible and set text to name of task
                 if(tasks.size() == 1) {
                     ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
                     ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
-                    String text = tasks.get(0).getTaskName();
-                    ((TimeSlotViewHolder)holder).task1.setText(text);
-                    ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task1);
+                    ((TimeSlotViewHolder)holder).separator.setVisibility(View.GONE);
+                    String taskName = tasks.get(0).getTaskName();
+                    ((TimeSlotViewHolder)holder).task1.setText(taskName);
 
                 }
                 else if (tasks.size() > 1) {
                     ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
                     ((TimeSlotViewHolder)holder).task2.setVisibility(View.VISIBLE);
-                    ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task1);
-                    ((TimeSlotViewHolder)holder).task2.setBackgroundResource(R.color.task1);
+                    ((TimeSlotViewHolder)holder).separator.setVisibility(View.VISIBLE);
                     String text1 = tasks.get(0).getTaskName();
                     String text2 = tasks.get(1).getTaskName();
                     ((TimeSlotViewHolder)holder).task1.setText(text1);
                     ((TimeSlotViewHolder)holder).task2.setText(text2);
                 }
 
-                /*((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
-                String text = tasks.get(0).getTaskName();
-                ((TimeSlotViewHolder)holder).task1.setBackgroundResource(R.color.task);
-                ((TimeSlotViewHolder)holder).task1.setText(text);*/
             }
-            // force to hide textview if no tasks in timeslot
-            else if (tasks.isEmpty()) {
+            // force to hide views for tasks if no tasks in timeslot
+            else {
+                ((TimeSlotViewHolder)holder).edge.setVisibility(View.GONE);
+                ((TimeSlotViewHolder)holder).separator.setVisibility(View.GONE);
                 ((TimeSlotViewHolder)holder).task1.setVisibility(View.GONE);
                 ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
             }
@@ -124,7 +124,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
             //LOGGING
-            Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
+            //Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
 
         } else if (viewType == TYPE_HEADER) {
             // calculate index in rowHeader list from position
