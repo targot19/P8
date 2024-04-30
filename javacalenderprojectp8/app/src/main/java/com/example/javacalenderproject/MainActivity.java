@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.javacalenderproject.model.TaskTemplate;
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_main);
+        // Set database
         database = TaskDatabase.getDatabase(getApplicationContext());
 
         // CREATE TESTDATA
@@ -170,6 +172,22 @@ public class MainActivity extends AppCompatActivity {
 
         //  get button Views by id with other Views in start of onCreate() method ?
         // onclick listeners to next/previous week buttons
+
+
+
+
+        // Create FamilyGrid instance and add the grid to the layout
+        FamilyGrid familyGrid = new FamilyGrid();
+        familyGrid.createGridView(this);
+
+        // Create TaskTemplate to display tasks in the sidebar
+        TaskTemplate taskTemplate = new TaskTemplate();
+        taskTemplate.createTaskTemplate(this);
+
+
+
+
+
 
         findViewById(R.id.btn_weekminus).setOnClickListener(new View.OnClickListener() {
             @Override
