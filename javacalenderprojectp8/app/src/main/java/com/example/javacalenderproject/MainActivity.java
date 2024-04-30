@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     static int weekOfYear;
     static Week weekDisplayed;
 
+    static HourlyPrice[] allHourlyPrices;
+
     @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,34 +71,33 @@ public class MainActivity extends AppCompatActivity {
         // Initialize tableLayout by finding it from tablelayout.xml.
         //TableLayout tableLayout = findViewById(R.id.tableLayout);
 
-        // Get an instance of the current calendar.
-        //calendar = Calendar.getInstance();
 
-        // Set an initial date for the calendar view.
-        //setDate(1, 1, 2024);
-/*
-        // Set a listener to handle changes when a user selects a date on the calendar.
-        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                // Extract the year, month, and day from the selected date.
-                int year = date.getYear();
-                // Add 1 to month since CalendarDay months are 0-based (January is 0).
-                int month = date.getMonth() + 1;
-                int day = date.getDay();
-                // Display a toast message showing the selected date.
-                Toast.makeText(MainActivity.this, day + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
-            }
-        });
-
- */
         // CREATE TESTDATA
         //  create testTasks in database
         //TestData.createTestData();
         //  create test price data array
-        HourlyPrice[] testPriceData = TestData.getTestPriceData();
+        //HourlyPrice[] testPriceData = TestData.getTestPriceData();
         // clear all data in database
         //database.clearAllTables();
+
+        // Trying out 'future' stuff for API - future.get is our async call
+        //HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
+        Future<HourlyPrice[]> future = FetchManager.fetchApiData();
+        try {
+            allHourlyPrices = future.get();
+            // Log how many hourly prices were received
+            Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
+
+            // Log each individual price
+            for (HourlyPrice hourlyPrice : allHourlyPrices) {
+                Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
+                Log.d("Api",  "Hour: " + hourlyPrice.getHour());
+            }
+
+        } catch (InterruptedException | ExecutionException e) {
+            // Handle exception
+            Log.d("ApiClient", "Error fetching data: " + e.getMessage());
+        }
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
         TextView weekView = findViewById(R.id.week_tv);
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 5. get planned tasks and price data for week:
         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, testPriceData);
+        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
 
         // set dates, week, month for week
         CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
@@ -155,24 +156,6 @@ public class MainActivity extends AppCompatActivity {
         weekDisplayed = new Week();
 
 
-        // Trying out 'future' stuff for API - future.get is our async call
-        HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
-        Future<HourlyPrice[]> future = FetchManager.fetchApiData();
-        try {
-            allHourlyPrices = future.get();
-            // Log how many hourly prices were received
-            Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
-
-            // Log each individual price
-            for (HourlyPrice hourlyPrice : allHourlyPrices) {
-                Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
-                Log.d("Api",  "Hour: " + hourlyPrice.getHour());
-            }
-
-        } catch (InterruptedException | ExecutionException e) {
-            // Handle exception
-            Log.d("ApiClient", "Error fetching data: " + e.getMessage());
-        }
 
         /*
         // test: add tasks from database to week
@@ -232,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 // 3. get tasks and prices for week
                 List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
                 // OBS: weekprices testdata
-                List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, TestData.getTestPriceData());
+                List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
 
                 // 4. clear data (tasks and pricecolors) of Week object
                 weekDisplayed.clearWeek();
@@ -269,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 // 3. get tasks and prices for week
                 List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
                 // OBS: weekprices testdata
-                List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, TestData.getTestPriceData());
+                List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
 
                 // 4. clear data (tasks and pricecolors) of Week object
                 weekDisplayed.clearWeek();
