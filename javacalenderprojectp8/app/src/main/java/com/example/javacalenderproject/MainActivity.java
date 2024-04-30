@@ -3,6 +3,7 @@ package com.example.javacalenderproject;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 1. get today's date /  set date (todays date on program  start)
         LocalDate date = LocalDate.now();
+        //LocalDate date = LocalDate.of(2024,5,10);
         // week 13 test
         //LocalDate date = LocalDate.of(2024,3,25);
 
@@ -150,6 +154,36 @@ public class MainActivity extends AppCompatActivity {
         // create week object and assign to global variable weekDisplayed
         weekDisplayed = new Week();
 
+
+        // Trying out 'future' stuff for API - future.get is our async call
+        HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
+        Future<HourlyPrice[]> future = FetchManager.fetchApiData();
+        try {
+            allHourlyPrices = future.get();
+            // Log how many hourly prices were received
+            Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
+
+            // Log each individual price
+            for (HourlyPrice hourlyPrice : allHourlyPrices) {
+                Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
+                Log.d("Api",  "Hour: " + hourlyPrice.getHour());
+            }
+
+        } catch (InterruptedException | ExecutionException e) {
+            // Handle exception
+            Log.d("ApiClient", "Error fetching data: " + e.getMessage());
+        }
+
+        /*
+        // test: add tasks from database to week
+        if (weekTasks.size()>4) {
+            testWeek.getTimeSlots()[1][9].addTask(weekTasks.get(0));
+            testWeek.getTimeSlots()[2][9].addTask(weekTasks.get(1));
+            testWeek.getTimeSlots()[3][9].addTask(weekTasks.get(2));
+            testWeek.getTimeSlots()[4][9].addTask(weekTasks.get(3));
+            testWeek.getTimeSlots()[5][9].addTask(weekTasks.get(4));
+        }
+         */
         // TEST get length of weekTasks of weekPrices and show as task
         TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
         weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
