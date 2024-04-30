@@ -42,17 +42,13 @@ import java.util.concurrent.Future;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Declare the MaterialCalendarView and Calendar objects.
-    MaterialCalendarView calendarView;
-    java.util.Calendar calendar;
 
-    public static TaskDatabase database;
-
-    // static variables for the weeknumber to be dispalyed and weekDisplayed
+    // static variables for the weeknumber to be dispalyed, weekDisplayed and HourlyPrices
     static int weekOfYear;
     static Week weekDisplayed;
-
     static HourlyPrice[] allHourlyPrices;
+
+    public static TaskDatabase database;
 
     @SuppressLint("WrongThread")
     @Override
@@ -61,16 +57,6 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file.
         setContentView(R.layout.activity_main);
         database = TaskDatabase.getDatabase(getApplicationContext());
-
-        // TEST: API call & fetch data + do something with it.
-        //FetchManager.fetchApiData();
-
-        // Initialize the calendarView by finding it in the layout.
-        //calendarView = findViewById(R.id.calenderView);
-
-        // Initialize tableLayout by finding it from tablelayout.xml.
-        //TableLayout tableLayout = findViewById(R.id.tableLayout);
-
 
         // CREATE TESTDATA
         //  create testTasks in database
@@ -111,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         TextView weekDay6 = findViewById(R.id.date5_tv);
         TextView weekDay7 = findViewById(R.id.date6_tv);
         // change week buttons
-        //View btnPreviousWeek = findViewById(R.id.btn_weekminus);
-        //View btnNextWeek = findViewById(R.id.btn_weekplus);
+        Button btnPreviousWeek = findViewById(R.id.btn_weekminus);
+        Button btnNextWeek = findViewById(R.id.btn_weekplus);
         //btnPreviousWeek.setOnClickListener(this);
         //btnNextWeek.setOnClickListener(this);
 
@@ -126,12 +112,9 @@ public class MainActivity extends AppCompatActivity {
         dateViews.add(weekDay6);
         dateViews.add(weekDay7);
 
-
         // 1. get today's date /  set date (todays date on program  start)
         LocalDate date = LocalDate.now();
         //LocalDate date = LocalDate.of(2024,5,10);
-        // week 13 test
-        //LocalDate date = LocalDate.of(2024,3,25);
 
         // 2. Get the week of the year from date
         // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
@@ -152,21 +135,9 @@ public class MainActivity extends AppCompatActivity {
         // set dates, week, month for week
         CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
 
-        // create week object and assign to global variable weekDisplayed
+        // create week object and assign to static variable weekDisplayed
         weekDisplayed = new Week();
 
-
-
-        /*
-        // test: add tasks from database to week
-        if (weekTasks.size()>4) {
-            testWeek.getTimeSlots()[1][9].addTask(weekTasks.get(0));
-            testWeek.getTimeSlots()[2][9].addTask(weekTasks.get(1));
-            testWeek.getTimeSlots()[3][9].addTask(weekTasks.get(2));
-            testWeek.getTimeSlots()[4][9].addTask(weekTasks.get(3));
-            testWeek.getTimeSlots()[5][9].addTask(weekTasks.get(4));
-        }
-         */
         // TEST get length of weekTasks of weekPrices and show as task
         TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
         weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
@@ -274,8 +245,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
+
 
 
 }

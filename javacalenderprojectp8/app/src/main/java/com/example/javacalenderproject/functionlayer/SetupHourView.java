@@ -23,6 +23,7 @@ public class SetupHourView {
             if (i <10) { tempString = "0" + tempString;}
             timeList.add(tempString);
         } */
+
         List<String> timeList= CreateWeek.getTimeIntervals();
 
         // initialize gridlayoutmanager. Spancount = number of columns
