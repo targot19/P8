@@ -178,9 +178,6 @@ public class MainActivity extends AppCompatActivity {
         //  get button Views by id with other Views in start of onCreate() method ?
         // onclick listeners to next/previous week buttons
 
-
-
-
         // Create FamilyGrid instance and add the grid to the layout
         FamilyGrid familyGrid = new FamilyGrid();
         familyGrid.createGridView(this);

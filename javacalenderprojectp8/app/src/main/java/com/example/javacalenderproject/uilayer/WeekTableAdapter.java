@@ -15,6 +15,8 @@ import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,10 +66,64 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         int hour = itemPosition / 7;
 
         if (viewType == TYPE_ITEM) {
-            // get price using day and hour from timeslo
+            // get price using day and hour from timeslot
             String priceColor = timeSlots[day][hour].getColor();
             ArrayList<TaskPlanned> tasks = timeSlots[day][hour].getTasks();
             // set background color
+            if(priceColor == "noColor") {
+                ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.white);
+            }
+            else {
+                // if date of timeslot is today: show strong colors for determined prices
+                // else if date of timeslot is tomorrow and time of last successful API price fetch is after 13.00 today: show strong colors for determined prices
+                LocalDateTime apiDateTime = LocalDateTime.now();
+                LocalDateTime pricesDetermined = LocalDateTime.now().with(LocalTime.of(13,0));
+                // if date of timeslot is today: show strong colors for determined prices
+                if (LocalDateTime.now().toLocalDate() == timeSlots[day][hour].getDate().toLocalDate()) {
+                    if (priceColor == "green") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
+                    }
+                    else if (priceColor == "yellow") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
+                    }
+                    else if (priceColor == "red") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
+                    }
+                }
+                // else if date of timeslot is tomorrow and time of last successful API price fetch is after 13.00 today: show strong colors for determined prices
+                else if (timeSlots[day][hour].getDate().toLocalDate() == LocalDateTime.now().toLocalDate().plusDays(1)) {
+                    // tilføj condition: && apiDateTime.isAfter(pricesDetermined)
+                    if (priceColor == "green") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
+                    }
+                    else if (priceColor == "yellow") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
+                    }
+                    else if (priceColor == "red") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
+                    }
+                }
+                else {
+                    if (priceColor == "green") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenForecast);
+                    }
+                    else if (priceColor == "yellow") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellowForecast);
+                    }
+                    else if (priceColor == "red") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.redForecast);
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
             if (priceColor == "green") {
                 ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
             }
@@ -143,6 +199,107 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
         }
     }
+
+
+
+    /*
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        // function to determine if viewtype is item or header
+        int viewType = getItemViewType(position);
+
+        if (viewType == TYPE_ITEM) {
+            bindItem(holder, position);
+        }
+        else if (viewType == TYPE_HEADER) {
+            bindHeader(holder, position);
+        }
+
+    }
+
+    public void bindItem (RecyclerView.ViewHolder holder, int position) {
+        // calculate position ignoring column 0 showing time intervals
+        int itemPosition = position - (position/8) -1;
+        // calculate day and hour from position
+        int day = itemPosition % 7 ;
+        int hour = itemPosition / 7;
+        // get price using day and hour from timeslot
+        String priceColor = timeSlots[day][hour].getColor();
+        ArrayList<TaskPlanned> tasks = timeSlots[day][hour].getTasks();
+        // set background color
+        if (priceColor == "green") {
+            ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
+        }
+        else if (priceColor == "yellow") {
+            ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
+        }
+        else if (priceColor == "red") {
+            ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
+        }
+        // force to set background to white if no color/data to show
+        else {
+            ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.white);
+        }
+        // set tasks
+        if (!tasks.isEmpty()) {
+            // make edge line visible
+            ((TimeSlotViewHolder)holder).edge.setVisibility(View.VISIBLE);
+
+            // if 1 task in timeslot: Make 1 task textview visible and set text to name of task
+            if(tasks.size() == 1) {
+                ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
+                ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
+                ((TimeSlotViewHolder)holder).separator.setVisibility(View.GONE);
+                String taskName = tasks.get(0).getTaskName();
+                ((TimeSlotViewHolder)holder).task1.setText(taskName);
+            }
+            else if (tasks.size() > 1) {
+                ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
+                ((TimeSlotViewHolder)holder).task2.setVisibility(View.VISIBLE);
+                ((TimeSlotViewHolder)holder).separator.setVisibility(View.VISIBLE);
+                String text1 = tasks.get(0).getTaskName();
+                String text2 = tasks.get(1).getTaskName();
+                ((TimeSlotViewHolder)holder).task1.setText(text1);
+                ((TimeSlotViewHolder)holder).task2.setText(text2);
+            }
+        }
+        // force to hide views for tasks if no tasks in timeslot
+        else {
+            ((TimeSlotViewHolder)holder).edge.setVisibility(View.GONE);
+            ((TimeSlotViewHolder)holder).separator.setVisibility(View.GONE);
+            ((TimeSlotViewHolder)holder).task1.setVisibility(View.GONE);
+            ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
+        }
+        //-------- FOR TESTING: toast + logging
+        // show toast message on long click
+        ((TimeSlotViewHolder) holder).container.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                Toast.makeText(v.getContext(), "LONG test - Adap.pos: " + holder.getAdapterPosition() + "pos " + position, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+        //LOGGING
+        //Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
+    }
+
+    public void bindHeader(RecyclerView.ViewHolder holder, int position){
+        // calculate index in rowHeader list from position
+        int index = position / 8;
+        // set text to timeinterval
+        ((TimeViewHolder)holder).time.setText(rowHeader.get(index));
+        // set background color
+        ((TimeViewHolder)holder).container.setBackgroundResource(R.color.timeBlock);
+
+        // TEST: show toast message on long click
+        ((TimeViewHolder) holder).container.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                Toast.makeText(v.getContext(), "LONG test - Adap.pos: " + holder.getAdapterPosition() + "pos " + position, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+
+     */
 
     // method to determine view type
     @Override
