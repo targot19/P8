@@ -13,10 +13,10 @@
         android:id="@+id/addtasks"
         layout="@layout/add_task"
         android:layout_width="165dp"
-        android:layout_height="50dp"
+        android:layout_height="66dp"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/taskview" />
 
     <ImageView
         android:id="@+id/logo"
@@ -77,42 +77,43 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="RtlSymmetry" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="151dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif-light"
-            android:paddingStart="0dp"
-            android:text="@string/edit_family_and_tasks"
-            android:textAlignment="viewStart"
-            android:textColor="@color/Textgray"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
 
-            tools:ignore="RtlSymmetry" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="151dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-light"
+        android:paddingStart="0dp"
+        android:text="@string/edit_family_and_tasks"
+        android:textAlignment="viewStart"
+        android:textColor="@color/Textgray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="151dp"
-            android:layout_height="48dp"
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif-light"
-            android:paddingStart="0dp"
-            android:text="@string/get_help"
-            android:textAlignment="viewStart"
-            android:textColor="@color/Textgray"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/edit"
+        tools:ignore="RtlSymmetry" />
 
-            tools:ignore="RtlSymmetry" />
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="151dp"
+        android:layout_height="48dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-light"
+        android:paddingStart="0dp"
+        android:text="@string/get_help"
+        android:textAlignment="viewStart"
+        android:textColor="@color/Textgray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
 
+        app:layout_constraintStart_toEndOf="@+id/help"
+        tools:ignore="RtlSymmetry" />
 
     <ImageButton
         android:id="@+id/edit"
         android:layout_width="41dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
         android:backgroundTint="@color/gray"
         android:contentDescription="@string/edit"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -125,7 +126,6 @@
         style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="41dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
         android:background="@color/gray"
         android:contentDescription="@string/get_help_img"
         android:scaleType="center"
@@ -148,9 +148,11 @@
         android:longClickable="true"
         android:paddingTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-        <LinearLayout
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
             android:id="@+id/calendar_view"
             android:layout_width="889dp"
             android:layout_height="135dp"
