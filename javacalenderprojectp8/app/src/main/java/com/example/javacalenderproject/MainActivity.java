@@ -3,6 +3,7 @@ package com.example.javacalenderproject;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         database = TaskDatabase.getDatabase(getApplicationContext());
 
         // TEST: API call & fetch data + do something with it.
-        FetchManager.fetchApiData();
+        //FetchManager.fetchApiData();
 
         // Initialize the calendarView by finding it in the layout.
         //calendarView = findViewById(R.id.calenderView);
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 1. get today's date /  set date (todays date on program  start)
         LocalDate date = LocalDate.now();
+        //LocalDate date = LocalDate.of(2024,5,10);
         // week 13 test
         //LocalDate date = LocalDate.of(2024,3,25);
 
@@ -144,6 +148,26 @@ public class MainActivity extends AppCompatActivity {
         // TEST get LENGTH OF weekTasks list
         TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
         weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
+
+
+        // Trying out 'future' stuff for API - future.get is our async call
+        HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
+        Future<HourlyPrice[]> future = FetchManager.fetchApiData();
+        try {
+            allHourlyPrices = future.get();
+            // Log how many hourly prices were received
+            Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
+
+            // Log each individual price
+            for (HourlyPrice hourlyPrice : allHourlyPrices) {
+                Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
+                Log.d("Api",  "Hour: " + hourlyPrice.getHour());
+            }
+
+        } catch (InterruptedException | ExecutionException e) {
+            // Handle exception
+            Log.d("ApiClient", "Error fetching data: " + e.getMessage());
+        }
 
         /*
         // test: add tasks from database to week
