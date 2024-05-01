@@ -36,13 +36,19 @@ public class CreateWeek {
 
             // set color of timeslot after price-color logic
             String color = null;
-            if (hourPrice.getPrice() < 0.4) {
+            if (hourPrice.getPrice() < 0.3) {
                 color = "green";
             }
-            else if (hourPrice.getPrice() >= 0.4 && hourPrice.getPrice() < 1.5) {
+            /** else if (hourPrice.getPrice() >= 0.2 && hourPrice.getPrice() < 0.4) {
+                color = "greenyellow";
+            } **/
+            else if (hourPrice.getPrice() >= 0.3 && hourPrice.getPrice() < 0.6) {
                 color = "yellow";
             }
-            else if (hourPrice.getPrice() >= 1.5) {
+            else if (hourPrice.getPrice() >= 0.6 && hourPrice.getPrice() <= 0.8) {
+                color = "orange";
+            }
+            else if (hourPrice.getPrice() > 0.8) {
                 color = "red";
             }
             timeSlot.setColor(color);
@@ -131,44 +137,5 @@ public class CreateWeek {
             weekDates.add(weekDate);
         }
         return weekDates;
-    }
-
-
-    // TEST returns week with testdata (not empty week) - kan slettes når vi har rigtig data at lege med
-    public static Week createTestWeek() {
-
-        Week testWeek = new Week(1);
-
-        // set colors
-        for (int i = 0; i < 7; i ++) {
-            for (int j = 0; j < 12; j++) {
-                testWeek.getTimeSlots()[i][j].setColor("yellow");
-            }
-            for (int k = 12; k < 24; k++) {
-                testWeek.getTimeSlots()[i][k].setColor("red");
-            }
-        }
-
-        // TEST DATA
-        testWeek.getTimeSlots()[2][7].setColor("yellow");
-        testWeek.getTimeSlots()[3][7].setColor("yellow");
-        testWeek.getTimeSlots()[0][7].setColor("green");
-        testWeek.getTimeSlots()[1][7].setColor("green");
-        testWeek.getTimeSlots()[1][9].setColor("red");
-
-        // set TaskPlanned for test
-        TaskPlanned task1 = new TaskPlanned("Støvsuge");
-        TaskPlanned task2 = new TaskPlanned("Flæskesteg");
-        TaskPlanned task3 = new TaskPlanned("Tøjvask");
-        testWeek.getTimeSlots()[0][7].addTask(task1);
-        testWeek.getTimeSlots()[0][7].addTask(task2);
-        testWeek.getTimeSlots()[0][7].addTask(task3);
-
-        testWeek.getTimeSlots()[6][23].addTask(task1);
-        testWeek.getTimeSlots()[1][9].addTask(task2);
-        testWeek.getTimeSlots()[2][9].addTask(task1);
-        testWeek.getTimeSlots()[3][9].addTask(task3);
-
-        return testWeek;
     }
 }

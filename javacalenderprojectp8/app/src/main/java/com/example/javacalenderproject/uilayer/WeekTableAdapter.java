@@ -1,12 +1,12 @@
 package com.example.javacalenderproject.uilayer;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,8 +89,14 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
                     }
+                    /** else if (priceColor == "greenyellow") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenyellow);
+                    } **/
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
+                    }
+                    else if (priceColor == "orange") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orange);
                     }
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
@@ -101,8 +107,14 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
                     }
+                    /** else if (priceColor == "greenyellow") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenyellow);
+                    } **/
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
+                    }
+                    else if (priceColor == "orange") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orange);
                     }
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
@@ -113,8 +125,14 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenForecast);
                     }
+                    /** else if (priceColor == "greenyellow") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenyellowForecast);
+                    } **/
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellowForecast);
+                    }
+                    else if (priceColor == "orange") {
+                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orangeForecast);
                     }
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.redForecast);
