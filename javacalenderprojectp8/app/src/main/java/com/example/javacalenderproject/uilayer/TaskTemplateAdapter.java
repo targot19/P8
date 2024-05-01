@@ -1,5 +1,6 @@
 package com.example.javacalenderproject.uilayer;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskTemplate;
 
 import java.util.List;
 
 public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapter.ViewHolder> {
 
-    private final List<TaskTemplate> taskTemplates;
+    private static List<TaskTemplate> taskTemplates;
+    private Context context;
 
+    public TaskTemplateAdapter(Context context, List<TaskTemplate> tasks) {
+        this.context = context;
+        this.taskTemplates = tasks;
+    }
     public TaskTemplateAdapter(List<TaskTemplate> tasks) {
         this.taskTemplates = tasks;
     }
@@ -41,7 +48,11 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
         return taskTemplates.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         // Declare views here
         private final TextView taskTextView;
 
@@ -49,11 +60,30 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             super(itemView);
             // Initialize views here
             taskTextView = itemView.findViewById(R.id.taskTextView);
+            itemView.setOnLongClickListener(this::onLongClick);
         }
-
+        @Override
+        public boolean onLongClickUseDefaultHapticFeedback(@NonNull View v) {
+            return View.OnLongClickListener.super.onLongClickUseDefaultHapticFeedback(v);
+        }
+        public boolean onLongClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                TaskTemplate task = taskTemplates.get(position);
+                deleteTask(task);
+                notifyItemRemoved(position);
+            }
+            return true;
+        }
         public void bind(TaskTemplate task) {
             //Bind data to views here
             taskTextView.setText(task.getTaskName());
+        }
+        private void deleteTask(TaskTemplate task) {
+            new Thread(() -> {
+                TaskDatabase.getDatabase(context).taskDAO().delete(task.getTaskName());
+                taskTemplates.remove(task);
+            }).start();
         }
     }
 }
