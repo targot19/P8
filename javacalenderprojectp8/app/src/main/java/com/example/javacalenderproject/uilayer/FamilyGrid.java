@@ -1,7 +1,9 @@
-package com.example.javacalenderproject;
+package com.example.javacalenderproject.uilayer;
 
 import android.widget.GridView;
 
+import com.example.javacalenderproject.MainActivity;
+import com.example.javacalenderproject.R;
 import com.example.javacalenderproject.uilayer.CustomGridAdapter;
 
 public class FamilyGrid {
