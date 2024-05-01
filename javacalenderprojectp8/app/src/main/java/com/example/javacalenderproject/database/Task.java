@@ -38,6 +38,26 @@ public class Task {
         this.taskDuration = duration;
     }
 
+
+
+    public Task(String taskName){
+
+        this.taskName = taskName;
+
+    }
+
+
+    public void insertTask(Task task) {
+        MainActivity.database.taskDAO().insertTask(task);
+    }
+
+
+
+
+
+
+
+
     /** create methods for Task
      * with these methods, it is possible to retrieve the private attributes
      **/
