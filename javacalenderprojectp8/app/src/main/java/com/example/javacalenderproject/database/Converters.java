@@ -2,7 +2,6 @@ package com.example.javacalenderproject.database;
 
 import androidx.room.TypeConverter;
 
-import com.example.javacalenderproject.database.FamilyMember;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -28,14 +27,14 @@ public class Converters {
     }
 
     @TypeConverter
-    public static List<Task> fromTaskString(String value) {
-        Type listType = new TypeToken<List<Task>>() {
+    public static List<TaskTemplate> fromTaskString(String value) {
+        Type listType = new TypeToken<List<TaskTemplate>>() {
         }.getType();
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
-    public static String fromTaskList(List<Task> list) {
+    public static String fromTaskList(List<TaskTemplate> list) {
         Gson gson = new Gson();
         return gson.toJson(list);
 

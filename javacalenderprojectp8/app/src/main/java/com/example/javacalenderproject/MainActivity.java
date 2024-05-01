@@ -166,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
         TaskTemplate taskTemplate = new TaskTemplate();
         taskTemplate.createTaskTemplate(this);
 
+        // Create TaskTemplate to display tasks in the sidebar
+        TaskTemplateView taskTemplateView = new TaskTemplateView();
+        taskTemplateView.createTaskTemplate(this);
+
 
         // Our 'Get Help' text button initializer and onclicklistener
         Button helpButton = findViewById(R.id.button1);
