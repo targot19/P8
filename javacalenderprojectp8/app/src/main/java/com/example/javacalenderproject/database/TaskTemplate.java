@@ -38,7 +38,6 @@ public class TaskTemplate {
     }
 
 
-
     public TaskTemplate(String taskName){
 
         this.taskName = taskName;

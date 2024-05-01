@@ -50,8 +50,6 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
 
 
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         // Declare views here
         private final TextView taskTextView;
@@ -60,8 +58,9 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             super(itemView);
             // Initialize views here
             taskTextView = itemView.findViewById(R.id.taskTextView);
-            itemView.setOnLongClickListener(this::onLongClick);
+            itemView.setOnLongClickListener(this);
         }
+
         @Override
         public boolean onLongClickUseDefaultHapticFeedback(@NonNull View v) {
             return View.OnLongClickListener.super.onLongClickUseDefaultHapticFeedback(v);
