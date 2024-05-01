@@ -19,7 +19,7 @@ import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.HelpPopup;
 import com.example.javacalenderproject.model.HourlyPrice;
-import com.example.javacalenderproject.model.TaskTemplate;
+import com.example.javacalenderproject.model.TaskTemplateView;
 import com.example.javacalenderproject.model.Week;
 import com.example.javacalenderproject.uilayer.FamilyGrid;
 import com.example.javacalenderproject.uilayer.WeekTableAdapter;
@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {
         familyGrid.createGridView(this);
 
         // Create TaskTemplate to display tasks in the sidebar
-        TaskTemplate taskTemplate = new TaskTemplate();
-        taskTemplate.createTaskTemplate(this);
+        //TaskTemplate taskTemplate = new TaskTemplate();
+        //taskTemplate.createTaskTemplate(this);
 
         // Create TaskTemplate to display tasks in the sidebar
         TaskTemplateView taskTemplateView = new TaskTemplateView();
