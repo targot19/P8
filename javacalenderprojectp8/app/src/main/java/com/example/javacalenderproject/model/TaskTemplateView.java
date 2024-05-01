@@ -1,6 +1,7 @@
 package com.example.javacalenderproject.model;
 
-import android.text.TextUtils;
+import static com.example.javacalenderproject.MainActivity.database;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.MainActivity;
 import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskTemplate;
 import com.example.javacalenderproject.uilayer.TaskTemplateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.content.Context;
-import android.app.Activity;
+import com.example.javacalenderproject.database.*;
 
-public class TaskTemplate {
+public class TaskTemplateView {
 
-    List<String> tasks = new ArrayList<>(); // Initialize the tasks list
+
+
+    List<TaskTemplate> tasktmpl = database.taskDAO().getAllTasks();
 
     public void createTaskTemplate(MainActivity activity) {
 
@@ -36,12 +37,11 @@ public class TaskTemplate {
         Button addTask = activity.findViewById(R.id.addtask);
 
         // Create a new TaskTemplateAdapter instance and set it as the adapter for the RecyclerView
-        TaskTemplateAdapter taskTemplateAdapter = new TaskTemplateAdapter(tasks);
+        TaskTemplateAdapter taskTemplateAdapter = new TaskTemplateAdapter(tasktmpl);
         recyclerView.setAdapter(taskTemplateAdapter);
 
         // Add initial tasks to the list
-        tasks.add("Vask tøj");
-        tasks.add("Tænd opvaskemaskinen");
+
 
       /*  // Set an OnEditorActionListener for the EditText to handle the "Done" action from the soft keyboard
         editText.setOnEditorActionListener((v, actionId, event) -> {
@@ -67,8 +67,10 @@ public class TaskTemplate {
             String taskName = editText.getText().toString().trim();
             if (!taskName.isEmpty()) {
                 // Add the task to the list, update the RecyclerView, and clear the EditText
-                tasks.add(taskName);
-                taskTemplateAdapter.notifyItemInserted(tasks.size() - 1);
+                TaskTemplate newtasktemplate = new TaskTemplate(taskName);
+                tasktmpl.add(newtasktemplate);
+                database.taskDAO().insertTask(newtasktemplate);
+                taskTemplateAdapter.notifyItemInserted(tasktmpl.size() - 1);
                 editText.setText("");
             } else {
                 // Display a Toast message if the EditText is empty
@@ -78,3 +80,30 @@ public class TaskTemplate {
     }
 }
 
+
+
+
+
+
+
+
+
+/*
+    private void createTask(String name, String icon, String color, int duration) {
+        Task newTask = new Task(name, icon, color, duration);
+        new Thread(() -> {
+            try {
+                database.taskDAO().insertTask(newTask);
+                List<Task> tasks = database.taskDAO().getAllTasks();
+                Log.d("MainActivity", "Task inserted, total tasks now: " + tasks.size());
+                for (Task task : tasks) {
+                    Log.d("MainActivity", "Task: " + task.getTaskName());
+                }
+            } catch (Exception e) {
+                Log.e("MainActivity", "Failed to insert or retrieve tasks", e);
+            }
+        }).start();
+    }
+}
+
+ */

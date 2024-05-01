@@ -1,48 +1,32 @@
 package com.example.javacalenderproject;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.view.View;
-import android.widget.Button;
+
 import com.example.javacalenderproject.functionlayer.HelpPopup;
-import android.widget.ImageButton;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.javacalenderproject.model.TaskTemplate;
+import com.example.javacalenderproject.model.TaskTemplateView;
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
-import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
-import com.example.javacalenderproject.functionlayer.SetupHourView;
-import com.example.javacalenderproject.functionlayer.TestData;
 import com.example.javacalenderproject.model.HourlyPrice;
-import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 import com.example.javacalenderproject.uilayer.WeekTableAdapter;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -177,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
         familyGrid.createGridView(this);
 
         // Create TaskTemplate to display tasks in the sidebar
-        TaskTemplate taskTemplate = new TaskTemplate();
-        taskTemplate.createTaskTemplate(this);
+        TaskTemplateView taskTemplateView = new TaskTemplateView();
+        taskTemplateView.createTaskTemplate(this);
 
 
         // Our 'Get Help' text button initializer and onclicklistener
