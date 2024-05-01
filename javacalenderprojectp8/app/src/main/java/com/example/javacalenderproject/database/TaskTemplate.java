@@ -9,7 +9,7 @@ import com.example.javacalenderproject.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "taskTable")
+@Entity(tableName = "TaskTemplateTable")
 public class TaskTemplate {
 
     // create attributes
@@ -117,6 +117,14 @@ public class TaskTemplate {
 
     }
     private List<TaskTemplate> taskTemplates = new ArrayList<>();
+
+    public void setTaskTemplates(List<TaskTemplate> taskTemplates) {
+        this.taskTemplates = taskTemplates;
+    }
+
+    public List<TaskTemplate> getTaskTemplates() {
+        return taskTemplates;
+    }
 
     public List<TaskTemplate> getTasks() {
         return taskTemplates;

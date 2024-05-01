@@ -9,15 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskTemplate;
 
 import java.util.List;
 
 public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapter.ViewHolder> {
 
-    private final List<String> tasks;
+    private final List<TaskTemplate> taskTemplates;
 
-    public TaskTemplateAdapter(List<String> tasks) {
-        this.tasks = tasks;
+    public TaskTemplateAdapter(List<TaskTemplate> tasks) {
+        this.taskTemplates = tasks;
     }
 
     @NonNull
@@ -31,13 +32,13 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Implement this method to bind data to the ViewHolder
-        String task = tasks.get(position);
+        TaskTemplate task = taskTemplates.get(position);
         holder.bind(task);
     }
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return taskTemplates.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -50,9 +51,9 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             taskTextView = itemView.findViewById(R.id.taskTextView);
         }
 
-        public void bind(String task) {
+        public void bind(TaskTemplate task) {
             //Bind data to views here
-            taskTextView.setText(task);
+            taskTextView.setText(task.getTaskName());
         }
     }
 }

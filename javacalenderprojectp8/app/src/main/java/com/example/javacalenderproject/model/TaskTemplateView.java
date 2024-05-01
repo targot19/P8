@@ -1,5 +1,7 @@
 package com.example.javacalenderproject.model;
 
+import static com.example.javacalenderproject.MainActivity.database;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,15 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.MainActivity;
 import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskTemplate;
 import com.example.javacalenderproject.uilayer.TaskTemplateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.example.javacalenderproject.database.*;
 
 public class TaskTemplateView {
 
-    List<String> tasks = new ArrayList<>(); // Initialize the tasks list
+
+
+    List<TaskTemplate> tasktmpl = database.taskDAO().getAllTasks();
 
     public void createTaskTemplate(MainActivity activity) {
 
@@ -32,12 +37,11 @@ public class TaskTemplateView {
         Button addTask = activity.findViewById(R.id.addtask);
 
         // Create a new TaskTemplateAdapter instance and set it as the adapter for the RecyclerView
-        TaskTemplateAdapter taskTemplateAdapter = new TaskTemplateAdapter(tasks);
+        TaskTemplateAdapter taskTemplateAdapter = new TaskTemplateAdapter(tasktmpl);
         recyclerView.setAdapter(taskTemplateAdapter);
 
         // Add initial tasks to the list
-        tasks.add("Vask tøj");
-        tasks.add("Tænd opvaskemaskinen");
+
 
       /*  // Set an OnEditorActionListener for the EditText to handle the "Done" action from the soft keyboard
         editText.setOnEditorActionListener((v, actionId, event) -> {
@@ -63,8 +67,10 @@ public class TaskTemplateView {
             String taskName = editText.getText().toString().trim();
             if (!taskName.isEmpty()) {
                 // Add the task to the list, update the RecyclerView, and clear the EditText
-                tasks.add(taskName);
-                taskTemplateAdapter.notifyItemInserted(tasks.size() - 1);
+                TaskTemplate newtasktemplate = new TaskTemplate(taskName);
+                tasktmpl.add(newtasktemplate);
+                database.taskDAO().insertTask(newtasktemplate);
+                taskTemplateAdapter.notifyItemInserted(tasktmpl.size() - 1);
                 editText.setText("");
             } else {
                 // Display a Toast message if the EditText is empty
@@ -73,6 +79,14 @@ public class TaskTemplateView {
         });
     }
 }
+
+
+
+
+
+
+
+
 
 /*
     private void createTask(String name, String icon, String color, int duration) {

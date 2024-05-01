@@ -10,15 +10,15 @@ import java.util.List;
 public interface TaskDAO {
 
     // method for creating tasks
-    @Query("INSERT INTO TaskTemplate (taskType) VALUES ('New task')")
+    @Query("INSERT INTO TaskTemplateTable (taskType) VALUES ('New task')")
     void create();
 
     // method for getting all the tasks in the database
-    @Query("SELECT * FROM TaskTemplate")
+    @Query("SELECT * FROM TaskTemplateTable")
     List<TaskTemplate> getAllTasks();
 
     // method for saving tasks to database
-    @Query("UPDATE TaskTemplate SET taskType = :taskName WHERE id = :id")
+    @Query("UPDATE TaskTemplateTable SET taskType = :taskName WHERE id = :id")
     void save(String taskName, int id);
 
     @Insert

@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 // changed version to 5
-@Database(entities = {TaskTemplate.class, TaskPlanned.class}, version = 5, exportSchema = false)
+@Database(entities = {TaskTemplate.class, TaskPlanned.class}, version = 6, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class TaskDatabase extends RoomDatabase {
     public abstract TaskDAO taskDAO();
