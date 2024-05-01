@@ -48,14 +48,13 @@ import java.util.concurrent.Future;
 
 public class MainActivity extends AppCompatActivity {
 
-
     // static variables for the weeknumber to be dispalyed, weekDisplayed and HourlyPrices
     static int weekOfYear;
     static Week weekDisplayed;
     static HourlyPrice[] allHourlyPrices;
 
     public static TaskDatabase database;
-
+    // variable to hold time of last successful fetch of price data
     public static LocalDateTime apiFetchTime;
 
     @SuppressLint("WrongThread")
@@ -88,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
                 Log.d("Api",  "Hour: " + hourlyPrice.getHour());
 
+                // update time of last succesful fetch
                 apiFetchTime = LocalDateTime.now();
             }
 
@@ -107,13 +107,10 @@ public class MainActivity extends AppCompatActivity {
         TextView weekDay5 = findViewById(R.id.date4_tv);
         TextView weekDay6 = findViewById(R.id.date5_tv);
         TextView weekDay7 = findViewById(R.id.date6_tv);
-        // change week buttons
         Button btnPreviousWeek = findViewById(R.id.btn_weekminus);
         Button btnNextWeek = findViewById(R.id.btn_weekplus);
-        //btnPreviousWeek.setOnClickListener(this);
-        //btnNextWeek.setOnClickListener(this);
 
-        // keep dateViews in list (used to pass to methods)
+        // keep dateViews in list (used to pass to method sto set calendar views)
         ArrayList<TextView> dateViews = new ArrayList<>();
         dateViews.add(weekDay1);
         dateViews.add(weekDay2);
@@ -133,10 +130,8 @@ public class MainActivity extends AppCompatActivity {
         // get the week of the year using weekFields
         weekOfYear = date.get(weekFields.weekOfYear());
 
-        // 3. get year from date (required to get dates of the week)
+        // 4. get list of dates for today's week
         int year = date.getYear();
-
-        // 4. get list of dates for given weeknumber of the given year
         List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
 
         // 5. get planned tasks and price data for week:
@@ -179,9 +174,6 @@ public class MainActivity extends AppCompatActivity {
         // WeekTableAdapter
         recyclerView.setAdapter(weekAdapter);
 
-        //  get button Views by id with other Views in start of onCreate() method ?
-        // onclick listeners to next/previous week buttons
-
         // Create FamilyGrid instance and add the grid to the layout
         FamilyGrid familyGrid = new FamilyGrid();
         familyGrid.createGridView(this);
@@ -210,9 +202,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-        findViewById(R.id.btn_weekminus).setOnClickListener(new View.OnClickListener() {
+        // onclick listeners to next/previous week buttons
+        btnPreviousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -249,8 +240,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        findViewById(R.id.btn_weekplus).setOnClickListener(new View.OnClickListener() {
+        btnNextWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (weekOfYear<53) {weekOfYear = weekOfYear +1;}
@@ -285,12 +275,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
-
-
-
-
 
 }
 /**
