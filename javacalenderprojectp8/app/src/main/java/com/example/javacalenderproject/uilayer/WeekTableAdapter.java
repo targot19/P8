@@ -75,7 +75,8 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
             else {
                 // apiDateTime test
-                //LocalDateTime apiTest = LocalDateTime.of(2024, 4, 30, 13, 0, 1);
+                //LocalDateTime apiTest = LocalDateTime.of(2024, 5, 1, 13, 0, 1);
+
                 LocalDateTime newPricesDate = LocalDateTime.now().with(LocalTime.of(13,0));
                 LocalDate todayDate = LocalDateTime.now().toLocalDate();
                 LocalDate timeSlotDate = timeSlot.getDate().toLocalDate();

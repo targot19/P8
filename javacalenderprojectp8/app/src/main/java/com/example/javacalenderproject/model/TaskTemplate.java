@@ -19,9 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
 import android.app.Activity;
 
-
-
-
 public class TaskTemplate {
 
     List<String> tasks = new ArrayList<>(); // Initialize the tasks list

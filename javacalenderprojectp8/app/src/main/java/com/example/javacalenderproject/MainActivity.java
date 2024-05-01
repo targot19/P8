@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static TaskDatabase database;
     // variable to hold time of last successful fetch of price data
-    public static LocalDateTime apiFetchTime;
+    static LocalDateTime apiFetchTime;
 
     @SuppressLint("WrongThread")
     @Override
@@ -120,11 +120,9 @@ public class MainActivity extends AppCompatActivity {
         dateViews.add(weekDay6);
         dateViews.add(weekDay7);
 
-        // 1. get today's date /  set date (todays date on program  start)
+        // 1. Get the current week of the year
+        // get today's date
         LocalDate date = LocalDate.now();
-        //LocalDate date = LocalDate.of(2024,5,10);
-
-        // 2. Get the week of the year from date
         // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
         WeekFields weekFields = WeekFields.ISO;
         // get the week of the year using weekFields
@@ -200,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
                 HelpPopup.showHelpPopup(MainActivity.this);
             }
         });
-
 
         // onclick listeners to next/previous week buttons
         btnPreviousWeek.setOnClickListener(new View.OnClickListener() {
