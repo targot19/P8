@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black"
-            android:background="@color/opgavebaggrund"
+            android:background="@color/task1"
             android:gravity="center"
             />
         <View
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black"
-            android:background="@color/opgavebaggrund"
+            android:background="@color/task1"
             android:gravity="center"
             />
     </LinearLayout>
