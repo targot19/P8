@@ -5,13 +5,12 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.javacalenderproject.MainActivity;
-import com.example.javacalenderproject.database.FamilyMember;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "taskTable")
-public class Task {
+public class TaskTemplate {
 
     // create attributes
     @PrimaryKey(autoGenerate = true)
@@ -28,10 +27,10 @@ public class Task {
     @ColumnInfo(name = "taskAssignedMembers")
     private ArrayList<FamilyMember> assignedFamilyMembers;
 
-    public Task() {
+    public TaskTemplate() {
     }
     // create constructor
-    public Task(String name, String icon, String color, int duration) {
+    public TaskTemplate(String name, String icon, String color, int duration) {
         this.taskName = name;
         //this.taskIcon = icon;
         this.taskColor = color;
@@ -40,15 +39,15 @@ public class Task {
 
 
 
-    public Task(String taskName){
+    public TaskTemplate(String taskName){
 
         this.taskName = taskName;
 
     }
 
 
-    public void insertTask(Task task) {
-        MainActivity.database.taskDAO().insertTask(task);
+    public void insertTask(TaskTemplate taskTemplate) {
+        MainActivity.database.taskDAO().insertTask(taskTemplate);
     }
 
 
@@ -117,18 +116,18 @@ public class Task {
         assignedFamilyMembers.remove(familyMember);
 
     }
-    private List<Task> tasks = new ArrayList<>();
+    private List<TaskTemplate> taskTemplates = new ArrayList<>();
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<TaskTemplate> getTasks() {
+        return taskTemplates;
     }
 
     // Setter for the tasks list
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setTasks(List<TaskTemplate> taskTemplates) {
+        this.taskTemplates = taskTemplates;
     }
 
     public void reload() {
-        tasks = MainActivity.database.taskDAO().getAllTasks();
+        taskTemplates = MainActivity.database.taskDAO().getAllTasks();
     }
 }

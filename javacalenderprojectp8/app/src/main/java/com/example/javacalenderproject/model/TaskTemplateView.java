@@ -1,6 +1,5 @@
 package com.example.javacalenderproject.model;
 
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,15 +13,9 @@ import com.example.javacalenderproject.uilayer.TaskTemplateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.content.Context;
-import android.app.Activity;
 
 
-
-
-public class TaskTemplate {
+public class TaskTemplateView {
 
     List<String> tasks = new ArrayList<>(); // Initialize the tasks list
 
