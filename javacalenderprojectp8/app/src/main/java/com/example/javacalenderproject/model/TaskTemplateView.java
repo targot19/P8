@@ -20,8 +20,6 @@ import com.example.javacalenderproject.database.*;
 
 public class TaskTemplateView {
 
-
-
     List<TaskTemplate> tasktmpl = database.taskDAO().getAllTasks();
 
     public void createTaskTemplate(MainActivity activity) {

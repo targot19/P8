@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.javacalenderproject.model.TaskTemplateView;
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
@@ -161,10 +161,6 @@ public class MainActivity extends AppCompatActivity {
         // Create FamilyGrid instance and add the grid to the layout
         FamilyGrid familyGrid = new FamilyGrid();
         familyGrid.createGridView(this);
-
-        // Create TaskTemplate to display tasks in the sidebar
-        //TaskTemplate taskTemplate = new TaskTemplate();
-        //taskTemplate.createTaskTemplate(this);
 
         // Create TaskTemplate to display tasks in the sidebar
         TaskTemplateView taskTemplateView = new TaskTemplateView();
