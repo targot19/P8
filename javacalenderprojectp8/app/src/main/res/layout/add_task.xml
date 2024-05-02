@@ -9,21 +9,22 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:hint="@string/tilf_j_opgave"
             android:id="@+id/tilføj_opgave"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/tilf_j_opgave"
             android:inputType="textCapSentences"
-            android:singleLine="true"
-            android:imeOptions="actionDone"/>
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/addtask"
-            android:layout_width="match_parent"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@android:drawable/ic_menu_add"
             android:backgroundTint="@color/opgavebaggrund"
             android:text="@string/tilf_j"
-            android:textColor="@color/opgaver" />
+            android:textColor="@color/opgaver"/>
     </LinearLayout>
+
 </RelativeLayout>

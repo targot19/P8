@@ -38,28 +38,6 @@ public class TaskTemplateView {
         TaskTemplateAdapter taskTemplateAdapter = new TaskTemplateAdapter(tasktmpl);
         recyclerView.setAdapter(taskTemplateAdapter);
 
-        // Add initial tasks to the list
-
-
-      /*  // Set an OnEditorActionListener for the EditText to handle the "Done" action from the soft keyboard
-        editText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String taskName = editText.getText().toString().trim();
-                if (!taskName.isEmpty()) {
-                    tasks.add(taskName);
-                    taskTemplateAdapter.notifyItemInserted(tasks.size() - 1);
-                    editText.setText("");
-                } else {
-                    Toast.makeText(activity, "Indtast opgave", Toast.LENGTH_SHORT).show();
-                }
-                // Hide the soft keyboard
-                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                return true;
-            }
-            return false;
-        }); */
-
         // Set an OnClickListener for the "Add Task" button
         addTask.setOnClickListener(v -> {
             String taskName = editText.getText().toString().trim();

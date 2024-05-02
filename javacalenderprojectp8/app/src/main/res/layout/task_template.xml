@@ -3,4 +3,10 @@
     android:id="@+id/taskTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp" />
+    android:textStyle="bold"
+    android:layout_margin="2dp"
+    android:padding="5dp"
+    android:background="@drawable/taskshape"
+    />
+
+
