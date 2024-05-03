@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="165dp"
     android:layout_height="50dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/tilfoej_opgave"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/tilf_j_opgave"
+        android:imeOptions="actionDone|actionGo"
+        android:inputType="textCapSentences"
+        android:singleLine="true"
+        android:textSize="18sp" />
 
-        <EditText
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:hint="@string/tilf_j_opgave"
-            android:id="@+id/tilføj_opgave"
-            android:inputType="textCapSentences"
-            android:singleLine="true"
-            android:imeOptions="actionDone"/>
-
-        <Button
-            android:id="@+id/addtask"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:drawable/ic_menu_add"
-            android:backgroundTint="@color/opgavebaggrund"
-            android:text="@string/tilf_j"
-            android:textColor="@color/opgaver" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/addtask"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:background="@android:drawable/ic_input_add"
+        android:backgroundTint="@color/opgavebaggrund"
+        android:drawableTint="@color/plusknap"
+        android:text="@string/tilf_j"
+        android:textColorLink="@color/plusknap" />
 </RelativeLayout>

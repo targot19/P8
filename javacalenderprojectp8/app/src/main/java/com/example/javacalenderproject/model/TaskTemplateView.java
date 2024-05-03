@@ -2,6 +2,7 @@ package com.example.javacalenderproject.model;
 
 import static com.example.javacalenderproject.MainActivity.database;
 
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,9 +15,7 @@ import com.example.javacalenderproject.R;
 import com.example.javacalenderproject.database.TaskTemplate;
 import com.example.javacalenderproject.uilayer.TaskTemplateAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
-import com.example.javacalenderproject.database.*;
 
 public class TaskTemplateView {
 
@@ -29,7 +28,7 @@ public class TaskTemplateView {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
         // Find the EditText with ID "tilføj_opgave" for user input
-        EditText editText = activity.findViewById(R.id.tilføj_opgave);
+        EditText editText = activity.findViewById(R.id.tilfoej_opgave);
 
         // Find the Button with ID "addtask" for adding tasks
         Button addTask = activity.findViewById(R.id.addtask);
@@ -60,6 +59,18 @@ public class TaskTemplateView {
             return false;
         }); */
 
+        /**
+        // Hide soft keyboard, when adding task
+        editText = findViewById(R.id.tilfoej_opgave);
+        addtask = findViewById(R.id.addtask);
+
+        addtask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            }
+        }); **/
+
         // Set an OnClickListener for the "Add Task" button
         addTask.setOnClickListener(v -> {
             String taskName = editText.getText().toString().trim();
@@ -70,9 +81,11 @@ public class TaskTemplateView {
                 database.taskDAO().insertTask(newtasktemplate);
                 taskTemplateAdapter.notifyItemInserted(tasktmpl.size() - 1);
                 editText.setText("");
+                editText.onEditorAction(EditorInfo.IME_ACTION_DONE);
             } else {
                 // Display a Toast message if the EditText is empty
                 Toast.makeText(activity, "Indtast opgave", Toast.LENGTH_SHORT).show();
+                editText.onEditorAction(EditorInfo.IME_ACTION_DONE);
             }
         });
     }

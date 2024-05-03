@@ -4,7 +4,6 @@ import android.widget.GridView;
 
 import com.example.javacalenderproject.MainActivity;
 import com.example.javacalenderproject.R;
-import com.example.javacalenderproject.uilayer.CustomGridAdapter;
 
 public class FamilyGrid {
     // Make list of images from drawables to use in gridview
