@@ -12,12 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.R;
 import com.example.javacalenderproject.database.TaskPlanned;
+import com.example.javacalenderproject.database.TaskTemplate;
+import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
+import com.example.javacalenderproject.functionlayer.CreateWeek;
+import com.example.javacalenderproject.functionlayer.SelectedTaskTemplate;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +42,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         timeSlots = weekData.getTimeSlots();
         this.apiFetchTime = apiFetchTime;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -172,6 +178,62 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((TimeSlotViewHolder)holder).task1.setVisibility(View.GONE);
                 ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
             }
+
+            // onClickListener for planning and creating new task
+            ((TimeSlotViewHolder) holder).container.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // if more than 1 task in timeslot: return and create no more (add toast for user)
+                    if (timeSlot.getTasks().size()>1) {
+                        // add toast message
+                        return;
+                    }
+
+                    // get selected taskTemplate from singleton instance
+                    SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
+                    TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
+
+                    // if taskTemplate is selected
+                    if (selectedTask.getTaskName() != null) {
+                        // get day and hour from position
+                        int position = holder.getAdapterPosition();
+                        int timePosition = position - (position/8) -1;
+                        int day = timePosition % 7;
+                        int hour = timePosition/7;
+
+                        // IMPLEMENT A WAY TO EASILY GET DATE/TIME FROM TIMESLOT
+
+                        // løsning til test:
+                        // get the data/time from clicked timeslot
+                        LocalDate date = LocalDate.now();
+                        // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
+                        WeekFields weekFields = WeekFields.ISO;
+                        // get the week of the year using weekFields
+                        int weekOfYear = date.get(weekFields.weekOfYear());
+
+                        // 4. get list of dates for today's week
+                        int year = date.getYear();
+                        List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
+                        LocalDate firstDay = weekDates.get(0);
+                        LocalDate datePlanned = firstDay.plusDays(day);
+                        int month = datePlanned.getMonthValue();
+                        int dayOfMonth = datePlanned.getDayOfMonth();
+
+                        /*
+                        // using Weekdates in onClickListener
+                        LocalDateTime timePlanned = weekDates.get(day).atTime(hour,0);
+                        Toast.makeText(v.getContext(), "weekDate0" + weekDates.get(0), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), "timePlanned" + timePlanned, Toast.LENGTH_SHORT).show();
+                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), timePlanned);
+                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), timePlanned));
+                         */
+
+                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), LocalDateTime.of(year,month,dayOfMonth,hour,0,0));
+                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), LocalDateTime.of(year,month,dayOfMonth,hour,0,0)));
+                        //selectedTaskTemplate.reset();
+                        holder.getBindingAdapter().notifyItemChanged(position);
+                    }
+                }
+            });
 
             //-------- FOR TESTING: toast + logging
             // show toast message on long click

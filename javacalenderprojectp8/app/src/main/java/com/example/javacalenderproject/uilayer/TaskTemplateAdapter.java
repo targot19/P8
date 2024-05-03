@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.javacalenderproject.R;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskTemplate;
+import com.example.javacalenderproject.functionlayer.SelectedTaskTemplate;
 
 import java.util.List;
 
@@ -48,9 +49,7 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
         return taskTemplates.size();
     }
 
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         // Declare views here
         private final TextView taskTextView;
 
@@ -59,6 +58,38 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             // Initialize views here
             taskTextView = itemView.findViewById(R.id.taskTextView);
             itemView.setOnLongClickListener(this);
+            // onclicklistener for selecting tasktemplate
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                TaskTemplate task = taskTemplates.get(position);
+
+                // SEND THE DATA - HOW?
+
+                // create singleton instance
+                SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
+                selectedTask.setSelectedTask(task);
+            }
+
+            // SOME FUNCTION TO ALLOW THE USER TO SELECT/DESELECT TaskTemplate
+            // Vi har brug for at ingen taskTeamplates er selected når brugeren har oprettet en task
+
+            // forsøg på noget select/unselect - men det er noget værre rod
+            if (v.isSelected() == false){
+                v.setBackgroundResource(R.color.timeBlock);
+                v.setSelected(true);
+            }
+            else {
+                v.setBackgroundResource(R.color.white);
+                v.setSelected(false);
+                SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
+                selectedTask.reset();
+            }
+
         }
 
         @Override
