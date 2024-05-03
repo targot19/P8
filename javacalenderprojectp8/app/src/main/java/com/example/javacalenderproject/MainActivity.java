@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         //database.clearAllTables();
 
         // Trying out 'future' stuff for API - future.get is our async call
-        //HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
+        allHourlyPrices = new HourlyPrice[0];
         Future<HourlyPrice[]> future = FetchManager.fetchApiData();
         try {
             allHourlyPrices = future.get();

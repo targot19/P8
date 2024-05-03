@@ -201,7 +201,6 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                         LocalDateTime dato = timeSlot.getDate();
 
-                        //CreateTaskPlanned.createTask(selectedTask.getTaskName(), LocalDateTime.of(year,month,dayOfMonth,hour,0,0));
                         CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
                         timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
                         //selectedTaskTemplate.reset();
@@ -210,28 +209,26 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
 
+
             ((TimeSlotViewHolder) holder).task1.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
                     if (position != RecyclerView.NO_POSITION) {
                         TaskPlanned task = timeSlot.getTasks().get(0);
-                        deleteTask(task);
-                        notifyItemRemoved(position);
+                        new Thread(() -> {
+                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getTaskName());
+                            timeSlot.deleteTask(0);
+                        }).start();
+                        holder.getBindingAdapter().notifyItemChanged(position);
                     }
 
                     return false;
                 }
             });
 
-            private void deleteTask(TaskPlanned task)
-
-            private void deleteTask(TaskPlanned task) {
-                new Thread(() -> {
-                    TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getTaskName());
-                    TaskPlanned.remove(task);
-                }).start();
-            }
 
 
+
+            /*
             //-------- FOR TESTING: toast + logging
             // show toast message on long click
             ((TimeSlotViewHolder) holder).container.setOnLongClickListener(new View.OnLongClickListener() {
@@ -240,6 +237,8 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     return true;
                 }
             });
+
+             */
             //LOGGING
             //Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
 

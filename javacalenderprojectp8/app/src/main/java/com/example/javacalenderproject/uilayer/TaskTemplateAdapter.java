@@ -80,7 +80,6 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             // SOME FUNCTION TO ALLOW THE USER TO SELECT/DESELECT TaskTemplate
             // Vi har brug for at ingen taskTeamplates er selected når brugeren har oprettet en task
 
-            // forsøg på noget select/deselect - men det er noget værre rod
             if (isAnyTaskSelected == false){
                 v.setBackgroundResource(R.color.timeBlock);
                 v.setSelected(true);
