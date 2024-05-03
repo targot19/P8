@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.database.TaskTemplate;
 import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
@@ -60,7 +61,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder (@NonNull RecyclerView.ViewHolder holder, int position) {
 
         int viewType = getItemViewType(position);
 
@@ -198,11 +199,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         int position = holder.getAdapterPosition();
                         int timePosition = position - (position/8) -1;
 
-
-
                         LocalDateTime dato = timeSlot.getDate();
-
-
 
                         //CreateTaskPlanned.createTask(selectedTask.getTaskName(), LocalDateTime.of(year,month,dayOfMonth,hour,0,0));
                         CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
@@ -212,6 +209,28 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 }
             });
+
+            ((TimeSlotViewHolder) holder).task1.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    if (position != RecyclerView.NO_POSITION) {
+                        TaskPlanned task = timeSlot.getTasks().get(0);
+                        deleteTask(task);
+                        notifyItemRemoved(position);
+                    }
+
+                    return false;
+                }
+            });
+
+            private void deleteTask(TaskPlanned task)
+
+            private void deleteTask(TaskPlanned task) {
+                new Thread(() -> {
+                    TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getTaskName());
+                    TaskPlanned.remove(task);
+                }).start();
+            }
+
 
             //-------- FOR TESTING: toast + logging
             // show toast message on long click
