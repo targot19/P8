@@ -225,6 +225,21 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
 
+            ((TimeSlotViewHolder) holder).task2.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    if (position != RecyclerView.NO_POSITION) {
+                        TaskPlanned task = timeSlot.getTasks().get(1);
+                        new Thread(() -> {
+                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getTaskName());
+                            timeSlot.deleteTask(1);
+                        }).start();
+                        holder.getBindingAdapter().notifyItemChanged(position);
+                    }
+
+                    return false;
+                }
+            });
+
 
 
 
