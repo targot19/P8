@@ -21,6 +21,8 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
     private static List<TaskTemplate> taskTemplates;
     private Context context;
 
+    private Boolean isAnyTaskSelected = false;
+
     public TaskTemplateAdapter(Context context, List<TaskTemplate> tasks) {
         this.context = context;
         this.taskTemplates = tasks;
@@ -78,18 +80,19 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             // SOME FUNCTION TO ALLOW THE USER TO SELECT/DESELECT TaskTemplate
             // Vi har brug for at ingen taskTeamplates er selected når brugeren har oprettet en task
 
-            // forsøg på noget select/unselect - men det er noget værre rod
-            if (v.isSelected() == false){
+            // forsøg på noget select/deselect - men det er noget værre rod
+            if (isAnyTaskSelected == false){
                 v.setBackgroundResource(R.color.timeBlock);
                 v.setSelected(true);
+                isAnyTaskSelected = true;
             }
-            else {
+            else if (v.isSelected() == true) {
                 v.setBackgroundResource(R.color.white);
                 v.setSelected(false);
+                isAnyTaskSelected = false;
                 SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
                 selectedTask.reset();
             }
-
         }
 
         @Override

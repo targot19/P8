@@ -197,38 +197,16 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         // get day and hour from position
                         int position = holder.getAdapterPosition();
                         int timePosition = position - (position/8) -1;
-                        int day = timePosition % 7;
-                        int hour = timePosition/7;
 
-                        // IMPLEMENT A WAY TO EASILY GET DATE/TIME FROM TIMESLOT
 
-                        // løsning til test:
-                        // get the data/time from clicked timeslot
-                        LocalDate date = LocalDate.now();
-                        // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
-                        WeekFields weekFields = WeekFields.ISO;
-                        // get the week of the year using weekFields
-                        int weekOfYear = date.get(weekFields.weekOfYear());
 
-                        // 4. get list of dates for today's week
-                        int year = date.getYear();
-                        List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
-                        LocalDate firstDay = weekDates.get(0);
-                        LocalDate datePlanned = firstDay.plusDays(day);
-                        int month = datePlanned.getMonthValue();
-                        int dayOfMonth = datePlanned.getDayOfMonth();
+                        LocalDateTime dato = timeSlot.getDate();
 
-                        /*
-                        // using Weekdates in onClickListener
-                        LocalDateTime timePlanned = weekDates.get(day).atTime(hour,0);
-                        Toast.makeText(v.getContext(), "weekDate0" + weekDates.get(0), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(v.getContext(), "timePlanned" + timePlanned, Toast.LENGTH_SHORT).show();
-                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), timePlanned);
-                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), timePlanned));
-                         */
 
-                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), LocalDateTime.of(year,month,dayOfMonth,hour,0,0));
-                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), LocalDateTime.of(year,month,dayOfMonth,hour,0,0)));
+
+                        //CreateTaskPlanned.createTask(selectedTask.getTaskName(), LocalDateTime.of(year,month,dayOfMonth,hour,0,0));
+                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
+                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
                         //selectedTaskTemplate.reset();
                         holder.getBindingAdapter().notifyItemChanged(position);
                     }

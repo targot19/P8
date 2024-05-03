@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         // load weeks planned tasks and weeks prices into weekDisplayed
         CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
         CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+        CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
         // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
         // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity..
@@ -239,12 +240,12 @@ public class MainActivity extends AppCompatActivity {
                 // OBS: weekprices testdata
                 List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
 
-                // 4. clear data (tasks and pricecolors) of Week object
+                // 4. clear data (tasks and price colors) of Week object
                 weekDisplayed.clearWeek();
 
                 // 5. load tasks (and PRICES) into week
                 // TEST get length of weekTasks of weekPrices and show as task
-                TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
+                TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
                 weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
                 TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
                 weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
