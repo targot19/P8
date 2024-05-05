@@ -106,48 +106,6 @@ public class MainActivity extends AppCompatActivity {
         apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // Show value in UI
 
 
-        //Update button:
-        // 1.  Access buttons by id:
-        Button updateTextButton = findViewById(R.id.updateTextButton);
-        ImageButton updateImgButton = findViewById(R.id.updateImgButton);
-        // 2. Define reusable onClick listener: UpdateButtonClickListener
-        View.OnClickListener updateButtonClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // New fetch:
-                Future<HourlyPrice[]> future = FetchManager.fetchApiData();
-                Log.d("Update", "Update button was clicked");
-                try {
-                    // Update contents of allHourlyPrices
-                    allHourlyPrices = future.get();
-                    // Log how many hourly prices were received
-                    Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");
-
-                    // update fetch/update status:
-                    apiFetchTime = LocalDateTime.now(); // update value
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // reformat to string
-                    String apiFetchTimeString = apiFetchTime.format(formatter);
-                    apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show in UI
-
-                    //All the functions that should be called to clear week + show new data:
-
-
-
-                } catch (InterruptedException | ExecutionException e) {
-                    // Handle exception
-                    Log.d("ApiUpdate", "Error fetching data: " + e.getMessage());
-                    apiUpdateStatus.setText("Opdaterering mislykkedes"); // Don't think this part works
-                }
-            }
-        };
-        // 3. Set the onClickListener for both buttons:
-        updateTextButton.setOnClickListener(updateButtonClickListener);
-        updateImgButton.setOnClickListener(updateButtonClickListener);
-
-
-
-
-
         // get views by id: dateviews, weekview, monthview, recyclerview:
         TextView weekView = findViewById(R.id.week_tv);
         TextView monthView = findViewById(R.id.month_tv);
@@ -323,6 +281,61 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //Update button
+        // 1.  Access buttons by id:
+        Button updateTextButton = findViewById(R.id.updateTextButton);
+        ImageButton updateImgButton = findViewById(R.id.updateImgButton);
+        // 2. Define reusable onClick listener: UpdateButtonClickListener
+        View.OnClickListener updateButtonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // New fetch:
+                Future<HourlyPrice[]> future = FetchManager.fetchApiData();
+                Log.d("Update", "Update button was clicked");
+                try {
+                    // Update contents of allHourlyPrices
+                    allHourlyPrices = future.get();
+                    // Log how many hourly prices were received
+                    Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");
+
+                    // update fetch/update status:
+                    apiFetchTime = LocalDateTime.now(); // update value
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // reformat to string
+                    String apiFetchTimeString = apiFetchTime.format(formatter);
+                    apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show in UI
+
+                    // Create a new week w. the new data (COPIED FROM NEXT-WEEK BUTTON)
+                    // 1. get list of dates for week
+                    List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
+                    // 2. set dates, week, month for week
+                    CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
+                    // 3. get tasks and prices for week
+                    List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
+                    List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+                    // 4. clear data (tasks and pricecolors) of Week object
+                    weekDisplayed.clearWeek();
+                    // 5. load tasks (and PRICES) into week
+                    CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
+                    CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+
+                    Log.d("ApiUpdate", "Number of prices: " + weekPrices.size());
+                    Log.d("ApiUpdate", "Number of tasks: " + weekTasks.size());
+
+                    // 6. notify adapter that data has changed
+                    weekAdapter.notifyDataSetChanged();
+
+
+                } catch (InterruptedException | ExecutionException e) {
+                    // Handle exception
+                    Log.d("ApiUpdate", "Error fetching data: " + e.getMessage());
+                    apiUpdateStatus.setText("Opdaterering mislykkedes"); // Don't think this part works
+                }
+            }
+        };
+        // 3. Set the onClickListener for both buttons:
+        updateTextButton.setOnClickListener(updateButtonClickListener);
+        updateImgButton.setOnClickListener(updateButtonClickListener);
 
     }
 
