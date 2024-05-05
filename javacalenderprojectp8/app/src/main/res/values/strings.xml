@@ -63,6 +63,7 @@
     <string name="tilf_j_opgave">Tilføj opgave</string>
     <string name="tilf_j">Tilføj</string>
     <string name="tid">Tid</string>
+    <string name="opdater">Opdater strømpriser</string>
 
     <!-- Strings used for the get help popup -->
     <string name="welcome_message">Velkommen til EcoHour! Læs mere om appens funktionalitet her</string>

@@ -1,6 +1,8 @@
 package com.example.javacalenderproject.model;
 
 
+import android.util.Log;
+
 // flyt Week klassen til function eller ui layer?
 public class Week {
     // weekNumber variabel overflødig? bruges ikke til noget
@@ -43,6 +45,7 @@ public class Week {
                 timeSlots[i][j].clearData();
             }
         }
+        Log.d("Update Test", "clearWeek executed");
     }
 
 }

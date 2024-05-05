@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
@@ -39,6 +40,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,21 +82,71 @@ public class MainActivity extends AppCompatActivity {
         try {
             allHourlyPrices = future.get();
             // Log how many hourly prices were received
-            Log.d("ApiClient", "Received " + allHourlyPrices.length + " hourly prices");
+            Log.d("ApiOnCreate", "Received " + allHourlyPrices.length + " hourly prices");
 
             // Log each individual price
-            for (HourlyPrice hourlyPrice : allHourlyPrices) {
-                Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
-                Log.d("Api",  "Hour: " + hourlyPrice.getHour());
+            //for (HourlyPrice hourlyPrice : allHourlyPrices) {
+                // Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
+                // Log.d("Api",  "Hour: " + hourlyPrice.getHour());
 
-                // update time of last succesful fetch
+                // update time of last successful fetch
                 apiFetchTime = LocalDateTime.now();
-            }
+            //}
 
         } catch (InterruptedException | ExecutionException e) {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
         }
+
+
+        // Show status for apiFetchTime in UI:
+        TextView apiUpdateStatus = findViewById(R.id.updateStatus); // Access UI element
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // convert to string
+        String apiFetchTimeString = apiFetchTime.format(formatter);
+        apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // Show value in UI
+
+
+        //Update button:
+        // 1.  Access buttons by id:
+        Button updateTextButton = findViewById(R.id.updateTextButton);
+        ImageButton updateImgButton = findViewById(R.id.updateImgButton);
+        // 2. Define reusable onClick listener: UpdateButtonClickListener
+        View.OnClickListener updateButtonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // New fetch:
+                Future<HourlyPrice[]> future = FetchManager.fetchApiData();
+                Log.d("Update", "Update button was clicked");
+                try {
+                    // Update contents of allHourlyPrices
+                    allHourlyPrices = future.get();
+                    // Log how many hourly prices were received
+                    Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");
+
+                    // update fetch/update status:
+                    apiFetchTime = LocalDateTime.now(); // update value
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // reformat to string
+                    String apiFetchTimeString = apiFetchTime.format(formatter);
+                    apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show in UI
+
+                    //All the functions that should be called to clear week + show new data:
+
+
+
+                } catch (InterruptedException | ExecutionException e) {
+                    // Handle exception
+                    Log.d("ApiUpdate", "Error fetching data: " + e.getMessage());
+                    apiUpdateStatus.setText("Opdaterering mislykkedes"); // Don't think this part works
+                }
+            }
+        };
+        // 3. Set the onClickListener for both buttons:
+        updateTextButton.setOnClickListener(updateButtonClickListener);
+        updateImgButton.setOnClickListener(updateButtonClickListener);
+
+
+
+
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
         TextView weekView = findViewById(R.id.week_tv);
