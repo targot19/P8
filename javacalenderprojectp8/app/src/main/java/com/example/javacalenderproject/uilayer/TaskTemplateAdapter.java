@@ -88,7 +88,7 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
                 // Update the flag to indicate a task is selected
                 isAnyTaskSelected = true;
             }
-            else if (v.isSelected() == true) {
+            else if (v.isSelected()) {
                 // If the view is already selected, reset its background color and deselect it
                 v.setBackgroundResource(R.color.white);
                 v.setSelected(false);
@@ -114,9 +114,10 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
                 // Get the task at the long clicked position
                 TaskTemplate task = taskTemplates.get(position);
                 // If the view is already selected, reset its background color, deselect it and reset the selected task in the singleton
-                if (v.isSelected() == true) {
+                if (v.isSelected()) {
                     isAnyTaskSelected = false;
                     v.setSelected(false);
+                    v.setBackgroundResource(R.color.white);
                     SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
                     selectedTask.reset();
                 }
