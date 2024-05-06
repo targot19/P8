@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             // Log each individual price
             for (HourlyPrice hourlyPrice : allHourlyPrices) {
                 Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
-                Log.d("Api",  "Hour: " + hourlyPrice.getHour());
+                Log.d("Api", "Hour: " + hourlyPrice.getHour());
 
                 // update time of last succesful fetch
                 apiFetchTime = LocalDateTime.now();
@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         CreateTaskPlanned.priceToDatabase(allHourlyPrices);
-
 
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
@@ -130,152 +129,157 @@ public class MainActivity extends AppCompatActivity {
         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
 
 
+        CreateTaskPlanned.priceToDatabase(allHourlyPrices).thenRun(() -> {
+            runOnUiThread(() -> {
+                HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
+                List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
 
-        HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
-
-
-        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
-
-        // set dates, week, month for week
-        CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
-
-        // create week object and assign to static variable weekDisplayed
-        weekDisplayed = new Week();
-
-        // TEST get length of weekTasks of weekPrices and show as task
-        TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
-        weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
-        TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
-        weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
-
-        // load weeks planned tasks and weeks prices into weekDisplayed
-        CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
-        CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
-        CreateWeek.loadWeekDates(weekDates, weekDisplayed);
-
-        // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
-        // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity..
-        //SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
-
-        GridLayoutManager layoutManager = new GridLayoutManager(this,8, RecyclerView.VERTICAL,false);
-        // scroll to make specified position visible initially (will scroll the minimal "distance"/lines required) https://developer.android.com/reference/androidx/recyclerview/widget/LinearLayoutManager#scrollToPosition(int)
-        layoutManager.scrollToPosition(60);
-        recyclerView.setLayoutManager(layoutManager);
-        //add lines between cells with recyclerview itemDecoration
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.HORIZONTAL));
-        // get list of timeIntervals
-        List<String> timeList= CreateWeek.getTimeIntervals();
-        // create adapter
-        WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), weekDisplayed, timeList, apiFetchTime);
-        // WeekTableAdapter
-        recyclerView.setAdapter(weekAdapter);
-
-        // Create FamilyGrid instance and add the grid to the layout
-        FamilyGrid familyGrid = new FamilyGrid();
-        familyGrid.createGridView(this);
-
-        // Create TaskTemplate to display tasks in the sidebar
-        TaskTemplateView taskTemplateView = new TaskTemplateView();
-        taskTemplateView.createTaskTemplate(this);
-
-        // Our 'Get Help' text button initializer and onclicklistener
-        Button helpButton = findViewById(R.id.button1);
-        helpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HelpPopup.showHelpPopup(MainActivity.this);
-            }
-        });
-
-        // Our 'Get Help' text button initializer and onclicklistener
-        ImageButton helpImageButton = findViewById(R.id.help);
-        helpImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HelpPopup.showHelpPopup(MainActivity.this);
-            }
-        });
-
-        // onclick listeners to next/previous week buttons
-        btnPreviousWeek.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (weekOfYear>1) {weekOfYear = weekOfYear -1;}
-
-                // 1. get list of dates for specified weeknumber and year
-                List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
-
-                // 2. set dates, week, month for week
+                // set dates, week, month for week
                 CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
 
-                // 3. get tasks and prices for week
-                List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-                // OBS: weekprices testdata
-                List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+                // create week object and assign to static variable weekDisplayed
+                weekDisplayed = new Week();
 
-                // 4. clear data (tasks and pricecolors) of Week object
-                weekDisplayed.clearWeek();
-
-                // 5. load tasks (and PRICES) into week
                 // TEST get length of weekTasks of weekPrices and show as task
-                TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
+                TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " + weekTasks.size());
                 weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
-                TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
+                TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " + weekPrices.size());
                 weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
 
-                // load data (not test)
+                // load weeks planned tasks and weeks prices into weekDisplayed
                 CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
                 CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
                 CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
-                // 6. notify adapter that data has changed
-                weekAdapter.notifyDataSetChanged();
+                // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
+                // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity..
+                //SetupHourView.setup(this, recyclerView, getApplicationContext(), testWeek);
 
-            }
-        });
+                GridLayoutManager layoutManager = new GridLayoutManager(this, 8, RecyclerView.VERTICAL, false);
+                // scroll to make specified position visible initially (will scroll the minimal "distance"/lines required) https://developer.android.com/reference/androidx/recyclerview/widget/LinearLayoutManager#scrollToPosition(int)
+                layoutManager.scrollToPosition(60);
+                recyclerView.setLayoutManager(layoutManager);
+                //add lines between cells with recyclerview itemDecoration
+                recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                        DividerItemDecoration.VERTICAL));
+                recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                        DividerItemDecoration.HORIZONTAL));
+                // get list of timeIntervals
+                List<String> timeList = CreateWeek.getTimeIntervals();
+                // create adapter
+                WeekTableAdapter weekAdapter = new WeekTableAdapter(getApplicationContext(), weekDisplayed, timeList, apiFetchTime);
+                // WeekTableAdapter
+                recyclerView.setAdapter(weekAdapter);
 
-        btnNextWeek.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (weekOfYear<53) {weekOfYear = weekOfYear +1;}
+                // Create FamilyGrid instance and add the grid to the layout
+                FamilyGrid familyGrid = new FamilyGrid();
+                familyGrid.createGridView(this);
 
-                // 1. get list of dates for week
-                List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
+                // Create TaskTemplate to display tasks in the sidebar
+                TaskTemplateView taskTemplateView = new TaskTemplateView();
+                taskTemplateView.createTaskTemplate(this);
 
-                // 2. set dates, week, month for week
-                CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
+                // Our 'Get Help' text button initializer and onclicklistener
+                Button helpButton = findViewById(R.id.button1);
+                helpButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        HelpPopup.showHelpPopup(MainActivity.this);
+                    }
+                });
 
-                // 3. get tasks and prices for week
-                List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-                // OBS: weekprices testdata
-                List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+                // Our 'Get Help' text button initializer and onclicklistener
+                ImageButton helpImageButton = findViewById(R.id.help);
+                helpImageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        HelpPopup.showHelpPopup(MainActivity.this);
+                    }
+                });
 
-                // 4. clear data (tasks and price colors) of Week object
-                weekDisplayed.clearWeek();
+                // onclick listeners to next/previous week buttons
+                btnPreviousWeek.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                // 5. load tasks (and PRICES) into week
-                // TEST get length of weekTasks of weekPrices and show as task
-                TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
-                weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
-                TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
-                weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
+                        if (weekOfYear > 1) {
+                            weekOfYear = weekOfYear - 1;
+                        }
 
-                CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
-                CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
-                CreateWeek.loadWeekDates(weekDates, weekDisplayed);
+                        // 1. get list of dates for specified weeknumber and year
+                        List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
 
-                // 6. notify adapter that data has changed
-                weekAdapter.notifyDataSetChanged();
+                        // 2. set dates, week, month for week
+                        CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
 
-            }
-        });
+                        // 3. get tasks and prices for week
+                        List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
+                        // OBS: weekprices testdata
+                        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
 
+                        // 4. clear data (tasks and pricecolors) of Week object
+                        weekDisplayed.clearWeek();
+
+                        // 5. load tasks (and PRICES) into week
+                        // TEST get length of weekTasks of weekPrices and show as task
+                        TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " + weekTasks.size());
+                        weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
+                        TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " + weekPrices.size());
+                        weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
+
+                        // load data (not test)
+                        CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
+                        CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+                        CreateWeek.loadWeekDates(weekDates, weekDisplayed);
+
+                        // 6. notify adapter that data has changed
+                        weekAdapter.notifyDataSetChanged();
+
+                    }
+                });
+
+                btnNextWeek.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (weekOfYear < 53) {
+                            weekOfYear = weekOfYear + 1;
+                        }
+
+                        // 1. get list of dates for week
+                        List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
+
+                        // 2. set dates, week, month for week
+                        CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
+
+                        // 3. get tasks and prices for week
+                        List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
+                        // OBS: weekprices testdata
+                        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+
+                        // 4. clear data (tasks and price colors) of Week object
+                        weekDisplayed.clearWeek();
+
+                        // 5. load tasks (and PRICES) into week
+                        // TEST get length of weekTasks of weekPrices and show as task
+                        TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " + weekTasks.size());
+                        weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
+                        TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " + weekPrices.size());
+                        weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
+
+                        CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
+                        CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+                        CreateWeek.loadWeekDates(weekDates, weekDisplayed);
+
+                        // 6. notify adapter that data has changed
+                        weekAdapter.notifyDataSetChanged();
+
+                    }
+                });
+
+            });
+
+        }); // end of onCreate
     }
-
 }
 /**
  * // calender ting
