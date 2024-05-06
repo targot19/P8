@@ -201,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
                 btnPreviousWeek.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         if (weekOfYear > 1) {
                             weekOfYear = weekOfYear - 1;
                         }
@@ -212,29 +211,21 @@ public class MainActivity extends AppCompatActivity {
                         // 2. set dates, week, month for week
                         CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
 
-                        // 3. get tasks and prices for week
+                        // 3. get tasks and prices for week from the database
                         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-                        // OBS: weekprices testdata
-                        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+                        HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
+                        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
 
                         // 4. clear data (tasks and pricecolors) of Week object
                         weekDisplayed.clearWeek();
 
                         // 5. load tasks (and PRICES) into week
-                        // TEST get length of weekTasks of weekPrices and show as task
-                        TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " + weekTasks.size());
-                        weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
-                        TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " + weekPrices.size());
-                        weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
-
-                        // load data (not test)
                         CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
                         CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
                         CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
                         // 6. notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
-
                     }
                 });
 
@@ -251,28 +242,21 @@ public class MainActivity extends AppCompatActivity {
                         // 2. set dates, week, month for week
                         CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
 
-                        // 3. get tasks and prices for week
+                        // 3. get tasks and prices for week from the database
                         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-                        // OBS: weekprices testdata
-                        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+                        HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
+                        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
 
                         // 4. clear data (tasks and price colors) of Week object
                         weekDisplayed.clearWeek();
 
                         // 5. load tasks (and PRICES) into week
-                        // TEST get length of weekTasks of weekPrices and show as task
-                        TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " + weekTasks.size());
-                        weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
-                        TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " + weekPrices.size());
-                        weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
-
                         CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
                         CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
                         CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
                         // 6. notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
-
                     }
                 });
 
