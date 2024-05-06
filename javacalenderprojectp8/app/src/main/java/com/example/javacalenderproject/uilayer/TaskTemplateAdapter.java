@@ -117,7 +117,7 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
                 if (v.isSelected()) {
                     isAnyTaskSelected = false;
                     v.setSelected(false);
-                    v.setBackgroundResource(R.color.white);
+                    v.setBackgroundResource(R.drawable.taskshape);
                     SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
                     selectedTask.reset();
                 }
