@@ -83,14 +83,14 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             // Check if any task is selected
             if (isAnyTaskSelected == false){
                 // If no task is selected, change the background color of the view and set it as selected
-                v.setBackgroundResource(R.color.timeBlock);
+                v.setBackgroundResource(R.drawable.taskshapeselected);
                 v.setSelected(true);
                 // Update the flag to indicate a task is selected
                 isAnyTaskSelected = true;
             }
             else if (v.isSelected()) {
                 // If the view is already selected, reset its background color and deselect it
-                v.setBackgroundResource(R.color.white);
+                v.setBackgroundResource(R.drawable.taskshape);
                 v.setSelected(false);
                 // Update the flag to indicate no task is selected
                 isAnyTaskSelected = false;
