@@ -17,6 +17,7 @@
     <color name="task1">#26686A6E</color>
     <color name="opgaver">#64748B</color>
     <color name="opgavebaggrund">#F8FAFC</color>
+    <color name="plusknap">#035303</color>
 
     <!-- Android style -->
     <color name="android_green">#A4C639</color>
