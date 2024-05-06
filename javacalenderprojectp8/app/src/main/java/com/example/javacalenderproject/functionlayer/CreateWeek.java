@@ -36,19 +36,19 @@ public class CreateWeek {
 
             // set color of timeslot after price-color logic
             String color = null;
-            if (hourPrice.getPrice() < 0.3) {
+            if (hourPrice.getPrice() <= 0.4) {
                 color = "green";
             }
             /** else if (hourPrice.getPrice() >= 0.2 && hourPrice.getPrice() < 0.4) {
                 color = "greenyellow";
             } **/
-            else if (hourPrice.getPrice() >= 0.3 && hourPrice.getPrice() < 0.6) {
+            else if (hourPrice.getPrice() > 0.4 && hourPrice.getPrice() < 0.8) {
                 color = "yellow";
             }
-            else if (hourPrice.getPrice() >= 0.6 && hourPrice.getPrice() <= 0.8) {
+            /**else if (hourPrice.getPrice() >= 0.6 && hourPrice.getPrice() <= 0.8) {
                 color = "orange";
-            }
-            else if (hourPrice.getPrice() > 0.8) {
+            } **/
+            else if (hourPrice.getPrice() >= 0.8) {
                 color = "red";
             }
             timeSlot.setColor(color);
