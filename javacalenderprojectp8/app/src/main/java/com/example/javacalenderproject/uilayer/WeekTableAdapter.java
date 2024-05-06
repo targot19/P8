@@ -95,9 +95,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
                     }
-                    else if (priceColor == "orange") {
+                    /** else if (priceColor == "orange") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orange);
-                    }
+                    } **/
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
                     }
@@ -113,9 +113,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
                     }
-                    else if (priceColor == "orange") {
+                    /** else if (priceColor == "orange") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orange);
-                    }
+                    } **/
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
                     }
@@ -131,9 +131,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellowForecast);
                     }
-                    else if (priceColor == "orange") {
+                    /** else if (priceColor == "orange") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orangeForecast);
-                    }
+                    } **/
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.redForecast);
                     }
