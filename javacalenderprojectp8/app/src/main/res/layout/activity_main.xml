@@ -398,7 +398,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
-        android:text="Opdateret ??-??-?? ??:??"
+        android:text=""
         android:textAlignment="viewStart"
         android:textColor="@color/ForestGreen"
         android:textSize="12sp"

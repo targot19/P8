@@ -16,6 +16,7 @@ import com.example.javacalenderproject.functionlayer.HelpPopup;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -70,15 +71,19 @@ public class MainActivity extends AppCompatActivity {
 
         // CREATE TESTDATA
         //  create testTasks in database
-        //TestData.createTestData();
+        // TestData.createTestData();
         //  create test price data array
         //HourlyPrice[] testPriceData = TestData.getTestPriceData();
         // clear all data in database
-        //database.clearAllTables();
+        database.clearAllTables();
 
-        // Trying out 'future' stuff for API - future.get is our async call
+        // Fetch from API for onCreate:
         //HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
+        allHourlyPrices = new HourlyPrice[0];
+        apiFetchTime = LocalDateTime.now(); // In case there's no internet, the adapter still needs this to be initialised.
+
         Future<HourlyPrice[]> future = FetchManager.fetchApiData();
+
         try {
             allHourlyPrices = future.get();
             // Log how many hourly prices were received
@@ -91,19 +96,20 @@ public class MainActivity extends AppCompatActivity {
 
                 // update time of last successful fetch
                 apiFetchTime = LocalDateTime.now();
+
+                // Show status for apiFetchTime in UI:
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // convert to string
+                String apiFetchTimeString = apiFetchTime.format(formatter);
+                TextView apiUpdateStatus = findViewById(R.id.updateStatus);
+                apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // Show value in UI
             //}
 
         } catch (InterruptedException | ExecutionException e) {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
+            TextView apiUpdateStatus = findViewById(R.id.updateStatus);
+            apiUpdateStatus.setText("Opdaterering mislykkedes"); // Don't think this part works
         }
-
-
-        // Show status for apiFetchTime in UI:
-        TextView apiUpdateStatus = findViewById(R.id.updateStatus); // Access UI element
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // convert to string
-        String apiFetchTimeString = apiFetchTime.format(formatter);
-        apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // Show value in UI
 
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
@@ -119,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         TextView weekDay7 = findViewById(R.id.date6_tv);
         Button btnPreviousWeek = findViewById(R.id.btn_weekminus);
         Button btnNextWeek = findViewById(R.id.btn_weekplus);
+        TextView apiUpdateStatus = findViewById(R.id.updateStatus);
 
         // keep dateViews in list (used to pass to method sto set calendar views)
         ArrayList<TextView> dateViews = new ArrayList<>();
@@ -282,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Update button
+        //UPDATE BUTTON:
         // 1.  Access buttons by id:
         Button updateTextButton = findViewById(R.id.updateTextButton);
         ImageButton updateImgButton = findViewById(R.id.updateImgButton);
@@ -299,13 +306,14 @@ public class MainActivity extends AppCompatActivity {
                     // Log how many hourly prices were received
                     Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");
 
-                    // update fetch/update status:
+                    // update fetch/update status + display in UI:
                     apiFetchTime = LocalDateTime.now(); // update value
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // reformat to string
                     String apiFetchTimeString = apiFetchTime.format(formatter);
-                    apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show in UI
+                    apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show updated value in UI
+                    apiUpdateStatus.setTextColor(ContextCompat.getColor(v.getContext(), R.color.ForestGreen)); // make sure color is green
 
-                    // Create a new week w. the new data (COPIED FROM NEXT-WEEK BUTTON)
+                    // Recreate the week w. the new data (this is exactly the same as next/prev week buttons)
                     // 1. get list of dates for week
                     List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
                     // 2. set dates, week, month for week
@@ -330,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
                     // Handle exception
                     Log.d("ApiUpdate", "Error fetching data: " + e.getMessage());
                     apiUpdateStatus.setText("Opdaterering mislykkedes"); // Don't think this part works
+                    apiUpdateStatus.setTextColor(ContextCompat.getColor(v.getContext(), R.color.red));
                 }
             }
         };
