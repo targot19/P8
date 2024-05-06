@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         // Fetch from API for onCreate:
         //HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
         allHourlyPrices = new HourlyPrice[0];
-        apiFetchTime = LocalDateTime.now(); // In case there's no internet, the adapter still needs this to be initialised.
-
+        apiFetchTime = LocalDateTime.MIN; // In case there's no internet, the adapter still needs this to be initialised.
+        Log.d("Init LocalDateTime value", apiFetchTime.toString());
         Future<HourlyPrice[]> future = FetchManager.fetchApiData();
 
         try {
