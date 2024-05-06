@@ -67,7 +67,7 @@
     <!-- Strings used for the get help popup -->
     <string name="welcome_message">Velkommen til EcoHour! Læs mere om appens funktionalitet her</string>
     <string name="title_weekly_overview">Ugekalender og elpriser</string>
-    <string name="weekly_overview">Skift mellem hvilken uge, der vises med frem- og tilbage-knapperne ovenover kalenderen. Se de estimerede elpriser for hver time op til syv dage frem, angivet med henholdsvis grøn, gul, orange eller rød for at afspejle den relative elpris. De stærke farver angiver de reelle elpriser, hvorimod de svage farver angiver en forudsigelse af elpriserne.</string>
+    <string name="weekly_overview">Skift mellem hvilken uge, der vises med frem- og tilbage-knapperne ovenover kalenderen. Se de estimerede elpriser for hver time op til syv dage frem, angivet med henholdsvis grøn, gul eller rød for at afspejle den relative elpris. De stærke farver angiver de reelle elpriser, hvorimod de svage farver angiver en forudsigelse af elpriserne.</string>
     <string name="title_tasks_info">Opgaveliste</string>
     <string name="tasks_info">Her kan du oprette nye opgaver samt vælge eksisterende opgaver og trykke på et tidsinterval for at indsætte opgaven i ugekalenderen, så du kan planlægge jeres dage. Fjern eksisterende opgaver ved et langt klik på selve opgaven, i kalenderen såvel som i opgavelisten.</string>
 </resources>
