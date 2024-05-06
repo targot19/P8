@@ -1,12 +1,22 @@
 package com.example.javacalenderproject.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.TypeConverters;
+
+import com.example.javacalenderproject.database.Converters;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
 // Each item from the json will be an object of the Price class, which contains date + price for an hour:
+@Entity(tableName = "PriceData")
+@TypeConverters({Converters.class})
 public class HourlyPrice {
+    @ColumnInfo(name = "price")
     private double price;
+    @ColumnInfo(name = "date")
     private Date date;
 
     // Constructor
