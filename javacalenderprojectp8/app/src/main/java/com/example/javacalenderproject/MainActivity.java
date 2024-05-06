@@ -346,9 +346,13 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     };
-                    // 3. Set the onClickListener for both buttons:
-                    updateTextButton.setOnClickListener(updateButtonClickListener);
-                    updateImgButton.setOnClickListener(updateButtonClickListener);
+            // 3. Set the onClickListener for both buttons:
+            updateTextButton.setOnClickListener(updateButtonClickListener);
+            updateImgButton.setOnClickListener(updateButtonClickListener);
+
+        }
+
+    }
 
                 });
     };
