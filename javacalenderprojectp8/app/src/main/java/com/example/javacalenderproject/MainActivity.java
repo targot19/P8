@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Trying out 'future' stuff for API - future.get is our async call
         allHourlyPrices = new HourlyPrice[0];
+
         Future<HourlyPrice[]> future = FetchManager.fetchApiData();
         try {
             allHourlyPrices = future.get();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
         }
+
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
         TextView weekView = findViewById(R.id.week_tv);

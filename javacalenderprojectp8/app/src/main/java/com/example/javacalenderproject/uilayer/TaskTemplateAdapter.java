@@ -102,6 +102,14 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 TaskTemplate task = taskTemplates.get(position);
+                if (v.isSelected() == true) {
+                    isAnyTaskSelected = false;
+
+                    v.setSelected(false);
+
+                    SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
+                    selectedTask.reset();
+                }
                 deleteTask(task);
                 notifyItemRemoved(position);
             }
