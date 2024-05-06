@@ -97,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException e) {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
-            TextView apiUpdateStatus = findViewById(R.id.updateStatus);
-            apiUpdateStatus.setText("Opdatering mislykkedes"); // Don't think this part works
         }
 
 
@@ -330,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (InterruptedException | ExecutionException e) {
                     // Handle exception
                     Log.d("ApiUpdate", "Error fetching data: " + e.getMessage());
-                    apiUpdateStatus.setText("Opdaterering mislykkedes"); // Don't think this part works
+                    apiUpdateStatus.setText("Opdatering mislykkedes"); // Don't think this part works
                     apiUpdateStatus.setTextColor(ContextCompat.getColor(v.getContext(), R.color.red));
                 }
             }
