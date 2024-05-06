@@ -23,19 +23,4 @@ public class HelpPopup {
         alertDialog.show();
         alertDialog.getWindow().setLayout(1200,700);
     }
-
-    /*private void showHelpPopup() {
-        // Create a new AlertDialog Builder
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        // Inflate the layout for the pop-up window
-        View view = getLayoutInflater().inflate(R.layout.popup_help, null);
-
-        // Set the layout view to the AlertDialog
-        builder.setView(view);
-
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }*/
 }
