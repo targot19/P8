@@ -215,7 +215,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (position != RecyclerView.NO_POSITION) {
                         TaskPlanned task = timeSlot.getTasks().get(0);
                         new Thread(() -> {
-                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getTaskName());
+                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getId());
                             timeSlot.deleteTask(0);
                         }).start();
                         holder.getBindingAdapter().notifyItemChanged(position);
@@ -230,7 +230,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (position != RecyclerView.NO_POSITION) {
                         TaskPlanned task = timeSlot.getTasks().get(1);
                         new Thread(() -> {
-                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getTaskName());
+                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getId());
                             timeSlot.deleteTask(1);
                         }).start();
                         holder.getBindingAdapter().notifyItemChanged(position);

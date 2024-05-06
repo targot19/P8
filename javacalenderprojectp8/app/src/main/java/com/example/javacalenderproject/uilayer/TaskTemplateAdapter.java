@@ -113,7 +113,7 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
         }
         private void deleteTask(TaskTemplate task) {
             new Thread(() -> {
-                TaskDatabase.getDatabase(context).taskDAO().delete(task.getTaskName());
+                TaskDatabase.getDatabase(context).taskDAO().delete(task.getId());
                 taskTemplates.remove(task);
             }).start();
         }
