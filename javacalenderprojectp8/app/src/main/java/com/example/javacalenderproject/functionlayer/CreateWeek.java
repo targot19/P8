@@ -7,11 +7,21 @@ import com.example.javacalenderproject.model.HourlyPrice;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateWeek {
+    public static void loadWeekDates(List<LocalDate> weekDates, Week week) {
+        for (int i = 0; i <7; i++) {
+            for (int j = 0; j < 24; j++) {
+                LocalDateTime date = weekDates.get(i).atTime(j,0);
+                week.getTimeSlots()[i][j].setDate(date);
+            }
+        }
+    }
+
     public static void setCalendarView(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, List<LocalDate> weekDates, int weeknumber) {
 
         // set dates

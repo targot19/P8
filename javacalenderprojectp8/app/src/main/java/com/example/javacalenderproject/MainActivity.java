@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         //database.clearAllTables();
 
         // Trying out 'future' stuff for API - future.get is our async call
-        //HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
+        allHourlyPrices = new HourlyPrice[0];
+
         Future<HourlyPrice[]> future = FetchManager.fetchApiData();
         try {
             allHourlyPrices = future.get();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
         }
+
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
         TextView weekView = findViewById(R.id.week_tv);
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         // load weeks planned tasks and weeks prices into weekDisplayed
         CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
         CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+        CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
         // pass all necessary arguments to SetupHourView to setup recyclerview showing the week data in the UI
         // SetupHourView måske en ringe ide (gør ikke koden lettere læselig). Måske bedre at have koden i MainActivity..
@@ -215,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 // load data (not test)
                 CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
                 CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+                CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
                 // 6. notify adapter that data has changed
                 weekAdapter.notifyDataSetChanged();
@@ -238,18 +242,19 @@ public class MainActivity extends AppCompatActivity {
                 // OBS: weekprices testdata
                 List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
 
-                // 4. clear data (tasks and pricecolors) of Week object
+                // 4. clear data (tasks and price colors) of Week object
                 weekDisplayed.clearWeek();
 
                 // 5. load tasks (and PRICES) into week
                 // TEST get length of weekTasks of weekPrices and show as task
-                TaskPlanned taskLen = new TaskPlanned("Lenght WeekTasks: " +weekTasks.size());
+                TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
                 weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
                 TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
                 weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
 
                 CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
                 CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+                CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
                 // 6. notify adapter that data has changed
                 weekAdapter.notifyDataSetChanged();

@@ -40,13 +40,13 @@ public class Converters {
 
     }
 
-// fatter ikke den her kode
     @TypeConverter
     public static Long fromDateTime(LocalDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
         return dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        //return dateTime == null ? null : dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     @TypeConverter
@@ -56,4 +56,6 @@ public class Converters {
         }
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(dbValue), ZoneId.systemDefault());
     }
+
+
 }

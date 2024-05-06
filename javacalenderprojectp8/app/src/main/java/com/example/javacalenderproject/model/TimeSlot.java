@@ -35,6 +35,8 @@ public class TimeSlot {
         tasks.add(newTask);
     }
 
+    public void deleteTask(int position) {tasks.remove(position);}
+
     public void clearData() {
         tasks.clear();
         deleteDate();
@@ -56,4 +58,6 @@ public class TimeSlot {
     }
 
     public LocalDateTime getDate() {return date; }
+
+
 }

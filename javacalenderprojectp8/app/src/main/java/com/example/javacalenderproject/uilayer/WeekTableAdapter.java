@@ -11,13 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
+import com.example.javacalenderproject.database.TaskTemplate;
+import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
+import com.example.javacalenderproject.functionlayer.CreateWeek;
+import com.example.javacalenderproject.functionlayer.SelectedTaskTemplate;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +43,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         timeSlots = weekData.getTimeSlots();
         this.apiFetchTime = apiFetchTime;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,7 +61,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder (@NonNull RecyclerView.ViewHolder holder, int position) {
 
         int viewType = getItemViewType(position);
 
@@ -173,6 +180,125 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((TimeSlotViewHolder)holder).task2.setVisibility(View.GONE);
             }
 
+            // onClickListener for planning and creating new task
+            ((TimeSlotViewHolder) holder).container.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // if more than 1 task in timeslot: return and create no more (add toast for user)
+                    if (timeSlot.getTasks().size()>1) {
+                        // add toast message
+                        return;
+                    }
+
+                    // get selected taskTemplate from singleton instance
+                    SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
+                    TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
+
+                    // if taskTemplate is selected
+                    if (selectedTask.getTaskName() != null) {
+                        // get day and hour from position
+                        int position = holder.getAdapterPosition();
+                        int timePosition = position - (position/8) -1;
+
+                        LocalDateTime dato = timeSlot.getDate();
+
+                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
+                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
+                        //selectedTaskTemplate.reset();
+                        holder.getBindingAdapter().notifyItemChanged(position);
+                    }
+                }
+            });
+
+            ((TimeSlotViewHolder) holder).task1.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    if (position != RecyclerView.NO_POSITION) {
+                        TaskPlanned task = timeSlot.getTasks().get(0);
+                        new Thread(() -> {
+                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getId());
+                            timeSlot.deleteTask(0);
+                        }).start();
+                        holder.getBindingAdapter().notifyItemChanged(position);
+                    }
+
+                    return false;
+                }
+            });
+
+            ((TimeSlotViewHolder) holder).task2.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    if (position != RecyclerView.NO_POSITION) {
+                        TaskPlanned task = timeSlot.getTasks().get(1);
+                        new Thread(() -> {
+                            TaskDatabase.getDatabase(context).taskPlannedDAO().delete(task.getId());
+                            timeSlot.deleteTask(1);
+                        }).start();
+                        holder.getBindingAdapter().notifyItemChanged(position);
+                    }
+
+                    return false;
+                }
+            });
+
+            ((TimeSlotViewHolder) holder).task1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // if more than 1 task in timeslot: return and create no more (add toast for user)
+                    if (timeSlot.getTasks().size()>1) {
+                        // add toast message
+                        return;
+                    }
+
+                    // get selected taskTemplate from singleton instance
+                    SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
+                    TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
+
+                    // if taskTemplate is selected
+                    if (selectedTask.getTaskName() != null) {
+                        // get day and hour from position
+                        int position = holder.getAdapterPosition();
+                        int timePosition = position - (position/8) -1;
+
+                        LocalDateTime dato = timeSlot.getDate();
+
+                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
+                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
+                        //selectedTaskTemplate.reset();
+                        holder.getBindingAdapter().notifyItemChanged(position);
+                    }
+                }
+            });
+
+            ((TimeSlotViewHolder) holder).task2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // if more than 1 task in timeslot: return and create no more (add toast for user)
+                    if (timeSlot.getTasks().size()>1) {
+                        // add toast message
+                        return;
+                    }
+
+                    // get selected taskTemplate from singleton instance
+                    SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
+                    TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
+
+                    // if taskTemplate is selected
+                    if (selectedTask.getTaskName() != null) {
+                        // get day and hour from position
+                        int position = holder.getAdapterPosition();
+                        int timePosition = position - (position/8) -1;
+
+                        LocalDateTime dato = timeSlot.getDate();
+
+                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
+                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
+                        //selectedTaskTemplate.reset();
+                        holder.getBindingAdapter().notifyItemChanged(position);
+                    }
+                }
+            });
+
+
+
+
+            /*
             //-------- FOR TESTING: toast + logging
             // show toast message on long click
             ((TimeSlotViewHolder) holder).container.setOnLongClickListener(new View.OnLongClickListener() {
@@ -181,6 +307,8 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     return true;
                 }
             });
+
+             */
             //LOGGING
             //Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
 

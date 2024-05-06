@@ -7,8 +7,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.javacalenderproject.database.TaskPlanned;
 
 import com.example.javacalenderproject.R;
+import com.example.javacalenderproject.database.TaskTemplate;
 
 public class TimeSlotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public LinearLayout container;
@@ -40,5 +42,6 @@ public class TimeSlotViewHolder extends RecyclerView.ViewHolder implements View.
         // toast message showing day and hour of clicked view item
         Toast.makeText(v.getContext(), "Day: " + day + "  hour " + hour, Toast.LENGTH_SHORT).show();
     }
+
 
 }

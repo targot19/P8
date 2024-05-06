@@ -14,7 +14,11 @@ public interface TaskPlannedDAO {
         @Query("SELECT * FROM planned_tasks")
         List<TaskPlanned> getAllPlannedTasks();
 
+        @Query("DELETE FROM planned_tasks WHERE id = :id")
+        void delete(int id);
     }
+
+
 
 
 

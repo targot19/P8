@@ -18,24 +18,9 @@ public class TaskTemplate {
     @ColumnInfo(name = "taskType")
     public String taskName;
 
-    @ColumnInfo(name = "taskColor")
-    private String taskColor;
-    @ColumnInfo(name = "taskDuration")
-    private int taskDuration;
-    @ColumnInfo(name = "taskIcon")
-    private String taskIcon;
-    @ColumnInfo(name = "taskAssignedMembers")
-    private ArrayList<FamilyMember> assignedFamilyMembers;
-
     public TaskTemplate() {
     }
     // create constructor
-    public TaskTemplate(String name, String icon, String color, int duration) {
-        this.taskName = name;
-        //this.taskIcon = icon;
-        this.taskColor = color;
-        this.taskDuration = duration;
-    }
 
 
     public TaskTemplate(String taskName){
@@ -48,13 +33,6 @@ public class TaskTemplate {
     public void insertTask(TaskTemplate taskTemplate) {
         MainActivity.database.taskDAO().insertTask(taskTemplate);
     }
-
-
-
-
-
-
-
 
     /** create methods for Task
      * with these methods, it is possible to retrieve the private attributes
@@ -70,51 +48,6 @@ public class TaskTemplate {
     }
 
     // Getter and setter for taskColor
-    public String getTaskColor() {
-        return taskColor;
-    }
-
-    public void setTaskColor(String taskColor) {
-        this.taskColor = taskColor;
-    }
-
-    // Getter and setter for taskDuration
-    public int getTaskDuration() {
-        return taskDuration;
-    }
-
-    public void setTaskDuration(int taskDuration) {
-        this.taskDuration = taskDuration;
-    }
-
-    // Getter and setter for taskIcon
-    public String getTaskIcon() {
-        return taskIcon;
-    }
-
-    public void setTaskIcon(String taskIcon) {
-        this.taskIcon = taskIcon;
-    }
-
-    public ArrayList<FamilyMember> getAssignedFamilyMembers() {
-        return assignedFamilyMembers;
-    }
-
-    public void setAssignedFamilyMembers(ArrayList<FamilyMember> assignedFamilyMembers) {
-        this.assignedFamilyMembers = assignedFamilyMembers;
-    }
-
-    public void assignTask(FamilyMember familyMember) {
-
-        assignedFamilyMembers.add(familyMember);
-
-    }
-
-    public void unassignTask(FamilyMember familyMember) {
-
-        assignedFamilyMembers.remove(familyMember);
-
-    }
     private List<TaskTemplate> taskTemplates = new ArrayList<>();
 
     public void setTaskTemplates(List<TaskTemplate> taskTemplates) {
@@ -123,6 +56,14 @@ public class TaskTemplate {
 
     public List<TaskTemplate> getTaskTemplates() {
         return taskTemplates;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<TaskTemplate> getTasks() {

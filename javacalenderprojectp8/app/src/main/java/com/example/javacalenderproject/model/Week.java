@@ -1,5 +1,7 @@
 package com.example.javacalenderproject.model;
 
+import java.time.LocalDate;
+import java.util.List;
 
 // flyt Week klassen til function eller ui layer?
 public class Week {
@@ -44,5 +46,6 @@ public class Week {
             }
         }
     }
+
 
 }

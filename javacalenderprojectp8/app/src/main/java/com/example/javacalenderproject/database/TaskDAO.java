@@ -24,7 +24,7 @@ public interface TaskDAO {
     @Insert
     void insertTask(TaskTemplate taskTemplate);
 
-    @Query("DELETE FROM TaskTemplateTable WHERE taskType = :taskName")
-    void delete(String taskName);
+    @Query("DELETE FROM TaskTemplateTable WHERE id = :id")
+    void delete(int id);
 
 }

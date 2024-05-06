@@ -17,18 +17,6 @@ public class TaskPlanned {
     @ColumnInfo(name = "taskName")
     private String taskName;
 
-    @ColumnInfo(name = "taskColor")
-    private String taskColor;
-
-    @ColumnInfo(name = "taskDuration")
-    private int taskDuration;
-
-    @ColumnInfo(name = "taskIcon")
-    private String taskIcon;
-
-    @ColumnInfo(name = "taskAssignedMembers")
-    private ArrayList<FamilyMember> assignedFamilyMembers;
-
     // OBS database date + hour
     //@TypeConverters({Converters.class})
     @ColumnInfo(name = "taskDateTime")
@@ -41,12 +29,12 @@ public class TaskPlanned {
         this.taskName = name;
         this.date = null;
         // get hour from date to set hour
-        taskDuration = 0;
+
     }
     public TaskPlanned(String name, LocalDateTime date) {
         this.taskName = name;
         this.date = date;
-        taskDuration = 0;
+
     }
 
     // Getters and setters
@@ -65,38 +53,6 @@ public class TaskPlanned {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
-    }
-
-    public String getTaskColor() {
-        return taskColor;
-    }
-
-    public void setTaskColor(String taskColor) {
-        this.taskColor = taskColor;
-    }
-
-    public int getTaskDuration() {
-        return taskDuration;
-    }
-
-    public void setTaskDuration(int taskDuration) {
-        this.taskDuration = taskDuration;
-    }
-
-    public String getTaskIcon() {
-        return taskIcon;
-    }
-
-    public void setTaskIcon(String taskIcon) {
-        this.taskIcon = taskIcon;
-    }
-
-    public ArrayList<FamilyMember> getAssignedFamilyMembers() {
-        return assignedFamilyMembers;
-    }
-
-    public void setAssignedFamilyMembers(ArrayList<FamilyMember> assignedFamilyMembers) {
-        this.assignedFamilyMembers = assignedFamilyMembers;
     }
 
     public LocalDateTime getDate() {
