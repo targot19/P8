@@ -131,10 +131,13 @@ public class MainActivity extends AppCompatActivity {
         weekDisplayed = new Week();
 
         // TEST get length of weekTasks of weekPrices and show as task
+        /*
         TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
         weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
         TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
         weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
+
+         */
 
         // load weeks planned tasks and weeks prices into weekDisplayed
         CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
@@ -210,10 +213,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // 5. load tasks (and PRICES) into week
                 // TEST get length of weekTasks of weekPrices and show as task
+                /*
                 TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
                 weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
                 TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
                 weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
+
+                 */
 
                 // load data (not test)
                 CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
@@ -247,10 +253,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // 5. load tasks (and PRICES) into week
                 // TEST get length of weekTasks of weekPrices and show as task
+                /*
                 TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
                 weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
                 TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
                 weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
+
+                 */
 
                 CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
                 CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
