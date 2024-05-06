@@ -27,6 +27,7 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
         this.context = context;
         this.taskTemplates = tasks;
     }
+
     public TaskTemplateAdapter(List<TaskTemplate> tasks) {
         this.taskTemplates = tasks;
     }
@@ -66,29 +67,34 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
 
         @Override
         public void onClick(View v) {
+            // Get the position of the clicked item
             int position = getAdapterPosition();
+            // Check if the position is valid
             if (position != RecyclerView.NO_POSITION) {
+                // Get the task at the clicked position
                 TaskTemplate task = taskTemplates.get(position);
 
-                // SEND THE DATA - HOW?
-
-                // create singleton instance
+                // Create a singleton instance of SelectedTaskTemplate
                 SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
+                // Set the selected task in the singleton
                 selectedTask.setSelectedTask(task);
             }
 
-            // SOME FUNCTION TO ALLOW THE USER TO SELECT/DESELECT TaskTemplate
-            // Vi har brug for at ingen taskTeamplates er selected når brugeren har oprettet en task
-
+            // Check if any task is selected
             if (isAnyTaskSelected == false){
+                // If no task is selected, change the background color of the view and set it as selected
                 v.setBackgroundResource(R.color.timeBlock);
                 v.setSelected(true);
+                // Update the flag to indicate a task is selected
                 isAnyTaskSelected = true;
             }
             else if (v.isSelected() == true) {
+                // If the view is already selected, reset its background color and deselect it
                 v.setBackgroundResource(R.color.white);
                 v.setSelected(false);
+                // Update the flag to indicate no task is selected
                 isAnyTaskSelected = false;
+                // Reset the selected task in the singleton
                 SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
                 selectedTask.reset();
             }
@@ -96,21 +102,27 @@ public class TaskTemplateAdapter extends RecyclerView.Adapter<TaskTemplateAdapte
 
         @Override
         public boolean onLongClickUseDefaultHapticFeedback(@NonNull View v) {
+            // Pass the long click event to the system's default handler
             return View.OnLongClickListener.super.onLongClickUseDefaultHapticFeedback(v);
         }
+
         public boolean onLongClick(View v) {
+            // Get the position of the long clicked item
             int position = getAdapterPosition();
+            // Check if the position is valid
             if (position != RecyclerView.NO_POSITION) {
+                // Get the task at the long clicked position
                 TaskTemplate task = taskTemplates.get(position);
+                // If the view is already selected, reset its background color, deselect it and reset the selected task in the singleton
                 if (v.isSelected() == true) {
                     isAnyTaskSelected = false;
-
                     v.setSelected(false);
-
                     SelectedTaskTemplate selectedTask = SelectedTaskTemplate.getInstance();
                     selectedTask.reset();
                 }
+                // Delete the task
                 deleteTask(task);
+                // Notify the adapter that the item has been removed
                 notifyItemRemoved(position);
             }
             return true;
