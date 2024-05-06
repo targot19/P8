@@ -21,6 +21,7 @@ public class HelpPopup {
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+        alertDialog.getWindow().setLayout(1200,700);
     }
 
     /*private void showHelpPopup() {
