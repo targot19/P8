@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         //  create test price data array
         //HourlyPrice[] testPriceData = TestData.getTestPriceData();
         // clear all data in database
-        database.clearAllTables();
+        // database.clearAllTables();
 
         // Fetch from API for onCreate:
         //HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
@@ -90,9 +90,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("ApiOnCreate", "Received " + allHourlyPrices.length + " hourly prices");
 
             // Log each individual price
-            //for (HourlyPrice hourlyPrice : allHourlyPrices) {
-                // Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
-                // Log.d("Api",  "Hour: " + hourlyPrice.getHour());
+            for (HourlyPrice hourlyPrice : allHourlyPrices) {
+                Log.d("ApiClient", "Hourly Price: " + hourlyPrice.getPrice() + ", Full Date: " + hourlyPrice.getDate());
+                Log.d("Api", "Hour: " + hourlyPrice.getHour());
+            }
 
                 // update time of last successful fetch
                 apiFetchTime = LocalDateTime.now();

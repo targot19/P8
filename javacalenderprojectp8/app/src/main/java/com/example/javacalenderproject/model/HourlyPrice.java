@@ -26,7 +26,7 @@ public class HourlyPrice {
             // toInstant converts time to seconds.
             // atZone adjusts value to default timezone of the system.
             // toLocalDateTime converts to LocalTimeDate object
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return date.toInstant().atZone(ZoneId.of("Europe/Copenhagen")).toLocalDateTime();
     }
 
     public int getHour() {
