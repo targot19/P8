@@ -269,19 +269,6 @@ public class MainActivity extends AppCompatActivity {
                         CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
                         CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
                         CreateWeek.loadWeekDates(weekDates, weekDisplayed);
-                        // 5. load tasks (and PRICES) into week
-                        // TEST get length of weekTasks of weekPrices and show as task
-                /*
-                TaskPlanned taskLen = new TaskPlanned("Length WeekTasks: " +weekTasks.size());
-                weekDisplayed.getTimeSlots()[0][9].addTask(taskLen);
-                TaskPlanned pricesLen = new TaskPlanned("Length weekPrices: " +weekPrices.size());
-                weekDisplayed.getTimeSlots()[0][10].addTask(pricesLen);
-
-                 */
-
-                        CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
-                        CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
-                        CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
                         // 6. notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
@@ -305,6 +292,9 @@ public class MainActivity extends AppCompatActivity {
                             // Log how many hourly prices were received
                             Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");
 
+                            // Store fetched data into the database
+                            CreateTaskPlanned.priceToDatabase(allHourlyPrices);
+
                             // update fetch/update status + display in UI:
                             apiFetchTime = LocalDateTime.now(); // update value
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // reformat to string
@@ -319,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
                             CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
                             // 3. get tasks and prices for week
                             List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-                            List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+                            List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
                             // 4. clear data (tasks and pricecolors) of Week object
                             weekDisplayed.clearWeek();
                             // 5. load tasks (and PRICES) into week
