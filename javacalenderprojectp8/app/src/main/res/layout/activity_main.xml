@@ -77,23 +77,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="RtlSymmetry" />
 
-<!--
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="190dp"
-        android:layout_height="40dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="sans-serif-light"
-        android:paddingStart="0dp"
-        android:text="@string/edit_family_and_tasks"
-        android:textAlignment="viewStart"
-        android:textColor="@color/Textgray"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!--Help button (img)-->
+    <!--Help button (img)-->
 
-        app:layout_constraintStart_toEndOf="@+id/edit"
-        tools:ignore="RtlSymmetry"
-        tools:visibility="invisible" /> -->
+    <!--Task Templates: -->
 
     <Button
         android:id="@+id/button1"
@@ -106,8 +93,7 @@
         android:textAlignment="viewStart"
         android:textColor="@color/Textgray"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-
+        app:layout_constraintBottom_toTopOf="@+id/updateButtonContainer"
         app:layout_constraintStart_toEndOf="@+id/help"
         tools:ignore="RtlSymmetry" />
 
@@ -132,7 +118,8 @@
         android:background="@color/gray"
         android:contentDescription="@string/get_help_img"
         android:scaleType="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/updateButtonContainer"
+        app:layout_constraintEnd_toStartOf="@+id/button1"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_menu_info_details"
         app:tint="@android:color/black" />
@@ -154,132 +141,136 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
     </androidx.recyclerview.widget.RecyclerView>
-
+    <!--Out container: Month, week, buttons, weekdays-->
     <LinearLayout
-            android:id="@+id/calendar_view"
-            android:layout_width="889dp"
-            android:layout_height="135dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/date_view"
-            app:layout_constraintEnd_toEndOf="parent">
-                <LinearLayout
-                    android:id="@+id/monthweek_container"
-                    android:layout_width="250dp"
-                    android:layout_height="98dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/month_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center|bottom"
-                            android:text="April"
-                            android:textSize="15dp" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1">
+        android:id="@+id/calendar_view"
+        android:layout_width="889dp"
+        android:layout_height="135dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/date_view"
+        app:layout_constraintEnd_toEndOf="parent">
+        <!--Outer container: month + week + buttons-->
+        <LinearLayout
+            android:id="@+id/monthweek_container"
+            android:layout_width="250dp"
+            android:layout_height="98dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <!--Month: -->
+            <TextView
+                android:id="@+id/month_tv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center|bottom"
+                android:text="April"
+                android:textSize="15dp" />
+            <!--Container for week number + buttons-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <!--Prev week button -->
+                <Button
+                    android:id="@+id/btn_weekminus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:icon="@drawable/mcv_action_previous"
+                    app:iconTint="@color/black" />
+                <!--Week number: -->
+                <TextView
+                    android:id="@+id/week_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="2.5"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:text="Uge 42"
+                    android:textSize="20dp" />
+                <!--Next week button:-->
+                <Button
+                    android:id="@+id/btn_weekplus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="10dp"
+                    app:icon="@drawable/mcv_action_next"
+                    app:iconTint="@color/black" />
 
-                                <Button
-                                    android:id="@+id/btn_weekminus"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:background="@android:color/transparent"
-                                    app:icon="@drawable/mcv_action_previous"
-                                    app:iconTint="@color/black"
-                                    />
-                                <TextView
-                                    android:id="@+id/week_tv"
-                                    android:layout_width="0dp"
-                                    android:layout_height="40dp"
-                                    android:layout_weight="2.5"
-                                    android:gravity="center"
-                                    android:text="Uge 42"
-                                    android:textSize="20dp"
-                                    android:paddingBottom="5dp" />
-                                <Button
-                                    android:id="@+id/btn_weekplus"
-                                    android:layout_weight="1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@android:color/transparent"
-                                    android:paddingStart="10dp"
-                                    app:icon="@drawable/mcv_action_next"
-                                    app:iconTint="@color/black"
-                                    />
-
-                        </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/day_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp">
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Mandag"
-                            android:textAlignment="center"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Tirsdag"
-                            android:textAlignment="center"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Onsdag"
-                            android:textAlignment="center"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Torsdag"
-                            android:textAlignment="center"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Fredag"
-                            android:textAlignment="center"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Lørdag"
-                            android:textAlignment="center"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Søndag"
-                            android:textAlignment="center"
-                            android:textSize="15sp" />
-
-                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
+        <!--Container for days of the week -->
+        <LinearLayout
+            android:id="@+id/day_container"
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+            <!--Days of the week-->
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Mandag"
+                android:textAlignment="center"
+                android:textSize="15sp" />
 
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Tirsdag"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Onsdag"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Torsdag"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Fredag"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Lørdag"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Søndag"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--Week table-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hourView"
             android:layout_width="1016dp"
@@ -287,6 +278,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+    <!--Container for dates-->
         <LinearLayout
             android:id="@+id/date_view"
             android:layout_width="889dp"
@@ -296,6 +288,7 @@
             app:layout_constraintBottom_toTopOf="@+id/hourView"
             app:layout_constraintEnd_toEndOf="parent">
 
+            <!--Dates-->
                 <TextView
                     android:id="@+id/date0_tv"
                     android:layout_width="0dp"
@@ -368,5 +361,60 @@
         </LinearLayout>
 
 
+    <!--Update button-->
+    <LinearLayout
+        android:id="@+id/updateButtonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/updateStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <ImageButton
+            android:id="@+id/updateImgButton"
+            android:layout_width="41dp"
+            android:layout_height="45dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@android:drawable/ic_popup_sync"
+            app:tint="@color/DimGray"
+            tools:layout_editor_absoluteX="64dp"
+            tools:layout_editor_absoluteY="704dp" />
+
+        <Button
+            android:id="@+id/updateTextButton"
+            android:layout_width="151dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@color/Crimson"
+            android:fontFamily="sans-serif-light"
+            android:paddingStart="0dp"
+            android:text="@string/opdater"
+            android:textAlignment="viewStart"
+            android:textColor="@color/Textgray"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="105dp"
+            tools:layout_editor_absoluteY="704dp"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/updateStatus"
+        android:layout_width="187dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:text=""
+        android:textAlignment="viewStart"
+        android:textColor="@color/ForestGreen"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
