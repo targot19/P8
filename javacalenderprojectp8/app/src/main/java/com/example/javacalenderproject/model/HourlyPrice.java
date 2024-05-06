@@ -15,24 +15,21 @@ import java.util.Date;
 @Entity(tableName = "PriceData")
 @TypeConverters({Converters.class})
 public class HourlyPrice {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    @ColumnInfo(name = "price")
-    private double price;
+
+    @PrimaryKey
     @ColumnInfo(name = "date")
     private Date date;
+    @ColumnInfo(name = "price")
+    private double price;
+
 
     // Getters and setters
     public Date date() {
         return date;
     }
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
+
 
     public void setPrice(double price) {
         this.price = price;

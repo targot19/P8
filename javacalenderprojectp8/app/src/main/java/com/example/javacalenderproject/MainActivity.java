@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         //  create test price data array
         //HourlyPrice[] testPriceData = TestData.getTestPriceData();
         // clear all data in database
-        database.clearAllTables();
+        //database.clearAllTables();
 
         // Trying out 'future' stuff for API - future.get is our async call
         allHourlyPrices = new HourlyPrice[0];
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        CreateTaskPlanned.priceToDatabase(allHourlyPrices);
+
 
 
         // get views by id: dateviews, weekview, monthview, recyclerview:

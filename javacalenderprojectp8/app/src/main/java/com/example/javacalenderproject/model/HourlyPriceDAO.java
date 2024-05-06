@@ -22,4 +22,7 @@ public interface HourlyPriceDAO {
     @Query("SELECT * FROM pricedata")
     HourlyPrice[] getAllPrices();
 
+    @Query("DELETE FROM PriceData")
+    void deleteAll();
+
 }
