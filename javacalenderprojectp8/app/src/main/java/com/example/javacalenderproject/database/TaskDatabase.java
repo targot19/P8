@@ -11,7 +11,7 @@ import com.example.javacalenderproject.model.HourlyPrice;
 import com.example.javacalenderproject.model.HourlyPriceDAO;
 
 // changed version to 5
-@Database(entities = {TaskTemplate.class, TaskPlanned.class, HourlyPrice.class}, version = 10, exportSchema = false)
+@Database(entities = {TaskTemplate.class, TaskPlanned.class, HourlyPrice.class}, version = 11, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class TaskDatabase extends RoomDatabase {
     public abstract TaskDAO taskDAO();
