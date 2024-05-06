@@ -20,6 +20,6 @@ public interface HourlyPriceDAO {
     void updatePrice(Date date, double price);
 
     @Query("SELECT * FROM pricedata")
-    List<HourlyPrice> getAllPrices();
+    HourlyPrice[] getAllPrices();
 
 }

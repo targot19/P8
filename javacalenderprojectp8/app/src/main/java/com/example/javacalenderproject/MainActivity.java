@@ -20,6 +20,7 @@ import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.HelpPopup;
 import com.example.javacalenderproject.model.HourlyPrice;
+import com.example.javacalenderproject.model.HourlyPriceDAO;
 import com.example.javacalenderproject.model.TaskTemplateView;
 import com.example.javacalenderproject.model.Week;
 import com.example.javacalenderproject.uilayer.FamilyGrid;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         //  create test price data array
         //HourlyPrice[] testPriceData = TestData.getTestPriceData();
         // clear all data in database
-        //database.clearAllTables();
+        database.clearAllTables();
 
         // Trying out 'future' stuff for API - future.get is our async call
         allHourlyPrices = new HourlyPrice[0];
@@ -127,7 +128,13 @@ public class MainActivity extends AppCompatActivity {
 
         // 5. get planned tasks and price data for week:
         List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, allHourlyPrices);
+
+
+
+        HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
+
+
+        List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
 
         // set dates, week, month for week
         CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
