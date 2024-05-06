@@ -6,12 +6,17 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+
+import com.example.javacalenderproject.model.HourlyPrice;
+import com.example.javacalenderproject.model.HourlyPriceDAO;
+
 // changed version to 5
-@Database(entities = {TaskTemplate.class, TaskPlanned.class}, version = 9, exportSchema = false)
+@Database(entities = {TaskTemplate.class, TaskPlanned.class, HourlyPrice.class}, version = 10, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class TaskDatabase extends RoomDatabase {
     public abstract TaskDAO taskDAO();
     public abstract TaskPlannedDAO taskPlannedDAO();
+    public abstract HourlyPriceDAO HourlyPriceDAO();
 
     private static volatile TaskDatabase INSTANCE;
 

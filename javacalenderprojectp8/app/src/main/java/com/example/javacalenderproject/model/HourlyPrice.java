@@ -2,6 +2,7 @@ package com.example.javacalenderproject.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.example.javacalenderproject.database.Converters;
@@ -14,10 +15,32 @@ import java.util.Date;
 @Entity(tableName = "PriceData")
 @TypeConverters({Converters.class})
 public class HourlyPrice {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     @ColumnInfo(name = "price")
     private double price;
     @ColumnInfo(name = "date")
     private Date date;
+
+    // Getters and setters
+    public Date date() {
+        return date;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     // Constructor
     public HourlyPrice(double price, Date date) {

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
+import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.HelpPopup;
 import com.example.javacalenderproject.model.HourlyPrice;
@@ -82,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
         }
+
+
+        CreateTaskPlanned.priceToDatabase(allHourlyPrices);
+
 
 
         // get views by id: dateviews, weekview, monthview, recyclerview:

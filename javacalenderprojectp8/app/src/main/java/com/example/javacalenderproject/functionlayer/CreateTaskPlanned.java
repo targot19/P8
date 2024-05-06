@@ -5,6 +5,7 @@ import static com.example.javacalenderproject.MainActivity.database;
 import android.util.Log;
 
 import com.example.javacalenderproject.database.TaskPlanned;
+import com.example.javacalenderproject.model.HourlyPrice;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,5 +27,25 @@ public class CreateTaskPlanned {
             }
         }).start();
     }
-}
+
+    public static void priceToDatabase(HourlyPrice[] priceData) {
+        new Thread(() -> {
+            try {
+                for (HourlyPrice hourlyPrice : priceData) {
+                    database.HourlyPriceDAO().insert(hourlyPrice);
+                }
+                List<HourlyPrice> prices = database.HourlyPriceDAO().getAllPrices();
+                Log.d("MainActivity", "Prices inserted, total prices now: " + prices.size());
+                for (HourlyPrice price : prices) {
+                    Log.d("MainActivity", "Price: " + price.getPrice());
+                }
+            } catch (Exception e) {
+                Log.e("MainActivity", "Failed to insert or retrieve prices", e);
+            }
+        }).start();
+    }
+
+
+    }
+
 
