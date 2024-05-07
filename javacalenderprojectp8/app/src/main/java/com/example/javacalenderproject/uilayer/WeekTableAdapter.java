@@ -207,9 +207,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             //selectedTaskTemplate.reset();
                             holder.getBindingAdapter().notifyItemChanged(position);
 
-                            // reactivate onclicklistener
-                            v.setEnabled(true);
                         }
+                        // reactivate onclicklistener
+                        v.setEnabled(true);
                     }
 
                 }
@@ -245,12 +245,11 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
 
-
             ((TimeSlotViewHolder) holder).task1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // if more than 1 task in timeslot: return and create no more (add toast for user)
                     if (timeSlot.getTasks().size()<2) {
-                        // deactivate on click listener while it's code is running
+                        // deactivate on click listener while code is running
                         v.setEnabled(false);
 
                         // get selected taskTemplate from singleton instance
@@ -270,9 +269,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             //selectedTaskTemplate.reset();
                             holder.getBindingAdapter().notifyItemChanged(position);
 
-                            // reactivate onclicklistener
-                            v.setEnabled(true);
                         }
+                        // reactivate onclicklistener
+                        v.setEnabled(true);
                     }
                 }
             });
@@ -281,7 +280,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View v) {
                     // if more than 1 task in timeslot: return and create no more (add toast for user)
                     if (timeSlot.getTasks().size()<2) {
-                        // deactivate on click listener while it's code is running
+                        // deactivate on click listener while code is running
                         v.setEnabled(false);
 
                         // get selected taskTemplate from singleton instance
@@ -301,27 +300,12 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             //selectedTaskTemplate.reset();
                             holder.getBindingAdapter().notifyItemChanged(position);
 
-                            // reactivate onclicklistener
-                            v.setEnabled(true);
                         }
+                        // reactivate onclicklistener
+                        v.setEnabled(true);
                     }
                 }
             });
-
-
-            /*
-            //-------- FOR TESTING: toast + logging
-            // show toast message on long click
-            ((TimeSlotViewHolder) holder).container.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    Toast.makeText(v.getContext(), "LONG test - Adap.pos: " + holder.getAdapterPosition() + "pos " + position, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-            });
-
-             */
-            //LOGGING
-            //Log.d("Adapter", "Color retrieved for position " + position + ": " + priceColor);
 
         } else if (viewType == TYPE_HEADER) {
             // calculate index in rowHeader list from position
