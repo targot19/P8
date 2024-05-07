@@ -242,6 +242,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
 
+
             ((TimeSlotViewHolder) holder).task1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // if more than 1 task in timeslot: return and create no more (add toast for user)
