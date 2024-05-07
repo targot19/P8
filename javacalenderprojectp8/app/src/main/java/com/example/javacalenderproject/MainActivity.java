@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Api", "Hour: " + hourlyPrice.getHour());
             }
 
-
             // update time of last successful fetch
             apiFetchTime = LocalDateTime.now();
 
@@ -102,9 +101,8 @@ public class MainActivity extends AppCompatActivity {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
 
-            Toast.makeText(getApplicationContext(), "Kunne ikke hente pris data", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Kunne ikke hente elpris data. Opdater eller tjek din internet forbindelse", Toast.LENGTH_LONG).show();
         }
-
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
         TextView weekView = findViewById(R.id.week_tv);
