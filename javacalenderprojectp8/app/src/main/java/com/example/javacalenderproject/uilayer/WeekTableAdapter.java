@@ -1,5 +1,7 @@
 package com.example.javacalenderproject.uilayer;
 
+import static java.lang.Thread.sleep;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -184,28 +186,32 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((TimeSlotViewHolder) holder).container.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // if more than 1 task in timeslot: return and create no more (add toast for user)
-                    if (timeSlot.getTasks().size()>1) {
-                        // add toast message
-                        return;
+                    if (timeSlot.getTasks().size()<2) {
+                        // deactivate on click listener while it's code is running
+                        v.setEnabled(false);
+
+                        // get selected taskTemplate from singleton instance
+                        SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
+                        TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
+
+                        // if taskTemplate is selected
+                        if (selectedTask.getTaskName() != null) {
+                            // get day and hour from position
+                            int position = holder.getAdapterPosition();
+                            int timePosition = position - (position/8) -1;
+
+                            LocalDateTime dato = timeSlot.getDate();
+
+                            CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
+                            timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
+                            //selectedTaskTemplate.reset();
+                            holder.getBindingAdapter().notifyItemChanged(position);
+
+                            // reactivate onclicklistener
+                            v.setEnabled(true);
+                        }
                     }
 
-                    // get selected taskTemplate from singleton instance
-                    SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
-                    TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
-
-                    // if taskTemplate is selected
-                    if (selectedTask.getTaskName() != null) {
-                        // get day and hour from position
-                        int position = holder.getAdapterPosition();
-                        int timePosition = position - (position/8) -1;
-
-                        LocalDateTime dato = timeSlot.getDate();
-
-                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
-                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
-                        //selectedTaskTemplate.reset();
-                        holder.getBindingAdapter().notifyItemChanged(position);
-                    }
                 }
             });
 
@@ -239,30 +245,34 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
 
+
             ((TimeSlotViewHolder) holder).task1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // if more than 1 task in timeslot: return and create no more (add toast for user)
-                    if (timeSlot.getTasks().size()>1) {
-                        // add toast message
-                        return;
-                    }
+                    if (timeSlot.getTasks().size()<2) {
+                        // deactivate on click listener while it's code is running
+                        v.setEnabled(false);
 
-                    // get selected taskTemplate from singleton instance
-                    SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
-                    TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
+                        // get selected taskTemplate from singleton instance
+                        SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
+                        TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
 
-                    // if taskTemplate is selected
-                    if (selectedTask.getTaskName() != null) {
-                        // get day and hour from position
-                        int position = holder.getAdapterPosition();
-                        int timePosition = position - (position/8) -1;
+                        // if taskTemplate is selected
+                        if (selectedTask.getTaskName() != null) {
+                            // get day and hour from position
+                            int position = holder.getAdapterPosition();
+                            int timePosition = position - (position/8) -1;
 
-                        LocalDateTime dato = timeSlot.getDate();
+                            LocalDateTime dato = timeSlot.getDate();
 
-                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
-                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
-                        //selectedTaskTemplate.reset();
-                        holder.getBindingAdapter().notifyItemChanged(position);
+                            CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
+                            timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
+                            //selectedTaskTemplate.reset();
+                            holder.getBindingAdapter().notifyItemChanged(position);
+
+                            // reactivate onclicklistener
+                            v.setEnabled(true);
+                        }
                     }
                 }
             });
@@ -270,32 +280,33 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((TimeSlotViewHolder) holder).task2.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // if more than 1 task in timeslot: return and create no more (add toast for user)
-                    if (timeSlot.getTasks().size()>1) {
-                        // add toast message
-                        return;
-                    }
+                    if (timeSlot.getTasks().size()<2) {
+                        // deactivate on click listener while it's code is running
+                        v.setEnabled(false);
 
-                    // get selected taskTemplate from singleton instance
-                    SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
-                    TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
+                        // get selected taskTemplate from singleton instance
+                        SelectedTaskTemplate selectedTaskTemplate = SelectedTaskTemplate.getInstance();
+                        TaskTemplate selectedTask = selectedTaskTemplate.getSelectedTaskTemplate();
 
-                    // if taskTemplate is selected
-                    if (selectedTask.getTaskName() != null) {
-                        // get day and hour from position
-                        int position = holder.getAdapterPosition();
-                        int timePosition = position - (position/8) -1;
+                        // if taskTemplate is selected
+                        if (selectedTask.getTaskName() != null) {
+                            // get day and hour from position
+                            int position = holder.getAdapterPosition();
+                            int timePosition = position - (position/8) -1;
 
-                        LocalDateTime dato = timeSlot.getDate();
+                            LocalDateTime dato = timeSlot.getDate();
 
-                        CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
-                        timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
-                        //selectedTaskTemplate.reset();
-                        holder.getBindingAdapter().notifyItemChanged(position);
+                            CreateTaskPlanned.createTask(selectedTask.getTaskName(), dato);
+                            timeSlot.addTask(new TaskPlanned(selectedTask.getTaskName(), dato));
+                            //selectedTaskTemplate.reset();
+                            holder.getBindingAdapter().notifyItemChanged(position);
+
+                            // reactivate onclicklistener
+                            v.setEnabled(true);
+                        }
                     }
                 }
             });
-
-
 
 
             /*

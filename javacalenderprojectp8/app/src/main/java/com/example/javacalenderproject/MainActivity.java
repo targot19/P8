@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -86,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Api", "Hour: " + hourlyPrice.getHour());
             }
 
-
             // update time of last successful fetch
             apiFetchTime = LocalDateTime.now();
 
@@ -100,8 +100,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException e) {
             // Handle exception
             Log.d("ApiClient", "Error fetching data: " + e.getMessage());
-        }
 
+            Toast.makeText(getApplicationContext(), "Kunne ikke hente elpris data. Opdater eller tjek din internet forbindelse", Toast.LENGTH_LONG).show();
+        }
 
         // get views by id: dateviews, weekview, monthview, recyclerview:
         TextView weekView = findViewById(R.id.week_tv);
