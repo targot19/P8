@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         //HourlyPrice[] testPriceData = TestData.getTestPriceData();
         // clear all data in database
         //database.clearAllTables();
-s
+
         // Fetch from API for onCreate:
         //HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
         allHourlyPrices = new HourlyPrice[0];
