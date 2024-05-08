@@ -1,13 +1,10 @@
 package com.example.javacalenderproject.uilayer;
 
-import static java.lang.Thread.sleep;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +14,6 @@ import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.database.TaskPlanned;
 import com.example.javacalenderproject.database.TaskTemplate;
 import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
-import com.example.javacalenderproject.functionlayer.CreateWeek;
 import com.example.javacalenderproject.functionlayer.SelectedTaskTemplate;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
@@ -25,7 +21,6 @@ import com.example.javacalenderproject.model.Week;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,9 +78,6 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.white);
             }
             else {
-                // apiDateTime test
-                //LocalDateTime apiTest = LocalDateTime.of(2024, 5, 1, 13, 0, 1);
-
                 LocalDateTime newPricesDate = LocalDateTime.now().with(LocalTime.of(13,0));
                 LocalDate todayDate = LocalDateTime.now().toLocalDate();
                 LocalDate timeSlotDate = timeSlot.getDate().toLocalDate();
@@ -98,15 +90,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
                     }
-                    /** else if (priceColor == "greenyellow") {
-                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenyellow);
-                    } **/
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
                     }
-                    /** else if (priceColor == "orange") {
-                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orange);
-                    } **/
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
                     }
@@ -116,15 +102,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.green);
                     }
-                    /** else if (priceColor == "greenyellow") {
-                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenyellow);
-                    } **/
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellow);
                     }
-                    /** else if (priceColor == "orange") {
-                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orange);
-                    } **/
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.red);
                     }
@@ -134,15 +114,9 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (priceColor == "green") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenForecast);
                     }
-                    /** else if (priceColor == "greenyellow") {
-                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.greenyellowForecast);
-                    } **/
                     else if (priceColor == "yellow") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.yellowForecast);
                     }
-                    /** else if (priceColor == "orange") {
-                        ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.orangeForecast);
-                    } **/
                     else if (priceColor == "red") {
                         ((TimeSlotViewHolder)holder).container.setBackgroundResource(R.color.redForecast);
                     }
@@ -163,6 +137,7 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     ((TimeSlotViewHolder)holder).task1.setText(taskName);
 
                 }
+                // if 2 tasks in timeslot: make both task textviews visible and set text to name of tasks
                 else if (tasks.size() > 1) {
                     ((TimeSlotViewHolder)holder).task1.setVisibility(View.VISIBLE);
                     ((TimeSlotViewHolder)holder).task2.setVisibility(View.VISIBLE);
@@ -314,14 +289,6 @@ public class WeekTableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((TimeViewHolder)holder).time.setText(rowHeader.get(index));
             // set background color
             ((TimeViewHolder)holder).container.setBackgroundResource(R.color.timeBlock);
-
-            // show toast message on long click
-            ((TimeViewHolder) holder).container.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    Toast.makeText(v.getContext(), "LONG test - Adap.pos: " + holder.getAdapterPosition() + "pos " + position, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-            });
         }
     }
 

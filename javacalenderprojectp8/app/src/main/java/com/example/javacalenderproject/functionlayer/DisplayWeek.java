@@ -12,7 +12,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateWeek {
+public class DisplayWeek {
     public static void loadWeekDates(List<LocalDate> weekDates, Week week) {
         for (int i = 0; i <7; i++) {
             for (int j = 0; j < 24; j++) {
@@ -49,15 +49,9 @@ public class CreateWeek {
             if (hourPrice.getPrice() <= 0.4) {
                 color = "green";
             }
-            /** else if (hourPrice.getPrice() >= 0.2 && hourPrice.getPrice() < 0.4) {
-                color = "greenyellow";
-            } **/
             else if (hourPrice.getPrice() > 0.4 && hourPrice.getPrice() < 0.8) {
                 color = "yellow";
             }
-            /**else if (hourPrice.getPrice() >= 0.6 && hourPrice.getPrice() <= 0.8) {
-                color = "orange";
-            } **/
             else if (hourPrice.getPrice() >= 0.8) {
                 color = "red";
             }
@@ -147,5 +141,21 @@ public class CreateWeek {
             weekDates.add(weekDate);
         }
         return weekDates;
+    }
+
+    // method returns list of dates for the current week (using today's date)
+    public static List<LocalDate> getCurrentWeekDates () {
+        // get today's date
+        LocalDate date = LocalDate.now();
+
+        // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
+        WeekFields weekFields = WeekFields.ISO;
+
+        // get the week of the year using weekFields
+        int weekOfYear = date.get(weekFields.weekOfYear());
+
+        // get and return list of dates for today's week
+        int year = date.getYear();
+        return getWeekDates(weekOfYear, year);
     }
 }

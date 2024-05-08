@@ -10,7 +10,6 @@ import com.example.javacalenderproject.model.Week;
 import com.example.javacalenderproject.uilayer.WeekTableAdapter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SetupHourView {
@@ -25,7 +24,7 @@ public class SetupHourView {
             timeList.add(tempString);
         } */
 
-        List<String> timeList= CreateWeek.getTimeIntervals();
+        List<String> timeList= DisplayWeek.getTimeIntervals();
 
         // initialize gridlayoutmanager. Spancount = number of columns
         GridLayoutManager layoutManager = new GridLayoutManager(context,8, RecyclerView.VERTICAL,false);
