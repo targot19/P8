@@ -290,6 +290,9 @@ public class MainActivity extends AppCompatActivity {
                             // Store fetched data into the database
                             CreateTaskPlanned.priceToDatabase(allHourlyPrices);
 
+                            // Update dataBasePrices with the new data from the database
+                            HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
+
                             // update fetch/update status + display in UI:
                             apiFetchTime = LocalDateTime.now(); // update value
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // reformat to string
