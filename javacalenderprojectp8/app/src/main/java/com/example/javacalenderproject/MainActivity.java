@@ -2,6 +2,7 @@ package com.example.javacalenderproject;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -290,9 +291,6 @@ public class MainActivity extends AppCompatActivity {
                             // Store fetched data into the database
                             CreateTaskPlanned.priceToDatabase(allHourlyPrices);
 
-                            // Update dataBasePrices with the new data from the database
-                            HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
-
                             // update fetch/update status + display in UI:
                             apiFetchTime = LocalDateTime.now(); // update value
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // reformat to string
@@ -300,27 +298,35 @@ public class MainActivity extends AppCompatActivity {
                             apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show updated value in UI
                             apiUpdateStatus.setTextColor(ContextCompat.getColor(v.getContext(), R.color.ForestGreen)); // make sure color is green
 
-                            // Recreate the week w. the new data (this is exactly the same as next/prev week buttons)
-                            // 1. get list of dates for week
-                            List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
-                            // 2. set dates, week, month for week
-                            CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
-                            // 3. get tasks and prices for week
-                            List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
-                            List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
-                            // 4. clear data (tasks and pricecolors) of Week object
-                            weekDisplayed.clearWeek();
-                            // 5. load tasks (and PRICES) into week
-                            CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
-                            CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
-                            CreateWeek.loadWeekDates(weekDates, weekDisplayed);
+                            // Use Handler.postDelayed() to delay the execution of the code that reads from the database
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Update dataBasePrices with the new data from the database
+                                    HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
 
-                            Log.d("ApiUpdate", "Number of prices: " + weekPrices.size());
-                            Log.d("ApiUpdate", "Number of tasks: " + weekTasks.size());
+                                    // Recreate the week w. the new data (this is exactly the same as next/prev week buttons)
+                                    // 1. get list of dates for week
+                                    List<LocalDate> weekDates = CreateWeek.getWeekDates(weekOfYear, year);
+                                    // 2. set dates, week, month for week
+                                    CreateWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
+                                    // 3. get tasks and prices for week
+                                    List<TaskPlanned> weekTasks = CreateWeek.getWeekTasks(weekDates);
+                                    List<HourlyPrice> weekPrices = CreateWeek.getWeekPrices(weekDates, dataBasePrices);
+                                    // 4. clear data (tasks and pricecolors) of Week object
+                                    weekDisplayed.clearWeek();
+                                    // 5. load tasks (and PRICES) into week
+                                    CreateWeek.loadWeekTasks(weekTasks, weekDisplayed);
+                                    CreateWeek.loadWeekPrices(weekPrices, weekDisplayed);
+                                    CreateWeek.loadWeekDates(weekDates, weekDisplayed);
 
-                            // 6. notify adapter that data has changed
-                            weekAdapter.notifyDataSetChanged();
+                                    Log.d("ApiUpdate", "Number of prices: " + weekPrices.size());
+                                    Log.d("ApiUpdate", "Number of tasks: " + weekTasks.size());
 
+                                    // 6. notify adapter that data has changed
+                                    weekAdapter.notifyDataSetChanged();
+                                }
+                            }, 2000); // Delay of 2 seconds
 
                         } catch (InterruptedException | ExecutionException e) {
                             // Handle exception
