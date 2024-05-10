@@ -8,9 +8,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class CreateTaskPlanned {
+public class WritePricesToDatabase {
+
+    // method not used? -> delete
     // Method to create a new task and add it to the database
-    public static void createTask(String name, LocalDateTime date) {
+    public static void createTaskPlanned(String name, LocalDateTime date) {
         TaskPlanned newTask = new TaskPlanned(name, date);
         new Thread(() -> {
             try {
@@ -26,7 +28,6 @@ public class CreateTaskPlanned {
         }).start();
     }
 
-
     public static CompletableFuture<Void> priceToDatabase(HourlyPrice[] priceData) {
         CompletableFuture<Void> future = new CompletableFuture<>();
         new Thread(() -> {
@@ -40,7 +41,6 @@ public class CreateTaskPlanned {
                 for (HourlyPrice price : prices) {
                     Log.d("MainActivity", "Price: " + price.getPrice());
                 }
-
 
                 future.complete(null); // Complete the future when the database operation is done
             } catch (Exception e) {

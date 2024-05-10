@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.javacalenderproject.api.FetchManager;
 import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.model.TaskPlanned;
-import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
+import com.example.javacalenderproject.functionlayer.WritePricesToDatabase;
 import com.example.javacalenderproject.functionlayer.DisplayWeek;
 import com.example.javacalenderproject.functionlayer.HelpPopup;
 import com.example.javacalenderproject.model.HourlyPrice;
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         List<TaskPlanned> weekTasks = DisplayWeek.getWeekTasks(weekDates);
 
         // update database with new fetched prices
-        CreateTaskPlanned.priceToDatabase(allHourlyPrices).thenRun(() -> {
+        WritePricesToDatabase.priceToDatabase(allHourlyPrices).thenRun(() -> {
             runOnUiThread(() -> {
                 // get all prices from database
                 HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");
 
                             // Store fetched data into the database
-                            CreateTaskPlanned.priceToDatabase(allHourlyPrices);
+                            WritePricesToDatabase.priceToDatabase(allHourlyPrices);
 
                             // update fetch/update status + display in UI:
                             apiFetchTime = LocalDateTime.now(); // update value
