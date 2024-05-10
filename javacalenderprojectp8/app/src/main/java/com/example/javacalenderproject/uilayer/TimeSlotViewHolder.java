@@ -7,10 +7,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.javacalenderproject.database.TaskPlanned;
 
 import com.example.javacalenderproject.R;
-import com.example.javacalenderproject.database.TaskTemplate;
 
 public class TimeSlotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public LinearLayout container;

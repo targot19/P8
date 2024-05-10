@@ -1,4 +1,4 @@
-package com.example.javacalenderproject.database;
+package com.example.javacalenderproject.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

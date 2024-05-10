@@ -8,7 +8,8 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.example.javacalenderproject.model.HourlyPrice;
-import com.example.javacalenderproject.model.HourlyPriceDAO;
+import com.example.javacalenderproject.model.TaskPlanned;
+import com.example.javacalenderproject.uilayer.TaskTemplate;
 
 // changed version to 5
 @Database(entities = {TaskTemplate.class, TaskPlanned.class, HourlyPrice.class}, version = 14, exportSchema = false)

@@ -1,4 +1,4 @@
-package com.example.javacalenderproject.model;
+package com.example.javacalenderproject.uilayer;
 
 import static com.example.javacalenderproject.MainActivity.database;
 
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.MainActivity;
 import com.example.javacalenderproject.R;
-import com.example.javacalenderproject.database.TaskTemplate;
+import com.example.javacalenderproject.uilayer.TaskTemplate;
 import com.example.javacalenderproject.uilayer.TaskTemplateAdapter;
 
 import java.util.List;
@@ -56,31 +56,3 @@ public class TaskTemplateView {
         });
     }
 }
-
-
-
-
-
-
-
-
-
-/*
-    private void createTask(String name, String icon, String color, int duration) {
-        Task newTask = new Task(name, icon, color, duration);
-        new Thread(() -> {
-            try {
-                database.taskDAO().insertTask(newTask);
-                List<Task> tasks = database.taskDAO().getAllTasks();
-                Log.d("MainActivity", "Task inserted, total tasks now: " + tasks.size());
-                for (Task task : tasks) {
-                    Log.d("MainActivity", "Task: " + task.getTaskName());
-                }
-            } catch (Exception e) {
-                Log.e("MainActivity", "Failed to insert or retrieve tasks", e);
-            }
-        }).start();
-    }
-}
-
- */

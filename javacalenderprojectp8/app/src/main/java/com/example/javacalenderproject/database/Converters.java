@@ -2,6 +2,8 @@ package com.example.javacalenderproject.database;
 
 import androidx.room.TypeConverter;
 
+import com.example.javacalenderproject.model.FamilyMember;
+import com.example.javacalenderproject.uilayer.TaskTemplate;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;

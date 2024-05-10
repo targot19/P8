@@ -1,7 +1,5 @@
 package com.example.javacalenderproject.model;
 
-import com.example.javacalenderproject.database.TaskPlanned;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 

@@ -2,7 +2,9 @@ package com.example.javacalenderproject.functionlayer;
 
 import static com.example.javacalenderproject.MainActivity.database;
 import android.widget.TextView;
-import com.example.javacalenderproject.database.TaskPlanned;
+
+import com.example.javacalenderproject.database.HourlyPriceDAO;
+import com.example.javacalenderproject.model.TaskPlanned;
 import com.example.javacalenderproject.model.HourlyPrice;
 import com.example.javacalenderproject.model.TimeSlot;
 import com.example.javacalenderproject.model.Week;
@@ -22,14 +24,14 @@ public class DisplayWeek {
         }
     }
 
-    public static void setCalendarView(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, List<LocalDate> weekDates, int weeknumber) {
+    public static void setCalendarView(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, List<LocalDate> weekDates, int weekNumber) {
 
         // set dates
         for (int i = 0; i < 7; i++){
             dateViews.get(i).setText(""+weekDates.get(i).getDayOfMonth());
         }
         // set week number
-        weekView.setText("Uge "+weeknumber);
+        weekView.setText("Uge "+weekNumber);
         // set month
         monthView.setText(""+weekDates.get(0).getMonth());
     }
@@ -57,8 +59,6 @@ public class DisplayWeek {
             }
             timeSlot.setColor(color);
 
-            // set date of timeslot
-            timeSlot.setDate(hourPrice.getDate());
         }
     }
 
@@ -83,11 +83,31 @@ public class DisplayWeek {
         return timeList;
     }
 
+    // from the specified list of HourlyPrices: get list of HourlyPrices for the specified dates
     public static List<HourlyPrice> getWeekPrices (List<LocalDate> weekDays, HourlyPrice[] priceData) {
 
-        // Evt. indsæt kode der finder alle timepriser fra database afhængig af løsning.
+        List<HourlyPrice> weekPrices = new ArrayList<>();
+
+        for (HourlyPrice hourPrice: priceData) {
+            // iterate all days in the week
+            for (LocalDate weekDate: weekDays) {
+                // if date of weekday matches date of hourPrice: add hourPrice object to list of week prices
+                LocalDate temp = hourPrice.getDate().toLocalDate();
+                if (temp.equals(weekDate)) {
+                    weekPrices.add(hourPrice);
+                }
+            }
+        }
+        return weekPrices;
+    }
+
+    // from all price data in the database: return list with data for the dates specified in the parameter
+    public static List<HourlyPrice> getWeekPrices (List<LocalDate> weekDays) {
 
         List<HourlyPrice> weekPrices = new ArrayList<>();
+
+        // get all price data from database
+        HourlyPrice[] priceData = database.HourlyPriceDAO().getAllPrices();
 
         for (HourlyPrice hourPrice: priceData) {
             // iterate all days in the week

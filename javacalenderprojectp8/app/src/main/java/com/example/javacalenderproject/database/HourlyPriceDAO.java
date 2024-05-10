@@ -1,9 +1,11 @@
-package com.example.javacalenderproject.model;
+package com.example.javacalenderproject.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
+import com.example.javacalenderproject.model.HourlyPrice;
 
 import java.util.Date;
 import java.util.List;

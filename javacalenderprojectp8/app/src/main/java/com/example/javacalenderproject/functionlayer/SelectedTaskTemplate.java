@@ -1,6 +1,5 @@
 package com.example.javacalenderproject.functionlayer;
-
-import com.example.javacalenderproject.database.TaskTemplate;
+import com.example.javacalenderproject.uilayer.TaskTemplate;
 
 public class SelectedTaskTemplate {
     private static SelectedTaskTemplate instance;

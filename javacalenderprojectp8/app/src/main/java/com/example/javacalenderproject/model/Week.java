@@ -1,30 +1,15 @@
 package com.example.javacalenderproject.model;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import android.util.Log;
 
-// flyt Week klassen til function eller ui layer?
 public class Week {
-    // weekNumber variabel overflødig? bruges ikke til noget
-    private int weekNumber;
     private TimeSlot[][] timeSlots;
 
     public Week(int weekNumber) {
-        this.weekNumber = weekNumber;
         initializeTimeSlots();
     }
     public Week() {
         initializeTimeSlots();
-    }
-
-    public int getWeekNumber() {
-        return weekNumber;
-    }
-
-    public void setWeekNumber(int weekNumber) {
-        this.weekNumber = weekNumber;
     }
 
     public TimeSlot[][] getTimeSlots() {

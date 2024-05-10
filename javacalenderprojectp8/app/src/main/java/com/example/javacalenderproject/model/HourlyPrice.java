@@ -29,8 +29,6 @@ public class HourlyPrice {
     }
 
 
-
-
     public void setPrice(double price) {
         this.price = price;
     }
@@ -66,3 +64,5 @@ public class HourlyPrice {
     // Hvis man skal kalde indbyggede metoder på HourlyPrice: HourlyPrice.getDate().namePåMetode()
 
 }
+
+

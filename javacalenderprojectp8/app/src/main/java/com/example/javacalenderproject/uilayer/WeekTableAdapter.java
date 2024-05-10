@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.R;
 import com.example.javacalenderproject.database.TaskDatabase;
-import com.example.javacalenderproject.database.TaskPlanned;
-import com.example.javacalenderproject.database.TaskTemplate;
+import com.example.javacalenderproject.model.TaskPlanned;
 import com.example.javacalenderproject.functionlayer.CreateTaskPlanned;
 import com.example.javacalenderproject.functionlayer.SelectedTaskTemplate;
 import com.example.javacalenderproject.model.TimeSlot;

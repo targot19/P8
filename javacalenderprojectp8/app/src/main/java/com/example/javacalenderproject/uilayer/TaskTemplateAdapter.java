@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.javacalenderproject.R;
 import com.example.javacalenderproject.database.TaskDatabase;
-import com.example.javacalenderproject.database.TaskTemplate;
 import com.example.javacalenderproject.functionlayer.SelectedTaskTemplate;
 
 import java.util.List;
