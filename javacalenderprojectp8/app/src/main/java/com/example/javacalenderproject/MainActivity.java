@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         dateViews.add(weekDay6);
         dateViews.add(weekDay7);
 
-        // 1. Initialize Get dates of the current week of the year
+        // 1. Get dates of the current week of the year
         // get today's date
         LocalDate dateToday = LocalDate.now();
         // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
@@ -295,7 +295,10 @@ public class MainActivity extends AppCompatActivity {
 
         // 3. get tasks and prices for week
         List<TaskPlanned> weekTasks = DisplayWeek.getWeekTasks(weekDates);
-        List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates, dataBasePrices);
+        // nuværende
+        //List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates, dataBasePrices);
+        // til opdateret kode
+        List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates);
 
         // 4. clear data (timeslots) of Week object
         weekDisplayed.clearWeek();
