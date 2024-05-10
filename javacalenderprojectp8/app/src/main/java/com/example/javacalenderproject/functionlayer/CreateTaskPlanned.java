@@ -52,14 +52,6 @@ public class CreateTaskPlanned {
         return future;
     }
 
-    /*
-    public static void priceToDatabase(HourlyPrice[] priceData) {
-        for (HourlyPrice hourlyPrice : priceData) {
-            database.HourlyPriceDAO().insertOrUpdate(hourlyPrice);
-        }
-    }
-
-     */
 }
 
 

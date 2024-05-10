@@ -4,9 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
-
 import com.example.javacalenderproject.database.Converters;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -22,12 +20,10 @@ public class HourlyPrice {
     @ColumnInfo(name = "price")
     private double price;
 
-
     // Getters and setters
     public Date date() {
         return date;
     }
-
 
     public void setPrice(double price) {
         this.price = price;
@@ -42,7 +38,6 @@ public class HourlyPrice {
         this.price = price;
         this.date = date; // date as Date (Gson default)
     }
-
 
     // Methods: get & set
     public double getPrice() { // In case we want to access only the price

@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         year = dateToday.getYear();
         List<LocalDate> weekDates = DisplayWeek.getWeekDates(weekOfYear, year);
 
-
         // 2. get planned tasks and price data for week:
         List<TaskPlanned> weekTasks = DisplayWeek.getWeekTasks(weekDates);
 
@@ -148,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
                 // set dates, week, month for week in calendarview
                 DisplayWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
-
 
                 // load weeks planned tasks and weeks prices into weekDisplayed
                 DisplayWeek.loadWeekTasks(weekTasks, weekDisplayed);
@@ -211,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
                             weekOfYear = weekOfYear - 1;
                         }
 
-                        // call method to load new week data into weekDisplayed
-                        loadWeekData(dateViews, weekView, monthView, dataBasePrices);
+                        // call method to update the data of weekDisplayed and the dates shown in calendarView
+                        updateWeekData(dateViews, weekView, monthView, dataBasePrices);
 
                         // notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
@@ -226,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
                             weekOfYear = weekOfYear + 1;
                         }
 
-                        // call method to load new week data into weekDisplayed
-                        loadWeekData(dateViews, weekView, monthView, dataBasePrices);
+                        // call method to update the data of weekDisplayed and the dates shown in calendarView
+                        updateWeekData(dateViews, weekView, monthView, dataBasePrices);
 
                         // notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
@@ -261,11 +259,9 @@ public class MainActivity extends AppCompatActivity {
                             apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show updated value in UI
                             apiUpdateStatus.setTextColor(ContextCompat.getColor(v.getContext(), R.color.ForestGreen)); // make sure color is green
 
-                            // ---- Recreate the week w. the new data (this is exactly the same as next/prev week buttons)
-                            // call method to load new week data into weekDisplayed
-                            loadWeekData(dateViews, weekView, monthView, dataBasePrices);
+                            // call to update the data of weekDisplayed and the dates shown in calendarView
+                            updateWeekData(dateViews, weekView, monthView, dataBasePrices);
 
-                            // fjernes?
                             Log.d("ApiUpdate", "Number of prices: " + weekPrices.size());
                             Log.d("ApiUpdate", "Number of tasks: " + weekTasks.size());
 
@@ -288,8 +284,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // method to load week data into weekDisplayed
-    private void loadWeekData(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, HourlyPrice[] dataBasePrices) {
+    // method to update the data of weekDisplayed and the dates shown in calendarView
+    private void updateWeekData(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, HourlyPrice[] dataBasePrices) {
 
         // 1. get list of dates for week
         List<LocalDate> weekDates = DisplayWeek.getWeekDates(weekOfYear, year);
