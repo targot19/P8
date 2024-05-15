@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Kunne ikke hente elpris data. Opdater eller tjek din internet forbindelse", Toast.LENGTH_LONG).show();
         }
 
-        // get views by id: dateviews, weekview, monthview, recyclerview:
+        // get views by id: dateviews, weekview, monthview, recyclerview, apiupdataStatus:
         TextView weekView = findViewById(R.id.week_tv);
         TextView monthView = findViewById(R.id.month_tv);
         RecyclerView recyclerView = findViewById(R.id.hourView);
@@ -122,8 +122,7 @@ public class MainActivity extends AppCompatActivity {
         // update database with new fetched prices (rest of the code is only executed when write is done)
         WritePricesToDatabase.priceToDatabase(allHourlyPrices).thenRun(() -> {
             runOnUiThread(() -> {
-
-                // 1. Get dates of the current week of the year
+                // get dates of the current week of the year
                 // get today's date
                 LocalDate dateToday = LocalDate.now();
                 // create weekfields object, specifying that first day of the week is monday and first week of year must have at least 4 days of the year (ISO standard)
@@ -132,9 +131,13 @@ public class MainActivity extends AppCompatActivity {
                 weekOfYear = dateToday.get(weekFields.weekOfYear());
                 // get list of dates for today's week
                 year = dateToday.getYear();
+
+                updateWeekData(dateViews, weekView, monthView);
+
+                /*
                 List<LocalDate> weekDates = DisplayWeek.getWeekDates(weekOfYear, year);
 
-                // 2. get planned tasks and price data for week:
+                // get planned tasks and price data for week:
                 List<TaskPlanned> weekTasks = DisplayWeek.getWeekTasks(weekDates);
                 List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates);
 
@@ -145,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 DisplayWeek.loadWeekTasks(weekTasks, weekDisplayed);
                 DisplayWeek.loadWeekPrices(weekPrices, weekDisplayed);
                 DisplayWeek.loadWeekDates(weekDates, weekDisplayed);
+
+                 */
 
                 // create and set up layout manager and recyclerview
                 GridLayoutManager layoutManager = new GridLayoutManager(this, 8, RecyclerView.VERTICAL, false);
@@ -239,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Update", "Update button was clicked");
                         try {
                             // Update contents of allHourlyPrices
-                            //allHourlyPrices = future.get();
                             HourlyPrice[] allHourlyPrices = future.get();
                             // Log how many hourly prices were received
                             Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");

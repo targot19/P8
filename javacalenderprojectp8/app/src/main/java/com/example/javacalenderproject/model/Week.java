@@ -5,15 +5,8 @@ import android.util.Log;
 public class Week {
     private TimeSlot[][] timeSlots;
 
-    public Week(int weekNumber) {
-        initializeTimeSlots();
-    }
     public Week() {
         initializeTimeSlots();
-    }
-
-    public TimeSlot[][] getTimeSlots() {
-        return timeSlots;
     }
 
     private void initializeTimeSlots () {
@@ -23,6 +16,10 @@ public class Week {
                 timeSlots[i][j] = new TimeSlot();
             }
         }
+    }
+
+    public TimeSlot[][] getTimeSlots() {
+        return timeSlots;
     }
 
     // method to clear data of all timeslots

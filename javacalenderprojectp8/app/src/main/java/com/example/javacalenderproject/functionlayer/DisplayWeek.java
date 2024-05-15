@@ -2,8 +2,6 @@ package com.example.javacalenderproject.functionlayer;
 
 import static com.example.javacalenderproject.MainActivity.database;
 import android.widget.TextView;
-
-import com.example.javacalenderproject.database.HourlyPriceDAO;
 import com.example.javacalenderproject.model.TaskPlanned;
 import com.example.javacalenderproject.model.HourlyPrice;
 import com.example.javacalenderproject.model.TimeSlot;
