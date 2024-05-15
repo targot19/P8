@@ -132,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
                 // get list of dates for today's week
                 year = dateToday.getYear();
 
-                updateWeekData(dateViews, weekView, monthView);
+                // call getWeekData. Method
+                setWeekData(dateViews, weekView, monthView);
 
                 /*
                 List<LocalDate> weekDates = DisplayWeek.getWeekDates(weekOfYear, year);
@@ -207,9 +208,10 @@ public class MainActivity extends AppCompatActivity {
                         if (weekOfYear > 1) {
                             weekOfYear = weekOfYear - 1;
                         }
-
+                        // clear the data in weekDisplayed
+                        weekDisplayed.clearWeek();
                         // call method to update the data of weekDisplayed and the dates shown in calendarView
-                        updateWeekData(dateViews, weekView, monthView);
+                        setWeekData(dateViews, weekView, monthView);
 
                         // notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
@@ -222,9 +224,10 @@ public class MainActivity extends AppCompatActivity {
                         if (weekOfYear < 53) {
                             weekOfYear = weekOfYear + 1;
                         }
-
+                        // clear the data in weekDisplayed
+                        weekDisplayed.clearWeek();
                         // call method to update the data of weekDisplayed and the dates shown in calendarView
-                        updateWeekData(dateViews, weekView, monthView);
+                        setWeekData(dateViews, weekView, monthView);
 
                         // notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
@@ -258,13 +261,13 @@ public class MainActivity extends AppCompatActivity {
                             apiUpdateStatus.setText("Opdateret:" + apiFetchTimeString); // show updated value in UI
                             apiUpdateStatus.setTextColor(ContextCompat.getColor(v.getContext(), R.color.ForestGreen)); // make sure color is green
 
+                            // clear the data in weekDisplayed
+                            weekDisplayed.clearWeek();
                             // call to update the data of weekDisplayed and the dates shown in calendarView
-                            updateWeekData(dateViews, weekView, monthView);
+                            setWeekData(dateViews, weekView, monthView);
 
-                            /*
-                            Log.d("ApiUpdate", "Number of prices: " + weekPrices.size());
-                            Log.d("ApiUpdate", "Number of tasks: " + weekTasks.size());
-                             */
+                            //Log.d("ApiUpdate", "Number of prices: " + weekPrices.size());
+                            //Log.d("ApiUpdate", "Number of tasks: " + weekTasks.size());
 
                             // notify adapter that data has changed
                             weekAdapter.notifyDataSetChanged();
@@ -284,8 +287,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // method to update the data of weekDisplayed and the dates shown in calendarView
-    private void updateWeekData(ArrayList<TextView> dateViews, TextView weekView, TextView monthView) {
+    // method to set and update the data of weekDisplayed and the dates shown in calendarView
+    private void setWeekData(ArrayList<TextView> dateViews, TextView weekView, TextView monthView) {
 
         // 1. get list of dates for week
         List<LocalDate> weekDates = DisplayWeek.getWeekDates(weekOfYear, year);
@@ -295,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates);
 
         // 3. clear data (timeslots) of Week object
-        weekDisplayed.clearWeek();
+        //weekDisplayed.clearWeek();
 
         // 4. load tasks, prices and dates into weekDisplayed
         DisplayWeek.loadWeekTasks(weekTasks, weekDisplayed);

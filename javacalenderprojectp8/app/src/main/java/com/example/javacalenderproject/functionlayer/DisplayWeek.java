@@ -14,9 +14,12 @@ import java.util.List;
 
 public class DisplayWeek {
     public static void loadWeekDates(List<LocalDate> weekDates, Week week) {
+        // iterate all timeslots in week
         for (int i = 0; i <7; i++) {
+            // for each date in WeekDates create 24 LocalDateTime objects with the time of the hours from 0-23
             for (int j = 0; j < 24; j++) {
                 LocalDateTime date = weekDates.get(i).atTime(j,0);
+                //assign date to timeslot
                 week.getTimeSlots()[i][j].setDate(date);
             }
         }

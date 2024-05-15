@@ -32,5 +32,4 @@ public class Week {
         Log.d("Update Test", "clearWeek executed");
     }
 
-
 }
