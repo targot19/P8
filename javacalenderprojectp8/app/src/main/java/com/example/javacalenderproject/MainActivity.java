@@ -20,7 +20,7 @@ import com.example.javacalenderproject.database.TaskDatabase;
 import com.example.javacalenderproject.model.TaskPlanned;
 import com.example.javacalenderproject.functionlayer.WritePricesToDatabase;
 import com.example.javacalenderproject.functionlayer.DisplayWeek;
-import com.example.javacalenderproject.functionlayer.HelpPopup;
+import com.example.javacalenderproject.uilayer.HelpPopup;
 import com.example.javacalenderproject.model.HourlyPrice;
 import com.example.javacalenderproject.uilayer.TaskTemplateView;
 import com.example.javacalenderproject.model.Week;
@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     static int year;
     static Week weekDisplayed;
 
-    // static variable to hold the fetched API data
-    static HourlyPrice[] allHourlyPrices;
     // variable to hold time of last successful fetch of price data
     static LocalDateTime apiFetchTime;
 
@@ -60,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         // Set database
         database = TaskDatabase.getDatabase(getApplicationContext());
 
-        // initialize allHourlyPrices (prevents app from crashing if fetch is unsuccessful)
-        allHourlyPrices = new HourlyPrice[0];
+        // create and initialize allHourlyPrices
+        HourlyPrice[] allHourlyPrices = new HourlyPrice[0];
 
         // create week object and assign to static variable weekDisplayed
         weekDisplayed = new Week();
@@ -138,11 +136,14 @@ public class MainActivity extends AppCompatActivity {
         // update database with new fetched prices
         WritePricesToDatabase.priceToDatabase(allHourlyPrices).thenRun(() -> {
             runOnUiThread(() -> {
-                // get all prices from database
-                HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
+                // get all prices from database (DELELTE: happens in getWeekPrices method)
+                //HourlyPrice[] dataBasePrices = database.HourlyPriceDAO().getAllPrices();
 
                 // get prices for week from all prices
+                // DELETE - uses other instance of getWeekPrices method
                 //List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates, dataBasePrices);
+
+                // get all prices (HourlyPrice objects) for the week
                 List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates);
 
                 // set dates, week, month for week in calendarview
@@ -210,7 +211,8 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         // call method to update the data of weekDisplayed and the dates shown in calendarView
-                        updateWeekData(dateViews, weekView, monthView, dataBasePrices);
+                        //updateWeekData(dateViews, weekView, monthView, dataBasePrices);
+                        updateWeekData(dateViews, weekView, monthView);
 
                         // notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
@@ -225,7 +227,8 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         // call method to update the data of weekDisplayed and the dates shown in calendarView
-                        updateWeekData(dateViews, weekView, monthView, dataBasePrices);
+                        //updateWeekData(dateViews, weekView, monthView, dataBasePrices);
+                        updateWeekData(dateViews, weekView, monthView);
 
                         // notify adapter that data has changed
                         weekAdapter.notifyDataSetChanged();
@@ -245,7 +248,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Update", "Update button was clicked");
                         try {
                             // Update contents of allHourlyPrices
-                            allHourlyPrices = future.get();
+                            //allHourlyPrices = future.get();
+                            HourlyPrice[] allHourlyPrices = future.get();
                             // Log how many hourly prices were received
                             Log.d("ApiUpdate", "Received " + allHourlyPrices.length + " hourly prices");
 
@@ -260,14 +264,14 @@ public class MainActivity extends AppCompatActivity {
                             apiUpdateStatus.setTextColor(ContextCompat.getColor(v.getContext(), R.color.ForestGreen)); // make sure color is green
 
                             // call to update the data of weekDisplayed and the dates shown in calendarView
-                            updateWeekData(dateViews, weekView, monthView, dataBasePrices);
+                            //updateWeekData(dateViews, weekView, monthView, dataBasePrices);
+                            updateWeekData(dateViews, weekView, monthView);
 
                             Log.d("ApiUpdate", "Number of prices: " + weekPrices.size());
                             Log.d("ApiUpdate", "Number of tasks: " + weekTasks.size());
 
                             // notify adapter that data has changed
                             weekAdapter.notifyDataSetChanged();
-
 
                         } catch (InterruptedException | ExecutionException e) {
                             // Handle exception
@@ -285,19 +289,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // method to update the data of weekDisplayed and the dates shown in calendarView
-    private void updateWeekData(ArrayList<TextView> dateViews, TextView weekView, TextView monthView, HourlyPrice[] dataBasePrices) {
+    private void updateWeekData(ArrayList<TextView> dateViews, TextView weekView, TextView monthView) {
 
         // 1. get list of dates for week
         List<LocalDate> weekDates = DisplayWeek.getWeekDates(weekOfYear, year);
 
-        // 2. set dates, week, month for week
+        // 2. set dates, week, and month
         DisplayWeek.setCalendarView(dateViews, weekView, monthView, weekDates, weekOfYear);
 
         // 3. get tasks and prices for week
         List<TaskPlanned> weekTasks = DisplayWeek.getWeekTasks(weekDates);
-        // nuværende
-        //List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates, dataBasePrices);
-        // til opdateret kode
         List<HourlyPrice> weekPrices = DisplayWeek.getWeekPrices(weekDates);
 
         // 4. clear data (timeslots) of Week object

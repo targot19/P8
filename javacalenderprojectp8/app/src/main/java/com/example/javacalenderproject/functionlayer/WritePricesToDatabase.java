@@ -10,24 +10,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class WritePricesToDatabase {
 
-    // method not used? -> delete
-    // Method to create a new task and add it to the database
-    public static void createTaskPlanned(String name, LocalDateTime date) {
-        TaskPlanned newTask = new TaskPlanned(name, date);
-        new Thread(() -> {
-            try {
-                database.taskPlannedDAO().insert(newTask);
-                List<TaskPlanned> tasks = database.taskPlannedDAO().getAllPlannedTasks();
-                Log.d("MainActivity", "Task inserted, total tasks now: " + tasks.size());
-                for (TaskPlanned task : tasks) {
-                    Log.d("MainActivity", "Task: " + task.getTaskName());
-                }
-            } catch (Exception e) {
-                Log.e("MainActivity", "Failed to insert or retrieve tasks", e);
-            }
-        }).start();
-    }
-
     public static CompletableFuture<Void> priceToDatabase(HourlyPrice[] priceData) {
         CompletableFuture<Void> future = new CompletableFuture<>();
         new Thread(() -> {

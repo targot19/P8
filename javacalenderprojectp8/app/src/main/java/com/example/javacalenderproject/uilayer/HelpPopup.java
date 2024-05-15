@@ -1,4 +1,4 @@
-package com.example.javacalenderproject.functionlayer;
+package com.example.javacalenderproject.uilayer;
 
 import android.app.AlertDialog;
 import android.content.Context;
